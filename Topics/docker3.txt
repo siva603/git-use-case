@@ -1,0 +1,695 @@
+Play
+1. Overview of the Course
+5min
+Start
+2. Note - New Certification Page
+1min
+Start
+3. PPT Notes - Docker Certified Associate
+1min
+Play
+4. Introduction to Docker Containers
+11min
+Start
+5. Our Community
+1min
+Play
+6. Installation Methods for Docker
+6min
+Play
+7. Creating Infrastructure for Docker Setup
+8min
+Play
+8. Installing Docker in Linux
+3min
+Start
+9. Document - Linux Installation Commands
+1min
+Play
+10. Installing Docker Desktop
+4min
+Start
+11. Document - Docker Desktop
+1min
+Play
+12. Docker Image vs Docker Containers
+8min
+Play
+13. Container Identification
+6min
+Play
+14. Port Binding
+6min
+Play
+15. Attached and Detached Modes
+4min
+Play
+16. Removing Docker Containers
+4min
+Play
+17. New Docker CLI Commands
+3min
+Play
+18. docker container exec
+10min
+Play
+19. Importance of IT flags
+5min
+Play
+20. Default Container Commands
+5min
+Play
+21. Overriding Default Container Commands
+6min
+Play
+22. Restart Policies in Docker
+6min
+Play
+23. Removing Docker Container Images
+1min
+Play
+24. Disk Usage Metrics for Docker Components
+4min
+Play
+25. Automatically Delete Container on Exit
+3min
+Play
+26. Working with Docker Images
+6min
+Play
+27. Overview of Dockerfile
+14min
+Start
+28. Document - Dockerfile
+1min
+Play
+29. COPY vs ADD Instructions
+10min
+Play
+30. EXPOSE Instruction
+10min
+Play
+31. Dockerfile - HEALTHCHECK Instruction
+6min
+Play
+32. HEALTHCHECK Instruction Options
+9min
+Start
+33. Document - HealtCheck Document Resource
+1min
+Play
+34. Dockerfile - ENTRYPOINT Instruction
+4min
+Play
+35. Dockerfile - WORKDIR Instruction
+6min
+Start
+36. Document - WORKDIR Code
+1min
+Play
+37. Dockerfile - ENV Instruction
+5min
+Start
+38. Document - ENV Instruction Code
+1min
+Play
+39. Tagging Docker Images
+4min
+Play
+40. Docker Commit
+7min
+Play
+41. Layers of Docker Image
+15min
+Play
+42. Managing Images with CLI
+6min
+Play
+43. Inspecting Docker Images
+7min
+Play
+44. Pruning Docker Images
+5min
+Play
+45. Flattening Docker Images
+5min
+Play
+46. Overview of Docker Registries
+11min
+Play
+47. Pushing Images to Central Repository
+5min
+Play
+48. Applying Filters for Docker Images
+4min
+Play
+49. Moving Images Across Hosts
+4min
+Start
+50. Document - Docker Save and Docker Load
+1min
+Play
+51. Build Cache
+5min
+Start
+52. Document - Sample Code for Layer Caching
+1min
+Play
+53. Overview of Docker Networking
+12min
+Play
+54. Understanding Bridge Networks
+8min
+Play
+55. Implementing User-Defined Bridge Networks
+12min
+Play
+56. Understanding Host Network
+8min
+Play
+57. Implementing None Network
+3min
+Play
+58. Publish All Argument for Exposed Ports
+4min
+Play
+59. Legacy Approach for Linking Containers
+3min
+Play
+60. Overview of Container Orchestration - New
+14min
+Play
+61. Overview of Docker Swarm & Building Labs
+5min
+Start
+62. Document - Docker Script
+1min
+Play
+63. Initializing Docker Swarm
+7min
+Start
+64. Document - Initializing Swarm Cluster
+1min
+Play
+65. Services, Tasks and Containers
+7min
+Start
+66. Document - Replicated Service CLI Command
+1min
+Play
+67. Scaling Swarm Service
+5min
+Start
+68. Document - Scaling Service CLI Command
+1min
+Play
+69. Multiple Approaches to Scale Swarm Services
+5min
+Start
+70. Document - Multiple Approaches for Scaling
+1min
+Play
+71. Replicated vs Global Service
+4min
+Start
+72. Document - Global Service CLI Command
+1min
+Play
+73. Draining Swarm Node
+4min
+Start
+74. Document - Drain CLI Commands
+1min
+Play
+75. Inspecting Swarm Service and Nodes
+4min
+Start
+76. Document - Inspecting Services and Nodes
+1min
+Play
+77. Adding Network and Publishing Ports to Swarm Tasks
+4min
+Start
+78. Document - Publish Port at Service
+1min
+Play
+79. Overview of Docker Compose
+10min
+Start
+80. Document - Docker Compose YAML
+1min
+Play
+81. Deploying Multi-Service Application in Swarm
+5min
+Start
+82. Document - Docker Stack CLI commands
+1min
+Play
+83. Locking Swarm Cluster
+5min
+Start
+84. Document - AutoLock Commands
+1min
+Play
+85. Troubleshooting Swarm Service Deployments
+4min
+Play
+86. Mounting Volumes via Swarm
+4min
+Start
+87. Document - Mount Volumes with Swarm
+1min
+Play
+88. Control Service Placement
+7min
+Start
+89. Document - Setting Constraints
+1min
+Play
+90. Overview of Overlay networks
+6min
+Play
+91. Creating Custom Overlay Networks for Swarm
+5min
+Start
+92. Document - Custom Overlay Networks
+1min
+Play
+93. Secure Overlay Networks
+4min
+Play
+94. Creating Swarm Services using Templates
+5min
+Play
+95. Split Brain & Importance of Quorum
+8min
+Play
+96. High Availability of Swarm Manager Nodes
+11min
+Play
+97. Running Manager-Only nodes in Swarm
+4min
+Play
+98. Recover from losing the quorum
+7min
+Start
+99. Document - Forcing New Cluster
+1min
+Play
+100. Docker System Commands
+6min
+Start
+101. Important Note - Kubernetes Series
+1min
+Play
+102. Introduction to Kubernetes - New
+9min
+Play
+103. Installation Options for Kubernetes
+10min
+Play
+104. Using Managed Kubernetes Service from CSP
+9min
+Start
+105. Document - MSSP
+1min
+Play
+106. Overview of kubectl
+8min
+Start
+107. Document - kubectl
+0min
+Play
+108. Installing & Configuring kubectl for Linux and macOS
+6min
+Play
+109. Understanding PODS
+11min
+Play
+110. Understanding Kubernetes Objects
+10min
+Play
+111. Creating First POD Configuration in YAML
+13min
+Start
+112. Code - POD YAML
+1min
+Play
+113. Introduction to Labels and Selectors
+14min
+Play
+114. Implementing Labels and Selectors
+8min
+Start
+115. Document - Labels and Selectors
+0min
+Play
+116. Overview of ReplicaSets
+5min
+Play
+117. Creating our first ReplicaSet
+9min
+Start
+118. Code - ReplicSets
+1min
+Play
+119. Introduction to Deployments
+6min
+Play
+120. Creating our first deployment
+11min
+Start
+121. Code - Deployments
+1min
+Play
+122. maxSurge and maxUnavailable
+9min
+Start
+123. Document - Deployment Configuration
+0min
+Play
+124. Kubernetes Secrets
+15min
+Start
+125. Code - Commands for Generating Secrets
+1min
+Play
+126. Mounting Secrets Inside Pods
+6min
+Start
+127. Code - Mounting Secrets in Pods
+0min
+Play
+128. Understanding ConfigMaps
+12min
+Start
+129. Code - ConfigMaps
+1min
+Play
+130. Overview of Service
+14min
+Play
+131. Creating First Service and Endpoint
+12min
+Start
+132. Code - Service Deployment
+0min
+Play
+133. Service Type: ClusterIP
+4min
+Play
+134. Using Selectors for Service Endpoints
+9min
+Start
+135. Code - Service and Selectors
+0min
+Play
+136. Service Type: NodePort
+6min
+Start
+137. Code - NodePort
+0min
+Play
+138. Kubernetes Networking Model
+7min
+Play
+139. Understanding Liveness Probe
+9min
+Start
+140. Document - Liveness Probe
+1min
+Play
+141. Understanding Readiness Probe
+9min
+Start
+142. Document - Readiness Probe
+1min
+Play
+143. Understanding DaemonSets
+8min
+Start
+144. Document - Daemonsets
+1min
+Play
+145. Taints and Tolerations
+8min
+Start
+146. Code - Taints and Tolerations
+1min
+Play
+147. Requests and Limits in Kubernetes
+13min
+Start
+148. Code - Resource Limits
+1min
+Play
+149. Network Policies
+10min
+Start
+150. Code - Network Policies
+1min
+Start
+151. Important Note - Docker EE
+1min
+Play
+152. Overview of Docker Enterprise Edition
+6min
+Play
+153. Installing Docker EE
+5min
+Start
+154. Document - Docker EE Installation Steps
+1min
+Play
+155. Universal Control Plane
+9min
+Start
+156. Document - Installing Docker UCP
+1min
+Play
+157. Deploying Global Services in Swam via UCP
+5min
+Play
+158. UCP - Access Control
+10min
+Play
+159. Overview of Docker Trusted Registry
+5min
+Play
+160. Installing DTR & Integrating with UCP
+5min
+Start
+161. Document - Installation of Docker DTR
+1min
+Play
+162. Un-Installation steps for DTR
+4min
+Start
+163. Document - Un-Installing DTR
+1min
+Play
+164. Configuring Trusted CA and Pushing Images to DTR
+7min
+Start
+165. Document - Configuring Trusted CA and Pushing Images to DTR
+1min
+Play
+166. Overview of DTR Backup
+5min
+Start
+167. Document - DTR Backup Command
+1min
+Play
+168. DTR Backup - Images
+4min
+Play
+169. Overview of Swarm Routing Mesh
+5min
+Play
+170. Implementing Swarm Routing Mesh
+3min
+Play
+171. DTR - Storage BackEnds
+4min
+Play
+172. Implementing S3 Storage Backend for DTR
+6min
+Start
+173. Document - S3 Storage Backend
+1min
+Play
+174. DTR - High Availability
+8min
+Start
+175. Document - Configuring DTR HA
+1min
+Play
+176. Immutable Tags in DTR
+6min
+Play
+177. DTR - Caching
+4min
+Play
+178. Setting Orchestrator in UCP
+3min
+Play
+179. Overview of Container Security Scanning
+4min
+Play
+180. Configuring Container Scan with DTR
+7min
+Play
+181. DTR Webhooks
+4min
+Play
+182. Overview of UCP Client Bundle
+3min
+Play
+183. Integrating CLI with UCP Client Bundle
+6min
+Start
+184. Document - UCP Client Bundle Integration
+1min
+Start
+185. Note - LDAP Video
+1min
+Play
+186. Overview of LDAP
+7min
+Play
+187. Integrating LDAP with UCP
+3min
+Play
+188. Linux Namespaces
+7min
+Play
+189. Control Groups (cgroups)
+7min
+Play
+190. Limiting CPUs for Containers
+5min
+Start
+191. Document - CPU Limit Commands
+1min
+Play
+192. Reservation vs Limits
+7min
+Play
+193. Swarm MTLS
+16min
+Play
+194. Managing Secrets in Docker Swarm
+5min
+Play
+195. Docker Content Trust
+8min
+Start
+196. Document - Enabling DCT
+0min
+Play
+197. Overview of Docker Groups
+4min
+Play
+198. Overview of Linux Capabilities for Docker
+8min
+Play
+199. Privileged Containers
+7min
+Play
+200. Overview of Docker Storage Drivers
+18min
+Play
+201. Block vs Object Storage
+7min
+Play
+202. Changing Storage Drivers
+6min
+Start
+203. Document - Changing Storage Drivers
+1min
+Play
+204. Overview of Docker Volumes
+16min
+Play
+205. Bind Mounts
+9min
+Start
+206. Document - Bind Mounts
+1min
+Play
+207. Automatically Remove Volume on Container Exist
+7min
+Play
+208. Overview of Device Mapper
+6min
+Play
+209. Logging Drivers
+9min
+Play
+210. Creating Volumes in Kubernetes
+9min
+Play
+211. PersistentVolume and PersistentVolumeClaim
+14min
+Play
+212. Volume Expansion in Kubernetes
+7min
+Start
+213. Document - Volume Expansion Resource
+1min
+Play
+214. Reclaim Policy
+3min
+Play
+215. Understanding Retain Reclaim Policy
+8min
+Start
+216. Document - Retail Reclaim Resource
+1min
+Play
+217. Storage Class
+4min
+Start
+218. Our Community
+1min
+Play
+219. Overview of DCA & Exam Experience
+11min
+Start
+220. New DCA Certification URL
+1min
+Play
+221. Overview of Important Pointers for Exams
+5min
+Play
+222. Overview of DOMC Questions
+9min
+Start
+223. Important Note
+0min
+Play
+224. Important Pointers for Exams - Domain 1
+15min
+Play
+225. Important Pointers for Exams - Domain 2
+12min
+Play
+226. Important Pointers for Exams - Domain 3
+7min
+Play
+227. Important Pointers for Exams - Domain 4
+3min
+Play
+228. Important Pointers for Exams - Domain 5
+7min
+Play
+229. Important Pointers for Exams - Domain 6
+2min
+Play
+230. Important Pointers for Exams - K8s
+12min
+Play
+231. Important Pointers for Exams - Domain 7
+6min
+Start
+232. Delta - New Important Pointers

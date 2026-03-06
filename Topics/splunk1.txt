@@ -1,0 +1,150 @@
+Play
+1. Welcome to the Course!
+2min
+Play
+2. Introduction to the Course and How to be Successful
+3min
+Play
+3. Splunk Overview
+4min
+Play
+4. Splunk Enterprise and Splunk Architecture
+6min
+Play
+5. Splunk Cloud Platform Overview and Demo
+12min
+Start
+Assignment 1: Create a Dashboard in Splunk Cloud Platform
+Start
+Quiz 1: Introduction Quiz
+Play
+6. Deploying Splunk and the Splunk Data Pipeline
+3min
+Play
+7. Splunk Architecture and Deployment Models
+7min
+Play
+8. How Splunk Stores Data
+5min
+Play
+9. Splunk Enterprise Licensing
+4min
+Play
+10. Configuration Files, Apps, and Add-ons
+3min
+Start
+Quiz 2: Section 2 Quiz
+Play
+11. Getting Data In and The Splunk Data Pipeline
+3min
+Play
+12. Splunk Inputs
+4min
+Play
+13. Configuring Inputs
+1min
+Play
+14. Forwarders
+3min
+Start
+Quiz 3: Getting Data In Quiz
+Play
+15. Introduction
+3min
+Play
+16. Building a Lab (With Demo)
+12min
+Play
+17. Forwarding Data into Splunk Cloud Platform
+7min
+Play
+18. Install Splunk Enterprise on Linux
+5min
+Play
+19. Forwarding Data into Splunk on Linux
+7min
+Play
+20. Install Splunk Enterprise on Windows
+4min
+Play
+21. Forward Data into Splunk on Windows
+6min
+Play
+22. Install Splunk Enterprise on Mac
+4min
+Play
+23. Heavy Forwarders
+6min
+Play
+24. Upgrading Splunk
+4min
+Start
+Quiz 4: Installing Splunk Quiz
+Start
+Assignment 2: Homework #1, Install Splunk
+Play
+25. Introduction to Searching and Tour of the Search App
+7min
+Play
+26. The Anatomy of a Search
+2min
+Play
+27. Time
+7min
+Play
+28. Basic Searching
+7min
+Play
+29. Search Demo
+13min
+Start
+Quiz 5: SPL Quiz
+Play
+30. Introduction to Knowledge and Fields
+8min
+Play
+31. Event Types
+3min
+Play
+32. Lookups
+6min
+Play
+33. Tags and Aliases
+6min
+Play
+34. Data Models
+9min
+Play
+35. The Basics of Visualization
+5min
+Play
+36. Reporting and Alerting
+1min
+Play
+37. The Pivot Tool
+2min
+Play
+38. Building a Dashboard with the Pivot Tool
+10min
+Play
+39. The Splunk Common Information Model
+5min
+Play
+40. Splunk CIM Demo
+5min
+Play
+41. Using eval and let
+3min
+Play
+42. Searching with stats and streamstats
+3min
+Play
+43. Predicting Data
+3min
+Play
+44. The Future and SPL2
+1min
+Start
+Practice Test 1: Splunk Core Certified User Practice Test
+Start
+Practice Test 2: Splunk Core Certified Power User

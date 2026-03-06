@@ -1,0 +1,96 @@
+Here’s the full text exactly as it appears in the image:
+
+```
+linux
+script
+python
+aws
+
+
+
+jenkins -> matter -> master and slave nodes 
+
+
+	topics like 
+	what is jenkins, jenkins architecture , why we need , where to use , it is comming under CI or CD, when starts in devops phase, what are main points advante and limates
+	how it is before jenkins 
+	installation steps and commands in single script file with comments and final real world problems and slove with this techonology
+
+do all use cases of jenkins
+
+
+
+work with basic test stages using jenkins built-in nodes ( one free style and one pipeline )
+
+
+work with basic test stages using jenkins slave node ( you should configure slave node with jenkins ) ( one free style and one pipeline)
+
+
+work with basic job along with email notification
+
+
+
+
+
+Learn github :
+--------------
+
+git and github ( matter and notes ) https://github.com/siva603/audiocut-pro.git
+
+configure git with jenkins and do 1st stage and import source code and do stages using slave node only
+
+congigure git with jenkins update and any changes via githut to jenkins descriptive script
+
+
+trigger jobs ( using github )
+
+
+
+
+
+
+Maven :
+------
+
+maven , gridle, ant , pip
+
+configure maven and git with jenkins and do 1st stage, 2nd stage and import source code and build, test , package, create aritficats or jar files  do stages using slave node only
+
+
+
+configure maven and git with jenkins and do 1st stage, 2nd stage and import source code and build, test , package, create aritficats or jar files  do stages using slave node only
+
+
+jenkins with unit test and selenium testing
+
+
+
+
+
+
+github -> poll => ec2 -> build -> run (.jar, .war, python)
+using jenkins -> node + github + mvn + run
+
+
+
+
+
+agina and update code -> poll => ec2 -> build -> run
+using jenkins -> node + github + mvn + run (updated code)
+
+
+
+
+
+github -> poll => ec2 => compile + test + package -> .jar or artifact -> owasp( scan dependencies ) -> sonarqube ( check code quality)
+    -> trivy (find vulnuribilities) -> now wee can run .jar files any where
+
+
+
+
+do the above work in jenkins and configure tools and credentails using tokens
+
+-> all tests done .jar -> docker -> create images -> create containers -> access containers networks -> clean (manually)
+-> same thing do in jenkins
+-> limits of docker di
+```

@@ -1,0 +1,312 @@
+Play
+1. Introduction to the Course
+20min
+Start
+2. Our Community
+1min
+Start
+3. PPT for Entire Course
+1min
+Play
+4. Introduction to Splunk
+7min
+Play
+5. Installation Methods for Splunk
+9min
+Start
+6. Document - MSSP
+1min
+Play
+7. Creating Splunk Account
+4min
+Play
+8. Launching Infrastructure for Splunk
+13min
+Play
+9. Installing Splunk in Linux
+7min
+Start
+10. Document - Splunk Install Commands for Linux
+1min
+Play
+11. Installing Splunk in Windows
+4min
+Play
+12. Introduction to Docker Containers - New
+11min
+Play
+13. Installation Methods for Docker
+7min
+Play
+14. Installing Docker in Linux
+3min
+Start
+15. Document - Linux Installation Commands
+1min
+Play
+16. Installing Docker Desktop
+4min
+Start
+17. Document - Docker Desktop
+1min
+Play
+18. Deploying Splunk Docker Container
+11min
+Start
+19. Document - Deploying Splunk Container Commands
+1min
+Play
+20. Onboarding Data into Splunk
+5min
+Play
+21. Importance of Source Types
+21min
+Play
+22. Practical - Importing Data to Splunk
+9min
+Play
+23. Field Extraction - Linux Secure Logs
+4min
+Start
+24. Download - Sample Tutorial Logs
+1min
+Play
+25. Basics of Search
+13min
+Play
+26. Basic Splunk SPL Commands
+14min
+Play
+27. Basics of Visualization
+9min
+Play
+28. Challenge - Find Attack Vectors
+4min
+Play
+29. Solution - Finding Attack Vectors
+13min
+Play
+30. Splunk Search Assistant
+4min
+Play
+31. Overview of Splunk Reports
+7min
+Play
+32. Practical - Splunk Reports
+7min
+Play
+33. Overview of Splunk Alerts
+8min
+Play
+34. Practical - Splunk Alerts
+10min
+Play
+35. Understanding Add-Ons and Apps
+14min
+Play
+36. Installing Splunk Add-On for AWS
+16min
+Play
+37. Overview of Dashboards and Panels
+13min
+Play
+38. Building Dashboard Inputs - Time Range Picker
+7min
+Play
+39. Building Dashboard Inputs - Text Box
+5min
+Play
+40. Building Dashboard Inputs - Drop down
+3min
+Play
+41. Directory Structure of Splunk - New
+18min
+Play
+42. Splunk Configuration Precedence - New
+20min
+Play
+43. Introduction to Indexes
+13min
+Start
+44. Document - Reference Commands
+1min
+Play
+45. Bucket Lifecycle
+17min
+Play
+46. Warm to Cold Bucket Migration
+7min
+Play
+47. Archiving Data to Frozen Path
+8min
+Play
+48. Thawing Process
+6min
+Play
+49. Splunk Workflow Actions
+6min
+Play
+50. Overview of Universal Forwarders
+4min
+Play
+51. Installing Universal Forwarder in Linux
+13min
+Start
+52. Installation Manual - Splunk Universal Forwarder
+1min
+Play
+53. Overview of Agent Management
+10min
+Play
+54. Important Concepts - Server Class and Deployment Apps
+14min
+Play
+55. Practical - Agent Management
+14min
+Start
+56. Document - Practical Agent Management Code
+1min
+Play
+57. Understanding Regular Expressions
+16min
+Start
+58. Regex - Exercise
+1min
+Play
+59. Parsing Web Server Logs & Named Group Expression
+10min
+Start
+60. Sample - Web Server Logs
+1min
+Play
+61. Importance of Source Types
+8min
+Play
+62. Interactive Field Extractor (IFX)
+6min
+Play
+63. props.conf and transforms.conf
+17min
+Start
+64. Sample Log - MySQL Error Logs
+0min
+Play
+65. Splunk Event Types
+6min
+Play
+66. Tags
+7min
+Play
+67. Splunk Events Types Priority and Coloring Scheme
+7min
+Play
+68. Splunk Lookups
+14min
+Play
+69. Access Control
+10min
+Play
+70. Creating Custom Roles & Capabilities
+11min
+Play
+71. Overview of Distributed Splunk Architecture
+7min
+Play
+72. Understanding License Master
+5min
+Play
+73. Implementing License Master
+6min
+Play
+74. License Pools
+6min
+Play
+75. Indexer
+5min
+Play
+76. Masking Sensitive Data at Index Time
+6min
+Play
+77. Search Head
+4min
+Play
+78. Splunk Monitoring Console
+7min
+Start
+79. Our Community
+1min
+Play
+80. Overview of Indexer Clustering
+4min
+Play
+81. Infrastructure for Indexer Cluster
+3min
+Play
+82. Configuring Master Indexer
+6min
+Play
+83. Configuring Peer Indexers
+3min
+Play
+84. Testing Replication Capabilities
+3min
+Play
+85. Testing Failover Capabilities
+6min
+Play
+86. Configuration Bundles of Master Indexers
+9min
+Start
+87. Document - indexes.conf
+1min
+Play
+88. Forwarding Logs to Indexer Cluster
+9min
+Start
+89. Document - Referenced Commands
+1min
+Play
+90. Implementing Indexer Discovery
+7min
+Start
+91. Indexer Discovery - Document
+1min
+Play
+92. Overview of Search Head Clustering
+5min
+Play
+93. Infrastructure for Search Head Cluster
+2min
+Play
+94. Setting Up Search Head Clustering
+8min
+Start
+95. Document - Search Head Cluster Setup
+1min
+Play
+96. Validating Search Head Replication
+4min
+Play
+97. Pushing Artifacts through Deployer
+6min
+Start
+98. Document - Pushing Bundle Setup
+1min
+Play
+99. Integration - Search Head Cluster to Indexer Cluster
+4min
+Start
+100. SH to IDX Cluster Document
+1min
+Play
+101. Using Btool for Troublshooting
+9min
+Play
+102. Overview of Data Models
+5min
+Play
+103. Creating Data Model - Practical
+14min
+Play
+104. Splunk Support Programs
+8min
