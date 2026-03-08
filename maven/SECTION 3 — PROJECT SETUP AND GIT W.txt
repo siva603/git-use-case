@@ -1,0 +1,215 @@
+SECTION 3 — PROJECT SETUP AND GIT WORKFLOW
+
+Goal of this section
+Create a project folder, initialize Git, and manage project files using Git before starting the Maven build.
+
+Topics covered
+
+10 The Setup: Source Control
+11 The Setup: Project Folder
+12 Accessing the Sample Content
+15 Update Git Repository
+18 Preserving Folders within Git
+24 Cleanup: Commit Changes to Git
+
+---
+
+1. Create Project Folder
+
+First create a folder for your project.
+
+Example
+
+mkdir maven-demo-project
+
+Explanation
+
+mkdir   → make directory
+maven-demo-project → project folder name
+
+Move inside the folder
+
+cd maven-demo-project
+
+Explanation
+
+cd → change directory
+
+---
+
+2. Initialize Git Repository
+
+Command
+
+git init
+
+Explanation
+
+git  → version control tool
+init → initializes a new repository
+
+Result
+
+A hidden folder will be created.
+
+.git
+
+This folder stores Git history and version tracking.
+
+---
+
+3. Check Repository Status
+
+Command
+
+git status
+
+Explanation
+
+git status → shows the current state of the repository
+
+Example output
+
+* untracked files
+* modified files
+* staged files
+
+This command helps understand what changes exist in the project.
+
+---
+
+4. Access or Add Project Files
+
+Now add files to the project.
+
+Example structure
+
+project-folder
+pom.xml
+src
+
+You may also clone a sample project from Git.
+
+Example
+
+git clone repository-url
+
+Explanation
+
+git clone → downloads repository from remote source
+
+Example
+
+git clone [https://github.com/sample/maven-project.git](https://github.com/sample/maven-project.git)
+
+---
+
+5. Add Files to Git
+
+Before committing files, they must be staged.
+
+Command
+
+git add .
+
+Explanation
+
+git add → stages files for commit
+.       → adds all files in the directory
+
+Example
+
+git add .
+
+All files in the project will be prepared for commit.
+
+---
+
+6. Commit Files to Git
+
+Command
+
+git commit -m "Initial project setup"
+
+Explanation
+
+git commit → saves snapshot of files
+-m         → commit message
+
+Example
+
+git commit -m "Initial Maven project"
+
+This records the current state of the project.
+
+---
+
+7. Preserve Empty Folders in Git
+
+Git does not track empty folders.
+
+To preserve folder structure, developers add a placeholder file.
+
+Example
+
+.gitkeep
+
+Example folder structure
+
+src/main/java/.gitkeep
+
+This ensures folders remain in the repository.
+
+---
+
+8. Update Git Repository
+
+When files change, repeat the workflow.
+
+Check changes
+
+git status
+
+Add changes
+
+git add .
+
+Commit changes
+
+git commit -m "Updated project files"
+
+Explanation
+
+status → check repository changes
+add    → stage updated files
+commit → save changes
+
+---
+
+9. Typical Git Workflow
+
+Developer edits files
+↓
+Check changes
+
+git status
+
+↓
+Stage files
+
+git add .
+
+↓
+Commit changes
+
+git commit -m "update message"
+
+---
+
+What you learned in Section 3
+
+How to create a project folder
+How to initialize a Git repository
+How to add files to Git
+How to commit files
+How Git tracks project changes

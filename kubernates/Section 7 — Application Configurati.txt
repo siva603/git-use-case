@@ -1,0 +1,438 @@
+Section 7 — Application Configuration in Kubernetes
+
+Applications require configuration to run properly.
+
+Examples:
+
+• database connection URL  
+• API keys  
+• credentials  
+• feature flags  
+• environment variables  
+
+If configuration is **hardcoded inside container images**, updating configuration requires **rebuilding images**, which is inefficient.
+
+Kubernetes solves this problem using:
+
+• ConfigMaps  
+• Secrets  
+• Environment Variables  
+• Command and Argument configuration
+
+This section explains how Kubernetes manages **application configuration securely and flexibly**.
+
+---
+
+# 7.1 The Configuration Problem
+
+Without external configuration management:
+
+```
+
+Application Code
+│
+Hardcoded Config
+│
+Docker Image
+
+```id="config-problem"
+
+Problems:
+
+• difficult to update configuration  
+• insecure for passwords  
+• cannot reuse images across environments  
+• requires rebuilding images
+
+Example problem:
+
+```
+
+dev environment → database A
+production → database B
+
+```id="env-problem"
+
+We need different configuration without changing the application image.
+
+---
+
+# 7.2 Kubernetes Configuration Solution
+
+Kubernetes separates **application code from configuration**.
+
+Architecture:
+
+```
+
+Application Container
+│
+│
+ConfigMaps / Secrets
+
+```id="config-architecture"
+
+Benefits:
+
+• reusable container images  
+• dynamic configuration updates  
+• environment-specific configuration  
+• secure secret storage
+
+---
+
+# 7.3 ConfigMaps
+
+A **ConfigMap** stores **non-sensitive configuration data**.
+
+Examples:
+
+• application properties  
+• environment variables  
+• configuration files  
+• feature flags
+
+Example data:
+
+```
+
+APP_ENV=production
+DB_HOST=database-service
+LOG_LEVEL=debug
+
+````id="configmap-example"
+
+---
+
+# 7.4 Creating a ConfigMap
+
+Create a ConfigMap using kubectl.
+
+Example:
+
+```bash id="create-configmap"
+kubectl create configmap app-config \
+  --from-literal=APP_ENV=production \
+  --from-literal=LOG_LEVEL=debug
+````
+
+Verify ConfigMap:
+
+```bash id="get-configmap"
+kubectl get configmaps
+```
+
+Describe ConfigMap:
+
+```bash id="describe-configmap"
+kubectl describe configmap app-config
+```
+
+Example output:
+
+````
+APP_ENV=production
+LOG_LEVEL=debug
+``` id="configmap-output"
+
+---
+
+# 7.5 Using ConfigMaps in Pods
+
+ConfigMaps can be used inside containers in multiple ways.
+
+### Method 1 — Environment Variables
+
+Example YAML:
+
+```yaml id="configmap-env-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-example
+spec:
+  containers:
+  - name: app
+    image: nginx
+    env:
+    - name: APP_ENV
+      valueFrom:
+        configMapKeyRef:
+          name: app-config
+          key: APP_ENV
+````
+
+Inside the container:
+
+````
+APP_ENV=production
+``` id="env-result"
+
+---
+
+### Method 2 — ConfigMap as Volume
+
+ConfigMaps can also be mounted as files.
+
+Example:
+
+```yaml id="configmap-volume-example"
+volumes:
+- name: config-volume
+  configMap:
+    name: app-config
+````
+
+Mounted path:
+
+````
+/etc/config/
+``` id="config-volume-path"
+
+Files inside container:
+
+````
+
+/etc/config/APP_ENV
+/etc/config/LOG_LEVEL
+
+```id="config-volume-files"
+
+---
+
+# 7.6 Secrets
+
+Secrets store **sensitive information**.
+
+Examples:
+
+• database passwords  
+• API tokens  
+• TLS certificates  
+• authentication keys
+
+Example secret data:
+
+```
+
+DB_PASSWORD
+API_TOKEN
+SSL_CERT
+
+````id="secret-example"
+
+Secrets are **base64 encoded** in Kubernetes.
+
+---
+
+# 7.7 Creating a Secret
+
+Create secret using kubectl.
+
+Example:
+
+```bash id="create-secret"
+kubectl create secret generic db-secret \
+  --from-literal=DB_PASSWORD=mysecretpassword
+````
+
+Check secrets:
+
+```bash id="get-secrets"
+kubectl get secrets
+```
+
+Describe secret:
+
+```bash id="describe-secret"
+kubectl describe secret db-secret
+```
+
+---
+
+# 7.8 Using Secrets in Pods
+
+Secrets can also be injected as **environment variables**.
+
+Example YAML:
+
+```yaml id="secret-env-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-example
+spec:
+  containers:
+  - name: app
+    image: nginx
+    env:
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: db-secret
+          key: DB_PASSWORD
+```
+
+Inside container:
+
+````
+DB_PASSWORD=mysecretpassword
+``` id="secret-env-result"
+
+---
+
+# 7.9 Secrets as Volumes
+
+Secrets can also be mounted as files.
+
+Example:
+
+```yaml id="secret-volume-example"
+volumes:
+- name: secret-volume
+  secret:
+    secretName: db-secret
+````
+
+Mounted location:
+
+````
+/etc/secrets/
+``` id="secret-path"
+
+File inside container:
+
+````
+
+/etc/secrets/DB_PASSWORD
+
+```id="secret-file"
+
+---
+
+# 7.10 Encrypting Secrets at Rest
+
+By default Kubernetes stores secrets in **ETCD**.
+
+For production systems secrets should be encrypted.
+
+Architecture:
+
+```
+
+Secret
+↓
+API Server
+↓
+Encryption
+↓
+ETCD Storage
+
+```id="secret-encryption-flow"
+
+This protects sensitive data.
+
+---
+
+# 7.11 Commands and Arguments in Kubernetes
+
+Containers can also receive **commands and arguments**.
+
+Example:
+
+Docker command:
+
+```
+
+docker run nginx -g "daemon off;"
+
+````id="docker-command-example"
+
+Equivalent Kubernetes configuration:
+
+```yaml id="k8s-command-example"
+containers:
+- name: nginx
+  image: nginx
+  command: ["nginx"]
+  args: ["-g", "daemon off;"]
+````
+
+Commands override container startup behavior.
+
+---
+
+# 7.12 Environment Variables in Kubernetes
+
+Environment variables are commonly used for configuration.
+
+Example YAML:
+
+```yaml id="env-variable-example"
+env:
+- name: APP_MODE
+  value: production
+```
+
+Inside container:
+
+````
+APP_MODE=production
+``` id="env-result-example"
+
+Environment variables can come from:
+
+• ConfigMaps  
+• Secrets  
+• direct values
+
+---
+
+# 7.13 Configuration Architecture
+
+Full configuration architecture:
+
+````
+
+Application Container
+│
+│
+┌──────┴────────┐
+│               │
+ConfigMaps     Secrets
+
+```id="config-architecture-full"
+
+ConfigMaps → non-sensitive data  
+Secrets → sensitive data
+
+---
+
+# Section 7 Summary
+
+In this section you learned:
+
+• configuration problems in containerized applications  
+• ConfigMaps  
+• Secrets  
+• environment variables  
+• commands and arguments  
+• mounting configuration as volumes  
+• encrypting secrets
+
+Kubernetes configuration tools allow **flexible and secure application configuration**.
+
+---
+
+# Next Section
+
+Section 8 — **Persistent Storage in Kubernetes**
+
+You will learn:
+
+• Volumes  
+• Persistent Volumes (PV)  
+• Persistent Volume Claims (PVC)  
+• Storage Classes  
+• Container Storage Interface (CSI)
+```

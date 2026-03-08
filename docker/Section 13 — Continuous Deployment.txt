@@ -1,0 +1,287 @@
+Section 13 — Continuous Deployment with Docker
+
+Docker plays a major role in **CI/CD (Continuous Integration and Continuous Deployment)** pipelines.
+
+CI/CD pipelines automate the process of:
+
+• building applications  
+• testing applications  
+• packaging applications  
+• deploying applications  
+
+Docker helps by providing a **standardized application package** called a **Docker Image**.
+
+This image can run **anywhere consistently**.
+
+---
+
+# Why Docker is Important for CI/CD
+
+Before Docker, deployments were difficult because environments were different.
+
+Example problem:
+
+Developer Machine  
+Java 17 + MySQL 8
+
+Production Server  
+Java 11 + MySQL 5
+
+Application fails in production.
+
+Docker solves this by packaging:
+
+Application  
+Dependencies  
+Runtime  
+Configuration
+
+inside a **Docker image**.
+
+Now the same image runs in:
+
+Development  
+Testing  
+Production
+
+---
+
+# Continuous Deployment Pipeline with Docker
+
+A typical DevOps pipeline looks like this:
+
+```
+
+Developer
+↓
+GitHub / GitLab
+↓
+CI Tool (GitHub Actions / Jenkins)
+↓
+Build Docker Image
+↓
+Push Image to Docker Registry
+↓
+Deployment Server
+↓
+Run Container
+
+```
+
+Each step is automated.
+
+---
+
+# Example CI/CD Flow
+
+Step 1 — Developer pushes code
+
+```
+
+git push origin main
+
+````
+
+Step 2 — CI pipeline starts automatically
+
+Step 3 — Application is built
+
+Step 4 — Docker image is created
+
+Step 5 — Image is pushed to Docker Hub
+
+Step 6 — Server pulls the image
+
+Step 7 — Container is deployed
+
+---
+
+# Example CI/CD Workflow (GitHub Actions)
+
+Example pipeline configuration:
+
+```yaml id="36c0lp"
+name: Docker CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t myapp .
+
+      - name: Login to Docker Hub
+        run: docker login -u USERNAME -p PASSWORD
+
+      - name: Push Docker Image
+        run: docker push myapp
+````
+
+This pipeline:
+
+1. Builds Docker image
+2. Pushes image to Docker Hub
+
+---
+
+# Automatic Image Build
+
+CI tools automatically perform these steps.
+
+```
+1. Build image
+2. Tag image
+3. Push image
+```
+
+Example commands executed by CI:
+
+```bash
+docker build -t myapp:v1 .
+```
+
+```bash
+docker tag myapp:v1 username/myapp:v1
+```
+
+```bash
+docker push username/myapp:v1
+```
+
+---
+
+# Deployment Server Workflow
+
+Once the image is pushed to a registry, the deployment server performs:
+
+```
+Pull image
+↓
+Run container
+```
+
+Example commands:
+
+```bash
+docker pull username/myapp:v1
+```
+
+```bash
+docker run -d -p 80:5000 username/myapp:v1
+```
+
+Now the application runs in production.
+
+---
+
+# Docker Registries Used in CI/CD
+
+Common container registries:
+
+| Registry                  | Provider  |
+| ------------------------- | --------- |
+| Docker Hub                | Docker    |
+| Amazon ECR                | AWS       |
+| Google Artifact Registry  | GCP       |
+| Azure Container Registry  | Microsoft |
+| GitHub Container Registry | GitHub    |
+
+These registries store Docker images securely.
+
+---
+
+# Image Versioning Strategy
+
+In CI/CD pipelines, images are usually versioned.
+
+Example:
+
+```
+myapp:v1
+myapp:v1.1
+myapp:v2
+```
+
+Avoid relying only on:
+
+```
+latest
+```
+
+Version tags help with **rollback deployments**.
+
+---
+
+# Rolling Deployments with Docker
+
+Production deployments should avoid downtime.
+
+Example:
+
+```
+Old Container
+↓
+Start New Container
+↓
+Switch Traffic
+↓
+Stop Old Container
+```
+
+This ensures **zero downtime deployments**.
+
+---
+
+# Benefits of Docker in CI/CD
+
+Docker improves deployment pipelines by providing:
+
+• consistent environments
+• faster deployments
+• easier scaling
+• reliable builds
+• simplified rollback
+
+---
+
+# Section 13 Summary
+
+In this section you learned:
+
+• Docker's role in CI/CD
+• automated deployment pipelines
+• Docker image build automation
+• pushing images to registries
+• deploying containers in production
+• image versioning strategies
+
+```
+
+---
+
+Next I will generate:
+
+**Section 14 — Kubernetes (Modern Container Orchestration)**
+
+This section will explain:
+
+- Pods  
+- Deployments  
+- Services  
+- ConfigMaps  
+- Secrets  
+- Kubernetes workflow  
+- Scaling containers in production.
+
+This is where **Docker knowledge connects to real cloud infrastructure.**
+```

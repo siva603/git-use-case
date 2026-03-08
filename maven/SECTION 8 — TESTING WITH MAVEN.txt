@@ -1,0 +1,286 @@
+SECTION 8 — TESTING WITH MAVEN
+
+Goal of this section
+Understand how Maven **runs automated tests during the build process** and generates **test reports**.
+
+Topics covered
+
+36 Unit Testing Overview
+37 Adding Unit Test Code
+38 JUnit Dependency Update
+39 Running Tests with Maven
+40 Test Reports
+41 Cleanup: Commit Changes in Git
+
+---
+
+1. What is Unit Testing
+
+Unit testing means **testing small parts of code (methods or classes)** to ensure they work correctly.
+
+Example
+
+Method
+
+add(int a, int b)
+
+Test case
+
+add(2,3) → expected result = 5
+
+If result is correct → test passes
+If result is incorrect → test fails
+
+---
+
+Why Unit Testing is Important
+
+Detect bugs early
+Improve code quality
+Automate testing
+Ensure code changes do not break existing functionality
+
+Most companies require **unit tests in CI/CD pipelines**.
+
+---
+
+2. Test Directory Structure
+
+Maven uses a **standard location for tests**.
+
+Project structure
+
+src
+src/main/java
+src/test/java
+
+Explanation
+
+src/main/java → application code
+
+src/test/java → test classes
+
+Example
+
+src/main/java/com/example/App.java
+
+src/test/java/com/example/AppTest.java
+
+---
+
+3. Add JUnit Dependency
+
+JUnit is the most common testing framework.
+
+Modern version
+
+JUnit 5
+
+Add dependency in pom.xml
+
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter</artifactId>
+  <version>5.10.0</version>
+  <scope>test</scope>
+</dependency>
+
+Explanation
+
+groupId → framework organization
+
+artifactId → library name
+
+version → framework version
+
+scope test → used only for testing
+
+---
+
+4. Create Test Class
+
+File
+
+src/test/java/com/example/AppTest.java
+
+Example code
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class AppTest {
+
+```
+@Test
+void testAddition() {
+
+    int result = 2 + 3;
+
+    assertEquals(5, result);
+
+}
+```
+
+}
+
+Explanation
+
+@Test → marks method as a test
+
+assertEquals → verifies expected result
+
+---
+
+5. Running Tests Using Maven
+
+Command
+
+mvn test
+
+Explanation
+
+mvn → Maven command tool
+
+test → runs all test classes inside src/test/java
+
+---
+
+What Maven does internally
+
+1 Compiles application code
+
+2 Compiles test code
+
+3 Executes test methods
+
+4 Reports results
+
+---
+
+Example Output
+
+Tests run: 1
+Failures: 0
+Errors: 0
+
+BUILD SUCCESS
+
+---
+
+6. Test Reports
+
+After running tests Maven generates reports.
+
+Location
+
+target/surefire-reports
+
+Example files
+
+TEST-AppTest.xml
+AppTest.txt
+
+Explanation
+
+XML → machine readable report
+
+TXT → human readable report
+
+---
+
+7. Maven Surefire Plugin
+
+Maven uses a plugin to run tests.
+
+Plugin
+
+maven-surefire-plugin
+
+Example configuration
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>3.2.5</version>
+</plugin>
+
+Purpose
+
+Executes unit tests during the build lifecycle.
+
+---
+
+8. Skip Tests (Sometimes Needed)
+
+Command
+
+mvn clean install -DskipTests
+
+Explanation
+
+-DskipTests → skip executing tests
+
+Used when
+
+tests are already verified
+build needs to run faster
+
+---
+
+9. Save Test Changes in Git
+
+Check changes
+
+git status
+
+Add files
+
+git add .
+
+Commit changes
+
+git commit -m "Added unit tests"
+
+---
+
+What you learned in Section 8
+
+What unit testing is
+Where test classes are located
+How to add JUnit dependency
+How to write test cases
+How Maven executes tests
+Where test reports are stored
+
+---
+
+Important Maven Concept for DevOps Engineers
+
+Test execution in CI pipelines.
+
+Typical CI workflow
+
+Code pushed to Git
+↓
+CI pipeline triggered
+↓
+Maven compile
+↓
+Maven test
+↓
+Build fails if tests fail
+
+This ensures **only tested code gets deployed**.
+
+---
+
+Next section
+
+SECTION 9 — MAVEN PLUGINS
+
+You will learn
+
+What Maven plugins are
+How plugins extend Maven functionality
+Common plugins used in real projects.

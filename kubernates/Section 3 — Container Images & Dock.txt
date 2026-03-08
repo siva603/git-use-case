@@ -1,0 +1,403 @@
+Section 3 — Container Images & Docker Fundamentals
+
+Before Kubernetes can run applications, the application must be **packaged as a container image**.
+
+Kubernetes does **not build applications**.  
+It only **runs container images**.
+
+Therefore understanding **Docker images and container registries** is essential.
+
+This section explains:
+
+• How container images work  
+• How to build Docker images  
+• How images are stored in registries  
+• How Kubernetes uses container images
+
+---
+
+# 3.1 What is a Container Image
+
+A **container image** is a packaged application that includes:
+
+• application code  
+• runtime environment  
+• system libraries  
+• dependencies
+
+Example structure:
+
+```
+
+Container Image
+│
+├── Application Code
+├── Runtime (Java / Node / Python)
+├── System Libraries
+└── OS Base Layer
+
+```
+
+Example:
+
+A Spring Boot application image may contain:
+
+```
+
+ubuntu
+openjdk
+application.jar
+
+```
+
+Container images are **read-only templates** used to create containers.
+
+---
+
+# 3.2 Image vs Container
+
+Important difference:
+
+Image = blueprint  
+Container = running instance
+
+Example:
+
+```
+
+Docker Image
+↓
+Container 1
+Container 2
+Container 3
+
+```
+
+One image can run **many containers**.
+
+---
+
+# 3.3 Docker Architecture
+
+Docker consists of three main components.
+
+```
+
+Docker CLI
+↓
+Docker Daemon
+↓
+Container Runtime
+
+````
+
+Explanation:
+
+Docker CLI  
+Command-line interface
+
+Docker Daemon  
+Builds and runs containers
+
+Container Runtime  
+Executes containers
+
+Example command:
+
+```bash
+docker run nginx
+````
+
+Flow:
+
+```
+CLI → Docker Engine → Container
+```
+
+---
+
+# 3.4 Dockerfile
+
+A **Dockerfile** defines how to build an image.
+
+It is a **text file containing instructions**.
+
+Example Dockerfile:
+
+```dockerfile
+FROM openjdk:17
+
+WORKDIR /app
+
+COPY target/app.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java","-jar","app.jar"]
+```
+
+Explanation:
+
+FROM
+Base image
+
+WORKDIR
+Working directory inside container
+
+COPY
+Copies application files
+
+EXPOSE
+Declares container port
+
+CMD
+Command executed when container starts
+
+---
+
+# 3.5 Building a Docker Image
+
+Command to build an image:
+
+```bash
+docker build -t myapp:1.0 .
+```
+
+Explanation:
+
+docker build
+build image
+
+-t
+tag image
+
+myapp:1.0
+image name and version
+
+.
+current directory containing Dockerfile
+
+Verify images:
+
+```bash
+docker images
+```
+
+Example output:
+
+```
+REPOSITORY   TAG   IMAGE ID
+myapp        1.0   123abc
+```
+
+---
+
+# 3.6 Running a Container
+
+Command:
+
+```bash
+docker run -d -p 8080:8080 myapp:1.0
+```
+
+Explanation:
+
+-d
+run container in background
+
+-p
+map host port to container port
+
+8080:8080
+host:container port
+
+Check running containers:
+
+```bash
+docker ps
+```
+
+Stop container:
+
+```bash
+docker stop <container_id>
+```
+
+---
+
+# 3.7 Container Image Layers
+
+Docker images are built using **layered architecture**.
+
+Example:
+
+```
+Base OS Layer
+↓
+Runtime Layer
+↓
+Application Dependencies
+↓
+Application Code
+```
+
+Benefits:
+
+• faster builds
+• efficient storage
+• layer reuse
+
+---
+
+# 3.8 Container Image Registry
+
+Images must be stored in a **registry** so Kubernetes can pull them.
+
+A registry is a **central storage for container images**.
+
+Common registries:
+
+Docker Hub
+AWS ECR
+Google Container Registry
+Azure Container Registry
+GitHub Container Registry
+
+Example image name:
+
+```
+docker.io/nginx
+```
+
+Structure:
+
+```
+registry/repository/image:tag
+```
+
+Example:
+
+```
+docker.io/library/nginx:latest
+```
+
+---
+
+# 3.9 Pushing Images to Registry
+
+Login to Docker Hub.
+
+```bash
+docker login
+```
+
+Tag image.
+
+```bash
+docker tag myapp:1.0 username/myapp:1.0
+```
+
+Push image.
+
+```bash
+docker push username/myapp:1.0
+```
+
+Now Kubernetes can pull this image.
+
+---
+
+# 3.10 Image Security Basics
+
+Images should be secure.
+
+Best practices:
+
+• use official base images
+• avoid running containers as root
+• minimize image size
+• scan images for vulnerabilities
+
+Example tools:
+
+Trivy
+Clair
+Docker Scan
+
+---
+
+# 3.11 Kubernetes and Container Images
+
+Kubernetes does not build images.
+
+Instead it:
+
+1. pulls image from registry
+2. creates container
+3. runs container inside pod
+
+Example Kubernetes pod definition:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+```
+
+Flow:
+
+```
+Kubernetes
+     ↓
+Pull Image
+     ↓
+Create Container
+     ↓
+Run Inside Pod
+```
+
+---
+
+# 3.12 Container Workflow in DevOps
+
+Real DevOps workflow:
+
+```
+Developer writes code
+       ↓
+Application Build (Maven / Gradle)
+       ↓
+Docker Image Build
+       ↓
+Push Image to Registry
+       ↓
+Kubernetes Deployment
+       ↓
+Application Running
+```
+
+This workflow is the **foundation of cloud-native systems**.
+
+---
+
+# Section 3 Summary
+
+You learned:
+
+• what container images are
+• Docker architecture
+• how Dockerfiles work
+• building Docker images
+• running containers
+• container registries
+• pushing images to registry
+• how Kubernetes uses images
+
+Container images are the **artifact used by Kubernetes to run applications**.
+
+---

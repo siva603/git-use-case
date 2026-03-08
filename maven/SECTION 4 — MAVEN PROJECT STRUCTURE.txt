@@ -1,0 +1,201 @@
+SECTION 4 — MAVEN PROJECT STRUCTURE
+
+Goal of this section
+Understand how Maven organizes projects using a **standard directory structure** and how the **pom.xml** file controls the project.
+
+Topics covered
+
+14 Minimal Maven Project
+16 Directory Conventions in Maven
+17 Standard Directory Templates Explained
+
+---
+
+1. Minimal Maven Project
+
+A Maven project must contain at least one important file.
+
+Required file
+
+pom.xml
+
+This file defines the entire project configuration.
+
+Minimal Maven project structure
+
+project-folder
+pom.xml
+
+Example minimal pom.xml
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+<groupId>com.company</groupId> <artifactId>demo-project</artifactId> <version>1.0</version>
+
+</project>
+
+Explanation
+
+modelVersion → Maven project model version
+groupId → organization or company name
+artifactId → project name
+version → project version
+
+Example meaning
+
+com.company.demo-project:1.0
+
+---
+
+2. Maven Standard Directory Structure
+
+Maven enforces a **standard directory layout**.
+
+Full structure
+
+project
+pom.xml
+src
+src/main/java
+src/main/resources
+src/test/java
+src/test/resources
+target
+
+Explanation
+
+pom.xml → project configuration file
+
+src/main/java → application source code
+
+src/main/resources → configuration files
+(example: properties, YAML, XML)
+
+src/test/java → unit test code
+
+src/test/resources → test configuration files
+
+target → compiled output files
+
+---
+
+3. Why Maven Uses Standard Structure
+
+Before Maven, every project had a different structure.
+
+Example problem
+
+projectA
+code/
+lib/
+
+projectB
+source/
+dependencies/
+
+Developers had difficulty understanding projects.
+
+Maven solved this by enforcing a **standard structure** so every project looks similar.
+
+---
+
+4. Create Maven Directory Structure
+
+Commands
+
+mkdir -p src/main/java
+
+Explanation
+
+mkdir → create directory
+-p    → create nested directories
+
+Example
+
+mkdir -p src/main/resources
+mkdir -p src/test/java
+mkdir -p src/test/resources
+
+Final structure
+
+project
+pom.xml
+src
+src/main/java
+src/main/resources
+src/test/java
+src/test/resources
+
+---
+
+5. The Target Directory
+
+The target folder is created automatically when Maven builds the project.
+
+Example build command
+
+mvn compile
+
+Explanation
+
+mvn      → Maven command tool
+compile  → compiles Java source files
+
+After compilation
+
+target folder is created.
+
+Example
+
+target
+classes
+generated-sources
+maven-status
+
+Explanation
+
+classes → compiled Java files (.class)
+
+---
+
+6. Example Project Layout
+
+Example Maven project
+
+maven-demo
+
+pom.xml
+
+src/main/java/com/example/App.java
+
+src/test/java/com/example/AppTest.java
+
+target/
+
+---
+
+7. Maven Naming Convention
+
+Typical naming pattern
+
+groupId.artifactId
+
+Example
+
+com.company.project
+
+Meaning
+
+com.company → organization
+project → application name
+
+---
+
+What you learned in Section 4
+
+What a minimal Maven project looks like
+What pom.xml is
+Maven standard directory structure
+Purpose of each folder
+How the target folder is generated

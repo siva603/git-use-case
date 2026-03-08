@@ -1,0 +1,326 @@
+Section 16 — Best Practices
+
+This section summarizes the **best practices for building, running, and managing Docker containers in real-world systems**.
+
+Following these practices ensures:
+
+• smaller images  
+• faster deployments  
+• improved security  
+• easier scaling  
+• reliable production systems  
+
+---
+
+# 16.1 Use Small Base Images
+
+Always choose lightweight base images.
+
+Example large base image:
+
+```
+
+ubuntu
+
+```
+
+Example lightweight image:
+
+```
+
+alpine
+
+````
+
+Better Dockerfile example:
+
+```Dockerfile
+FROM node:18-alpine
+````
+
+Benefits:
+
+• smaller image size
+• faster downloads
+• reduced attack surface
+
+---
+
+# 16.2 Use Multi-Stage Builds
+
+Multi-stage builds help create **smaller and cleaner production images**.
+
+Example:
+
+```Dockerfile
+# Build Stage
+FROM node:18 AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Production Stage
+FROM node:18-alpine
+
+WORKDIR /app
+COPY --from=builder /app .
+
+CMD ["node","server.js"]
+```
+
+Advantages:
+
+• removes unnecessary build tools
+• smaller images
+• better security
+
+---
+
+# 16.3 Use `.dockerignore`
+
+The `.dockerignore` file prevents unnecessary files from entering Docker images.
+
+Example:
+
+```
+node_modules
+.git
+.env
+logs
+```
+
+Benefits:
+
+• smaller images
+• faster builds
+• prevents secrets from entering images
+
+---
+
+# 16.4 Avoid Running Containers as Root
+
+Running containers as root increases security risk.
+
+Better practice:
+
+```Dockerfile
+USER node
+```
+
+Or when running containers:
+
+```bash
+docker run --user 1000 myapp
+```
+
+This reduces potential security vulnerabilities.
+
+---
+
+# 16.5 Keep Containers Stateless
+
+Containers should not store critical data internally.
+
+Instead store data in:
+
+• databases
+• Docker volumes
+• object storage
+
+Example architecture:
+
+```
+Application Container
+        ↓
+External Database
+```
+
+Benefits:
+
+• easier scaling
+• safer deployments
+
+---
+
+# 16.6 Use Environment Variables
+
+Avoid hardcoding configuration values.
+
+Example:
+
+```bash
+docker run -e DB_HOST=database myapp
+```
+
+Example `.env` file:
+
+```
+DB_HOST=database
+DB_USER=root
+DB_PASSWORD=secret
+```
+
+Environment variables allow different configurations for:
+
+• development
+• testing
+• production
+
+---
+
+# 16.7 Use Image Versioning
+
+Always tag images with versions.
+
+Example:
+
+```
+myapp:1.0
+myapp:1.1
+myapp:2.0
+```
+
+Avoid relying only on:
+
+```
+latest
+```
+
+Version tags help with **rollback deployments**.
+
+---
+
+# 16.8 Use Health Checks
+
+Health checks allow Docker to verify application status.
+
+Example Dockerfile:
+
+```Dockerfile
+HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
+```
+
+Docker can detect unhealthy containers and restart them if necessary.
+
+---
+
+# 16.9 Use Volumes for Persistent Data
+
+Containers are ephemeral.
+
+Important data should be stored using volumes.
+
+Example:
+
+```bash
+docker run -v dbdata:/var/lib/mysql mysql
+```
+
+Volumes ensure:
+
+• data persistence
+• container portability
+
+---
+
+# 16.10 Monitor Containers
+
+Monitor container health and performance.
+
+Example command:
+
+```bash
+docker stats
+```
+
+Monitoring tools:
+
+• Prometheus
+• Grafana
+• Datadog
+• New Relic
+
+These tools track:
+
+• CPU usage
+• memory usage
+• network traffic
+
+---
+
+# 16.11 Secure Docker Images
+
+Security best practices:
+
+• use official images
+• scan images for vulnerabilities
+• update base images regularly
+• avoid storing secrets in images
+
+Example vulnerability scanning tools:
+
+• Trivy
+• Docker Scout
+• Clair
+
+---
+
+# 16.12 Production Deployment Strategy
+
+Typical production workflow:
+
+```
+Developer
+    ↓
+Git Repository
+    ↓
+CI/CD Pipeline
+    ↓
+Build Docker Image
+    ↓
+Push Image to Registry
+    ↓
+Deploy to Kubernetes / Server
+```
+
+Docker ensures **consistent deployment across environments**.
+
+---
+
+# Final Learning Path Summary
+
+You learned the complete Docker workflow:
+
+1. Docker fundamentals
+2. Containers and images
+3. Dockerfile
+4. Docker CLI
+5. Storage and networking
+6. Docker Compose
+7. Docker registries
+8. Docker Swarm
+9. Docker security
+10. CI/CD with Docker
+11. Kubernetes integration
+
+This knowledge forms the **foundation of modern containerized systems**.
+
+---
+
+# Next Technologies to Learn
+
+After Docker, the next technologies in the DevOps stack are:
+
+1. Kubernetes
+2. Helm
+3. Terraform
+4. Jenkins / GitHub Actions
+5. Monitoring (Prometheus + Grafana)
+
+Together these tools create a **complete modern DevOps ecosystem**.
+
+```
+```

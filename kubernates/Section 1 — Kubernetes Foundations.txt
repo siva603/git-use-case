@@ -1,0 +1,511 @@
+Section 1 — Kubernetes Foundations & Ecosystem
+
+This section explains the **fundamental reason Kubernetes exists**.  
+Before learning commands or YAML, it is important to understand:
+
+• What Kubernetes is  
+• Why Kubernetes was created  
+• What problems it solves  
+• What existed before Kubernetes  
+• Kubernetes architecture  
+• Where Kubernetes fits in real DevOps systems
+
+---
+
+# 1.1 What is Kubernetes
+
+Kubernetes (K8s) is an **open-source container orchestration platform** used to **deploy, manage, scale, and operate containerized applications automatically**.
+
+It was originally developed by **Google** and later donated to the **Cloud Native Computing Foundation (CNCF)**.
+
+Kubernetes helps organizations run applications across **multiple servers (clusters)** while automatically managing:
+
+• container deployment  
+• scaling  
+• load balancing  
+• fault recovery  
+• rolling updates  
+• infrastructure utilization
+
+In simple terms:
+
+**Kubernetes = Automatic container management system**
+
+---
+
+# 1.2 Why Kubernetes Exists
+
+To understand Kubernetes, we must look at **how applications were deployed before Kubernetes**.
+
+---
+
+## Stage 1 — Applications on Physical Servers
+
+In early systems:
+
+Application  
+↓  
+Installed directly on server OS
+
+Example:
+
+```
+
+Server
+├── Application 1
+├── Application 2
+└── Application 3
+
+```
+
+Problems:
+
+• Applications conflict with each other  
+• Difficult to scale  
+• Poor resource utilization  
+• Server crashes affect many applications
+
+---
+
+## Stage 2 — Virtual Machines
+
+To solve these problems, **Virtual Machines (VMs)** were introduced.
+
+Example architecture:
+
+```
+
+Physical Server
+↓
+Hypervisor
+↓
+VM1   VM2   VM3
+↓
+Applications
+
+```
+
+Advantages:
+
+• isolation between applications  
+• better resource management
+
+Problems:
+
+• VMs are heavy  
+• slow startup  
+• high infrastructure overhead
+
+---
+
+## Stage 3 — Containers
+
+Containers improved application deployment.
+
+Architecture:
+
+```
+
+Server
+├── Container Runtime
+│
+├── Container 1
+├── Container 2
+└── Container 3
+
+```
+
+Advantages:
+
+• lightweight  
+• fast startup  
+• portable applications
+
+However new problems appeared.
+
+---
+
+# 1.3 Problems Containers Introduced
+
+When companies started running **hundreds or thousands of containers**, new challenges appeared.
+
+Major problems:
+
+### 1 — Container Scheduling
+
+Which server should run which container?
+
+Example problem:
+
+```
+
+Server1 → overloaded
+Server2 → idle
+
+```
+
+Manual scheduling becomes impossible.
+
+---
+
+### 2 — Automatic Recovery
+
+If a container crashes:
+
+• who restarts it?
+• how fast?
+
+Without automation systems become unstable.
+
+---
+
+### 3 — Scaling Applications
+
+If traffic increases:
+
+Example:
+
+```
+
+100 users → 1 container
+10,000 users → need many containers
+
+```
+
+Manual scaling is impossible.
+
+---
+
+### 4 — Load Balancing
+
+Multiple containers must distribute traffic evenly.
+
+Example:
+
+```
+
+Client Requests
+↓
+Load Balancer
+↓    ↓    ↓
+Pod1 Pod2 Pod3
+
+```
+
+Managing this manually is difficult.
+
+---
+
+### 5 — Service Discovery
+
+Containers constantly change IP addresses.
+
+Applications need a **stable way to find each other**.
+
+---
+
+### 6 — Rolling Updates
+
+Applications must update without downtime.
+
+Example:
+
+```
+
+Old version → gradually replaced → new version
+
+```
+
+Manual updates cause outages.
+
+---
+
+# 1.4 What Kubernetes Solves
+
+Kubernetes solves all the above problems automatically.
+
+Main capabilities:
+
+### Container Scheduling
+Automatically decides **which node runs a container**.
+
+---
+
+### Self Healing
+
+If a container crashes:
+
+Kubernetes automatically:
+
+• restarts it  
+• replaces it  
+• reschedules it
+
+---
+
+### Automatic Scaling
+
+Kubernetes can automatically increase or decrease containers based on load.
+
+Example:
+
+```
+
+2 Pods → low traffic
+10 Pods → high traffic
+
+```
+
+---
+
+### Load Balancing
+
+Kubernetes distributes traffic across multiple containers.
+
+---
+
+### Service Discovery
+
+Applications can find each other using **services instead of IP addresses**.
+
+---
+
+### Rolling Updates
+
+Applications can update gradually **without downtime**.
+
+---
+
+# 1.5 Where Kubernetes Fits in Real Systems
+
+In modern DevOps systems Kubernetes sits **after build and packaging**.
+
+Typical DevOps pipeline:
+
+```
+
+Developer
+↓
+Git Repository
+↓
+CI Tool (Jenkins / GitHub Actions)
+↓
+Build Tool (Maven / Gradle)
+↓
+Artifact (JAR / WAR / Binary)
+↓
+Docker Image
+↓
+Container Registry
+↓
+Kubernetes Cluster
+↓
+Running Application
+
+```
+
+Kubernetes is responsible for:
+
+• running containers  
+• managing infrastructure  
+• scaling applications
+
+---
+
+# 1.6 Kubernetes Architecture Overview
+
+A Kubernetes cluster has **two major parts**.
+
+```
+
+Kubernetes Cluster
+│
+├── Control Plane (Master Node)
+│
+└── Worker Nodes
+
+```
+
+---
+
+# 1.7 Control Plane (Master Node)
+
+The control plane manages the entire cluster.
+
+Main components:
+
+### API Server
+
+Entry point for all Kubernetes operations.
+
+Example command:
+
+```
+
+kubectl get pods
+
+```
+
+Flow:
+
+```
+
+kubectl → API Server → Cluster
+
+```
+
+---
+
+### ETCD
+
+A distributed **key-value database**.
+
+Stores:
+
+• cluster configuration  
+• system state  
+• metadata
+
+---
+
+### Scheduler
+
+Responsible for deciding:
+
+```
+
+Which node should run a pod
+
+```
+
+---
+
+### Controller Manager
+
+Maintains the desired cluster state.
+
+Example:
+
+If a pod crashes → controller creates a new one.
+
+---
+
+# 1.8 Worker Nodes
+
+Worker nodes run actual applications.
+
+Components:
+
+### Kubelet
+
+Agent running on each node.
+
+Responsibilities:
+
+• communicates with API server  
+• starts containers  
+• monitors pod health
+
+---
+
+### Kube Proxy
+
+Handles networking between services and pods.
+
+---
+
+### Container Runtime
+
+Runs containers.
+
+Modern runtimes:
+
+• containerd  
+• CRI-O
+
+---
+
+# 1.9 Kubernetes Architecture Diagram
+
+```
+
+```
+            Control Plane
+          ─────────────────
+           API Server
+           Scheduler
+           Controller Manager
+           ETCD
+          ─────────────────
+                 │
+                 │
+    ┌────────────┴────────────┐
+    │                         │
+Worker Node 1            Worker Node 2
+```
+
+─────────────────        ─────────────────
+Kubelet                   Kubelet
+Kube Proxy                Kube Proxy
+Container Runtime         Container Runtime
+│                         │
+Pods                      Pods
+
+```
+
+---
+
+# 1.10 Kubernetes Ecosystem
+
+Kubernetes works with many tools.
+
+Common ecosystem tools:
+
+Container Runtime  
+→ containerd
+
+CI/CD  
+→ Jenkins  
+→ GitHub Actions  
+
+Monitoring  
+→ Prometheus  
+→ Grafana  
+
+Service Mesh  
+→ Istio  
+
+Package Manager  
+→ Helm  
+
+GitOps  
+→ Flux  
+→ ArgoCD
+
+---
+
+# Section 1 Summary
+
+You learned:
+
+• What Kubernetes is  
+• Why Kubernetes exists  
+• Problems before Kubernetes  
+• Problems Kubernetes solves  
+• Where Kubernetes fits in DevOps  
+• Kubernetes architecture  
+• Kubernetes ecosystem
+
+---
+
+# Next Section
+
+Section 2 — **Container Fundamentals**
+
+You will learn:
+
+• How containers work  
+• Docker architecture  
+• Container runtime  
+• Container storage and networking
+```

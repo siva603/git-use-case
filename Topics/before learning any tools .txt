@@ -1,0 +1,26 @@
+before learning any tools 
+
+devops lifecycle
+
+where it is fit
+
+they collect code 
+
+build code in automated passion ( compile, test, trivy find vulrnubility, sonarqube for code quality , package )
+
+why we need docker 
+
+why we need to independent containers -> 
+					isolated env			
+					avaibility to end user
+					
+
+
+entered microservices , it donesn't have capability to increase or decrease but it has communication to other microservices
+
+docker is tool an create mulitple application as containers before we have convert code to image
+
+
+
+
+1st arrange these topics in squence and easy to understand and if any technology is overdate the highlight and explain only new technology and and explain only the new techonology settins or anything not overdate 

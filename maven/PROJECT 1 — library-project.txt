@@ -1,0 +1,325 @@
+PROJECT 1 — library-project
+
+Purpose
+This project builds a **Java library** that other projects will use.
+
+Structure
+
+library-project
+pom.xml
+src/main/java/com/example/lib/MessageService.java
+
+---
+
+Step 1 — Go to the library project
+
+cd library-project
+
+Explanation
+
+cd → change directory
+library-project → enter the library project folder
+
+---
+
+Step 2 — Look at the Java class
+
+File
+
+MessageService.java
+
+Code
+
+package com.example.lib;
+
+public class MessageService {
+
+```
+public String getMessage() {
+    return "Hello from Library Project";
+}
+```
+
+}
+
+Explanation
+
+This class provides a method:
+
+getMessage()
+
+Output
+
+Hello from Library Project
+
+This library will be used by another project.
+
+---
+
+Step 3 — Look at the pom.xml
+
+Important part
+
+<groupId>com.example</groupId> <artifactId>library-project</artifactId> <version>1.0</version>
+
+Explanation
+
+groupId → organization name
+
+artifactId → project name
+
+version → artifact version
+
+Artifact name generated
+
+library-project-1.0.jar
+
+---
+
+Step 4 — Build the library project
+
+Run
+
+mvn clean install
+
+Explanation
+
+mvn → Maven command tool
+
+clean → removes previous build files
+
+install → builds project and copies artifact to local repository
+
+---
+
+What Maven does internally
+
+1 Compile Java code
+2 Run tests
+3 Create JAR file
+4 Copy artifact to local repository
+
+---
+
+Artifact generated
+
+target/library-project-1.0.jar
+
+---
+
+Artifact copied to local repository
+
+~/.m2/repository/com/example/library-project/1.0/
+
+Files stored
+
+library-project-1.0.jar
+library-project-1.0.pom
+
+Now the library is available for other projects.
+
+---
+
+PROJECT 2 — app-project
+
+Purpose
+
+This project **uses the library-project**.
+
+Structure
+
+app-project
+pom.xml
+src/main/java/com/example/app/App.java
+
+---
+
+Step 5 — Open App.java
+
+package com.example.app;
+
+import com.example.lib.MessageService;
+
+public class App {
+
+```
+public static void main(String[] args) {
+
+    MessageService service = new MessageService();
+
+    System.out.println(service.getMessage());
+
+}
+```
+
+}
+
+Explanation
+
+import com.example.lib.MessageService
+
+This line imports the class from **library-project**.
+
+---
+
+Step 6 — Check pom.xml dependency
+
+Important section
+
+<dependency>
+
+<groupId>com.example</groupId> <artifactId>library-project</artifactId> <version>1.0</version>
+
+</dependency>
+
+Explanation
+
+This tells Maven:
+
+"This project requires library-project version 1.0"
+
+---
+
+Step 7 — Build the app project
+
+Go to the folder
+
+cd ../app-project
+
+Run
+
+mvn clean package
+
+Explanation
+
+clean → removes old build files
+
+package → compiles project and creates artifact
+
+---
+
+What Maven does
+
+1 Reads pom.xml
+2 Finds dependency library-project
+3 Searches for artifact in repositories
+
+Search order
+
+1 Local repository (~/.m2)
+2 Remote repository (Maven Central)
+
+Since we ran **mvn install earlier**, the artifact exists in local repository.
+
+So Maven downloads it from:
+
+~/.m2/repository
+
+---
+
+Step 8 — Build successful
+
+Artifact generated
+
+target/app-project-1.0.jar
+
+---
+
+Step 9 — Run the application
+
+Command
+
+java -cp target/classes:~/.m2/repository/com/example/library-project/1.0/library-project-1.0.jar com.example.app.App
+
+Explanation
+
+java → Java runtime
+
+-cp → classpath
+
+target/classes → compiled app classes
+
+library-project jar → dependency
+
+---
+
+Output
+
+Hello from Library Project
+
+---
+
+IMPORTANT EXPERIMENT
+
+Delete the local artifact
+
+Delete folder
+
+~/.m2/repository/com/example/library-project
+
+Now run again
+
+mvn package
+
+Build will fail.
+
+Error
+
+Could not find artifact com.example:library-project:1.0
+
+---
+
+Why?
+
+Because the dependency **is not available in any repository**.
+
+This proves why **mvn install is required**.
+
+---
+
+REAL DEVOPS WORKFLOW
+
+Developer builds library
+
+mvn clean install
+
+↓
+
+Artifact stored locally
+
+↓
+
+Other project builds successfully
+
+↓
+
+CI/CD pipeline runs
+
+mvn deploy
+
+↓
+
+Artifact stored in
+
+Nexus
+Artifactory
+
+---
+
+IMPORTANT MAVEN CONCEPT FOR DEVOPS ENGINEERS
+
+Repository priority order
+
+1 Local repository (~/.m2)
+2 Remote repository (Maven Central)
+3 Private repository (Nexus / Artifactory)
+
+Understanding this is critical for **CI/CD pipelines**.
+
+---
+
+If you want, next I can show you the **most important Maven architecture used in real companies**:
+
+Multi-Module Maven Projects
+
+(which is how **large microservice systems are built**).

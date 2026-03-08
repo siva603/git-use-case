@@ -1,0 +1,342 @@
+SECTION 7 — MAVEN DEPENDENCY MANAGEMENT
+
+Goal of this section
+Understand how Maven **manages external libraries automatically** and how projects use dependencies.
+
+Topics covered
+
+23 Maven Local Repository
+31 Dependency Overview and Scopes Explained
+32 Adding Dependencies
+33 Adding Dependencies from Maven Central
+34 Cleanup: Saving Changes in Git
+35 Listing Project Dependencies
+
+---
+
+1. What is a Dependency
+
+A dependency is a **library required by your project**.
+
+Example libraries
+
+Spring
+Hibernate
+JUnit
+Log4j
+
+Instead of manually downloading these libraries, Maven downloads them automatically.
+
+---
+
+Example Without Maven
+
+Before Maven, developers had to
+
+Download jar files manually
+Place jars inside project
+Add jars to classpath
+
+Example
+
+project
+lib
+spring-core.jar
+hibernate.jar
+
+This caused
+
+version conflicts
+missing libraries
+difficult project setup
+
+---
+
+Example With Maven
+
+Maven manages dependencies automatically.
+
+Add dependency inside **pom.xml**
+
+Example
+
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-core</artifactId>
+  <version>6.1.5</version>
+</dependency>
+
+Explanation
+
+groupId → organization name
+
+artifactId → library name
+
+version → library version
+
+---
+
+2. Where Dependencies Come From
+
+Maven downloads dependencies from **repositories**.
+
+Default repository
+
+Maven Central
+
+Website
+
+[https://mvnrepository.com](https://mvnrepository.com)
+
+Example search
+
+Spring Core
+
+Dependency example
+
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-core</artifactId>
+  <version>6.1.5</version>
+</dependency>
+
+---
+
+3. Where Maven Stores Dependencies
+
+Downloaded dependencies are stored in the **local repository**.
+
+Location
+
+~/.m2/repository
+
+Example
+
+~/.m2/repository/org/springframework/spring-core/6.1.5/
+
+Files stored
+
+spring-core-6.1.5.jar
+spring-core-6.1.5.pom
+
+This allows Maven to reuse dependencies without downloading them again.
+
+---
+
+4. Dependency Scopes
+
+Scopes define **when a dependency is available**.
+
+Important scopes
+
+compile
+provided
+runtime
+test
+
+---
+
+Compile Scope
+
+Default scope.
+
+Dependency available during
+
+compile
+test
+runtime
+
+Example
+
+Spring Core
+
+---
+
+Provided Scope
+
+Dependency required for compilation but **provided by runtime environment**.
+
+Example
+
+Servlet API
+
+Application servers like
+
+Tomcat
+Jetty
+
+already provide it.
+
+---
+
+Runtime Scope
+
+Dependency required only at runtime.
+
+Example
+
+Database drivers
+
+MySQL
+PostgreSQL
+
+---
+
+Test Scope
+
+Dependency used only during testing.
+
+Example
+
+JUnit
+
+---
+
+Example Dependency with Scope
+
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter</artifactId>
+  <version>5.10.0</version>
+  <scope>test</scope>
+</dependency>
+
+Explanation
+
+scope test → used only for test execution
+
+---
+
+5. Transitive Dependencies
+
+Maven automatically downloads dependencies required by other libraries.
+
+Example
+
+Project depends on
+
+Spring Boot
+
+Spring Boot depends on
+
+Spring Core
+Spring Context
+Spring Beans
+
+Maven automatically downloads all of them.
+
+This is called **transitive dependency**.
+
+---
+
+6. Viewing Dependency Tree
+
+Command
+
+mvn dependency:tree
+
+Explanation
+
+dependency → dependency plugin
+
+tree → shows dependency hierarchy
+
+Example output
+
+project
+spring-core
+spring-context
+spring-beans
+
+This command helps detect **dependency conflicts**.
+
+---
+
+7. List Project Dependencies
+
+Command
+
+mvn dependency:list
+
+Explanation
+
+Shows all dependencies used in the project.
+
+Example
+
+spring-core:6.1.5
+junit-jupiter:5.10.0
+
+---
+
+8. Dependency Download Process
+
+When Maven builds a project it searches dependencies in this order.
+
+1 Local repository (~/.m2)
+
+2 Remote repositories (Maven Central)
+
+If dependency is not found locally, Maven downloads it automatically.
+
+---
+
+9. Save Dependency Changes
+
+After modifying pom.xml
+
+Check changes
+
+git status
+
+Add changes
+
+git add pom.xml
+
+Commit changes
+
+git commit -m "Added project dependencies"
+
+---
+
+What you learned in Section 7
+
+What dependencies are
+How Maven downloads libraries
+Where dependencies are stored
+What dependency scopes are
+What transitive dependencies are
+How to view dependency tree
+
+---
+
+Important Maven Concept for DevOps Engineers
+
+Dependency conflicts.
+
+Example
+
+Library A → log4j 1.2
+
+Library B → log4j 2.0
+
+Maven resolves conflicts using **nearest dependency rule**.
+
+This is why DevOps engineers frequently run
+
+mvn dependency:tree
+
+to debug build issues.
+
+---
+
+Next section
+
+SECTION 8 — TESTING WITH MAVEN
+
+You will learn
+
+Unit testing concept
+JUnit integration
+Running tests using Maven
+Test reports.

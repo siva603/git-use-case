@@ -1,0 +1,397 @@
+Section 2 — Environment Setup
+
+This section explains how to **install Docker, configure the environment, and verify the installation**.
+
+After completing this section you will be able to:
+
+• Install Docker on Windows, Mac, or Linux  
+• Understand Docker Desktop vs Docker Engine  
+• Run your first Docker command  
+• Verify Docker installation  
+
+---
+
+# 2.1 Required Tools
+
+Before installing Docker, ensure the following tools are available.
+
+### Required Software
+
+• Docker Desktop (Windows / Mac)  
+• Docker Engine (Linux)  
+• Git (for cloning projects)  
+• Code Editor (VS Code or IntelliJ)
+
+Recommended Editor:
+
+VS Code
+
+It provides Docker extensions for:
+
+• container management  
+• Dockerfile support  
+• debugging containers
+
+---
+
+# 2.2 Docker Installation Methods
+
+Docker installation depends on the operating system.
+
+There are two main installation methods:
+
+### Docker Desktop
+
+Used for:
+
+Windows  
+Mac
+
+It includes:
+
+Docker Engine  
+Docker CLI  
+Docker Compose  
+Kubernetes (optional)
+
+---
+
+### Docker Engine
+
+Used for:
+
+Linux servers
+
+Installed directly using package managers.
+
+---
+
+# 2.3 Installing Docker on Windows
+
+### Step 1 — Install Docker Desktop
+
+Download from:
+
+https://www.docker.com/products/docker-desktop
+
+Requirements:
+
+• Windows 10 or Windows 11  
+• WSL2 enabled  
+• Virtualization enabled in BIOS
+
+---
+
+### Step 2 — Enable WSL2
+
+Docker Desktop uses **Windows Subsystem for Linux (WSL2)**.
+
+Install WSL:
+
+```bash
+wsl --install
+````
+
+Restart the system after installation.
+
+---
+
+### Step 3 — Start Docker Desktop
+
+Open Docker Desktop.
+
+Docker automatically starts the **Docker Engine service**.
+
+---
+
+### Step 4 — Verify Installation
+
+Run:
+
+```bash
+docker --version
+```
+
+Example output:
+
+```
+Docker version 25.x.x
+```
+
+---
+
+# 2.4 Installing Docker on Mac
+
+### Step 1 — Install Docker Desktop
+
+Download Docker Desktop for Mac.
+
+Install using the `.dmg` installer.
+
+---
+
+### Step 2 — Start Docker Desktop
+
+Launch Docker Desktop from Applications.
+
+Docker Engine will start automatically.
+
+---
+
+### Step 3 — Verify Installation
+
+Run:
+
+```bash
+docker --version
+```
+
+---
+
+# 2.5 Installing Docker on Linux
+
+Example installation for **Ubuntu**.
+
+---
+
+### Step 1 — Update Packages
+
+```bash
+sudo apt update
+```
+
+---
+
+### Step 2 — Install Docker
+
+```bash
+sudo apt install docker.io
+```
+
+---
+
+### Step 3 — Start Docker Service
+
+```bash
+sudo systemctl start docker
+```
+
+---
+
+### Step 4 — Enable Docker on System Boot
+
+```bash
+sudo systemctl enable docker
+```
+
+---
+
+### Step 5 — Verify Docker Installation
+
+```bash
+docker --version
+```
+
+---
+
+# 2.6 Running Docker Without Sudo (Linux)
+
+By default Docker requires **sudo permissions**.
+
+To run Docker without sudo:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Then log out and log in again.
+
+Now Docker commands can run normally.
+
+Example:
+
+```bash
+docker ps
+```
+
+---
+
+# 2.7 Verify Docker Installation
+
+Run the official Docker test container.
+
+```bash
+docker run hello-world
+```
+
+What happens internally:
+
+1. Docker checks if image exists locally
+2. If not, Docker downloads it from Docker Hub
+3. Creates container
+4. Runs the container
+5. Displays success message
+
+Expected output:
+
+```
+Hello from Docker!
+```
+
+This confirms Docker is installed correctly.
+
+---
+
+# 2.8 Understanding Docker CLI
+
+Docker is primarily controlled using **CLI commands**.
+
+Example commands:
+
+List running containers:
+
+```bash
+docker ps
+```
+
+List all containers:
+
+```bash
+docker ps -a
+```
+
+List images:
+
+```bash
+docker images
+```
+
+These commands communicate with the **Docker Engine**.
+
+---
+
+# 2.9 Install Docker Compose (Modern Method)
+
+Docker Compose is used to run **multi-container applications**.
+
+Modern Docker versions include Compose by default.
+
+Verify:
+
+```bash
+docker compose version
+```
+
+Example output:
+
+```
+Docker Compose version v2.x.x
+```
+
+---
+
+# 2.10 Docker Desktop Dashboard
+
+Docker Desktop provides a GUI interface.
+
+Features:
+
+• View running containers
+• Start / Stop containers
+• View logs
+• Manage images
+• Monitor resources
+
+However, **DevOps engineers mainly use CLI commands**.
+
+---
+
+# 2.11 Testing Docker with Ubuntu Container
+
+Run an Ubuntu container.
+
+```bash
+docker run -it ubuntu bash
+```
+
+Explanation:
+
+• `docker run` → create container
+• `-it` → interactive terminal
+• `ubuntu` → image name
+• `bash` → shell inside container
+
+You now enter the container environment.
+
+Example:
+
+```
+root@container:/#
+```
+
+Exit container:
+
+```bash
+exit
+```
+
+---
+
+# 2.12 Understanding Container Lifecycle
+
+A container goes through several stages.
+
+Created
+↓
+Running
+↓
+Stopped
+↓
+Removed
+
+Commands:
+
+Create container:
+
+```bash
+docker create nginx
+```
+
+Start container:
+
+```bash
+docker start container_id
+```
+
+Stop container:
+
+```bash
+docker stop container_id
+```
+
+Remove container:
+
+```bash
+docker rm container_id
+```
+
+---
+
+# Section 2 Summary
+
+In this section you learned:
+
+• Required tools for Docker
+• Installing Docker on Windows, Mac, and Linux
+• Docker Desktop vs Docker Engine
+• Running Docker commands
+• Testing Docker installation
+• Running first container
+• Basic Docker CLI usage
+
+Next section will cover:
+
+**Docker Project Structure and Project Setup**
+
+```
+```

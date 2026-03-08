@@ -1,0 +1,254 @@
+Play
+1. JIRA - the 'What' & 'Why'
+3min
+Play
+2. What Jira version we will use
+4min
+Play
+3. Course structure and tidbits
+7min
+Play
+4. Setting up your free JIRA Cloud instance
+8min
+Play
+5. How to create a project with sample data
+3min
+Play
+6. Section Introduction
+1min
+Play
+7. Scrum in 10 minutes
+11min
+Play
+8. Kanban in 4 minutes
+4min
+Play
+9. JIRA Terms - What makes up JIRA
+4min
+Start
+Quiz 1: Agile Concepts Refresher & Jira Terms
+Play
+10. Section Introduction
+1min
+Play
+11. Intro to the JIRA user interface & navigation
+13min
+Play
+12. Intro to Project Navigation
+10min
+Play
+13. Intro to Issue Navigation
+7min
+Play
+14. Viewing, editing & understanding Issues
+17min
+Play
+15. Working with Agile Boards
+13min
+Play
+16. Agile Board - Backlog View
+10min
+Play
+17. Agile Boards - Kanban
+5min
+Play
+18. Creating Issues
+9min
+Play
+19. Searching for Issues
+6min
+Play
+20. Advanced searching using JQL
+8min
+Play
+21. Search filters
+6min
+Play
+22. Create your own Agile Board
+7min
+Play
+23. Dashboard customization
+9min
+Play
+24. Understanding the Resolution Field
+6min
+Start
+Quiz 2: Working within an Agile Team
+Play
+25. Section Introduction
+1min
+Play
+26. Configuring agile boards - Part 1 (Scrum board)
+14min
+Play
+27. Configuring agile boards - Part 2 (Scrum board continued)
+16min
+Play
+28. Configuring agile boards - Part 3 (Kanban board)
+9min
+Play
+29. Creating projects
+9min
+Play
+30. Creating epics and stories
+5min
+Play
+31. Starting sprints & working on sprints
+8min
+Play
+32. Creating software versions in Scrum
+5min
+Play
+33. Creating software releases in Kanban
+2min
+Play
+34. Closing sprints and viewing sprint reports
+4min
+Play
+35. Agile Board Reports
+10min
+Start
+Quiz 3: Leading an Agile Team
+Play
+36. Section Introduction
+1min
+Play
+37. Atlassian Organization & Site structure
+11min
+Play
+38. Creating a new user
+14min
+Play
+39. Creating groups
+6min
+Play
+40. Jira settings navigation
+4min
+Play
+41. Understanding the different permission levels
+8min
+Play
+42. Global Permissions explained
+10min
+Play
+43. Understanding Project Roles - Theory
+10min
+Play
+44. Understanding Project Roles - Example
+10min
+Play
+45. Roles & Permissions Example - Introduction
+6min
+Play
+46. Roles and Permissions Example - Part 1
+13min
+Play
+47. Roles and Permissions Example - Part 2
+9min
+Play
+48. Roles and Permissions Example - Part 3
+10min
+Play
+49. Understanding Jira Schemes & Introduction to the Schemes Example
+8min
+Play
+50. Configuring Issue Types
+9min
+Play
+51. Configuring Screens
+10min
+Play
+52. Configuring custom fields
+7min
+Play
+53. Configuring Field Configurations
+8min
+Play
+54. Creating a new Workflow
+18min
+Play
+55. Editing an existing Workflow
+12min
+Play
+56. Understanding Workflow transitions - Screens
+5min
+Play
+57. Understanding Workflow transitions - Properties and Triggers
+8min
+Play
+58. Understanding Workflow transitions - Conditions, Validators, Post-Functions
+12min
+Start
+Quiz 4: Jira Administration
+Play
+59. Introduction to Team-Managed Projects
+3min
+Play
+60. Team-Managed Project Board
+6min
+Play
+61. Team-Managed Project Views
+5min
+Play
+62. Team-Managed Project Settings
+10min
+Play
+63. Team-Managed Project Features
+4min
+Play
+64. Course Summary
+1min
+Play
+65. Using Jira to manage daily tasks using a scrum-based process - Part 1
+9min
+Play
+66. Using Jira to manage daily tasks using a scrum-based process - Part 2
+15min
+Play
+67. Confluence - the What and the Why
+7min
+Play
+68. Getting Confluence
+8min
+Play
+69. Granting User Access
+5min
+Play
+70. Spaces Introduction
+7min
+Play
+71. Creating Spaces with Space Blueprints
+10min
+Play
+72. Creating Pages within Spaces
+7min
+Play
+73. The Confluence Editor
+11min
+Play
+74. The Confluence Editor - Going forward
+5min
+Play
+75. Page Blueprints
+9min
+Play
+76. Other Page Options & Functions
+7min
+Play
+77. Adding and Using Macros within Pages
+13min
+Play
+78. Collaborative Editing
+5min
+Play
+79. JIRA - Confluence Integration
+8min
+Play
+80. Understanding Confluence Permissions
+18min
+Play
+81. General Confluence Administration
+4min
+Play
+82. Section Conclusion
+1min

@@ -1,0 +1,410 @@
+Section 6 — Docker Storage (Volumes, Bind Mounts, Persistent Data)
+
+Containers are **ephemeral** by default.
+
+This means:
+
+When a container is deleted → **all data inside it is lost**.
+
+Example:
+
+A database container stores data in `/var/lib/mysql`.
+
+If the container is removed, the database is lost.
+
+To solve this problem, Docker provides **persistent storage mechanisms**.
+
+In this section you will learn:
+
+• Why container storage is temporary  
+• Docker storage architecture  
+• Docker Volumes  
+• Bind Mounts  
+• Tmpfs mounts  
+• When to use each type  
+• Real project examples
+
+---
+
+# 6.1 Why Container Storage is Temporary
+
+Containers use a **writable layer** on top of image layers.
+
+Structure:
+
+Image Layer (Read Only)  
+↓  
+Container Layer (Writable)
+
+When a container is deleted:
+
+The writable layer is removed.
+
+Example:
+
+```bash
+docker run mysql
+````
+
+Database data will exist only inside the container filesystem.
+
+If the container is removed:
+
+```bash
+docker rm mysql_container
+```
+
+All database data disappears.
+
+This is why **persistent storage is required**.
+
+---
+
+# 6.2 Docker Storage Types
+
+Docker provides three main storage mechanisms.
+
+| Storage Type  | Description                |
+| ------------- | -------------------------- |
+| Volume Mounts | Managed by Docker          |
+| Bind Mounts   | Direct host folder mapping |
+| Tmpfs Mounts  | Stored in memory           |
+
+---
+
+# 6.3 Docker Volumes
+
+Volumes are the **recommended storage mechanism**.
+
+Volumes are:
+
+• Managed by Docker
+• Stored outside containers
+• Persistent across container restarts
+• Safe for production use
+
+Volume location example (Linux):
+
+```
+/var/lib/docker/volumes
+```
+
+---
+
+# 6.4 Creating Docker Volumes
+
+Create a volume:
+
+```bash
+docker volume create myvolume
+```
+
+List volumes:
+
+```bash
+docker volume ls
+```
+
+Inspect volume:
+
+```bash
+docker volume inspect myvolume
+```
+
+Example output:
+
+```
+Mountpoint: /var/lib/docker/volumes/myvolume
+```
+
+---
+
+# 6.5 Using Volumes with Containers
+
+Attach volume to container.
+
+```bash
+docker run -v myvolume:/data ubuntu
+```
+
+Explanation:
+
+```
+myvolume → Docker volume
+/data → container path
+```
+
+Now any data written to `/data` is stored in the volume.
+
+---
+
+# 6.6 Example — Database with Volume
+
+Run MySQL with volume.
+
+```bash
+docker run -d \
+-v mysql-data:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=root \
+mysql
+```
+
+Explanation:
+
+```
+mysql-data → persistent volume
+/var/lib/mysql → database storage
+```
+
+Even if the container stops, database data remains.
+
+---
+
+# 6.7 Listing and Managing Volumes
+
+List volumes:
+
+```bash
+docker volume ls
+```
+
+Remove volume:
+
+```bash
+docker volume rm myvolume
+```
+
+Remove unused volumes:
+
+```bash
+docker volume prune
+```
+
+---
+
+# 6.8 Bind Mounts
+
+Bind mounts map **host directories directly into containers**.
+
+Example:
+
+```bash
+docker run -v /home/user/project:/app node
+```
+
+Explanation:
+
+```
+Host folder → /home/user/project
+Container folder → /app
+```
+
+Changes in the host folder appear immediately inside container.
+
+---
+
+# 6.9 Bind Mount Example (Development)
+
+Example Node.js project.
+
+Host structure:
+
+```
+project
+ ├── server.js
+ ├── package.json
+```
+
+Run container:
+
+```bash
+docker run \
+-v $(pwd):/app \
+-w /app \
+node:18 node server.js
+```
+
+Benefits:
+
+• Live code updates
+• Faster development
+• No image rebuild required
+
+---
+
+# 6.10 Bind Mount vs Volume
+
+| Feature                    | Volume    | Bind Mount  |
+| -------------------------- | --------- | ----------- |
+| Managed by Docker          | Yes       | No          |
+| Host path required         | No        | Yes         |
+| Recommended for production | Yes       | No          |
+| Development usage          | Sometimes | Very common |
+
+---
+
+# 6.11 Tmpfs Mounts
+
+Tmpfs mounts store data **in memory instead of disk**.
+
+Used for:
+
+• temporary files
+• sensitive data
+• cache
+
+Example:
+
+```bash
+docker run --tmpfs /temp nginx
+```
+
+Data disappears when container stops.
+
+---
+
+# 6.12 Volumes in Docker Compose
+
+Volumes are commonly used in `docker-compose.yml`.
+
+Example:
+
+```yaml
+services:
+
+  database:
+    image: mysql
+
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
+```
+
+Explanation:
+
+```
+dbdata → Docker volume
+/var/lib/mysql → database storage
+```
+
+This ensures database persistence.
+
+---
+
+# 6.13 Bind Mounts in Docker Compose
+
+Example:
+
+```yaml
+services:
+
+  backend:
+    build: ./backend
+
+    volumes:
+      - ./backend:/app
+```
+
+Explanation:
+
+```
+./backend → host folder
+/app → container folder
+```
+
+Used heavily during development.
+
+---
+
+# 6.14 Storage Best Practices
+
+Use **Volumes** for:
+
+• databases
+• production storage
+• persistent application data
+
+Use **Bind Mounts** for:
+
+• development
+• live code changes
+• debugging
+
+Use **Tmpfs** for:
+
+• temporary files
+• sensitive runtime data
+
+---
+
+# 6.15 Real World Example
+
+Application architecture:
+
+```
+Frontend Container
+Backend Container
+Database Container
+```
+
+Database service in compose:
+
+```yaml
+database:
+  image: mysql
+  volumes:
+    - mysql-data:/var/lib/mysql
+```
+
+Volume ensures data survives container recreation.
+
+---
+
+# 6.16 Viewing Container Mounts
+
+Check mounts for a container.
+
+```bash
+docker inspect container_name
+```
+
+Look for:
+
+```
+Mounts
+```
+
+Example:
+
+```
+Source: /var/lib/docker/volumes/mysql-data
+Destination: /var/lib/mysql
+```
+
+---
+
+# Section 6 Summary
+
+In this section you learned:
+
+• Why container storage is temporary
+• Docker storage architecture
+• Docker volumes
+• Bind mounts
+• Tmpfs mounts
+• Storage best practices
+• Persistent database storage
+• Volumes in Docker Compose
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Networking — How Containers Communicate**
+
+```
+```

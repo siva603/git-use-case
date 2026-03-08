@@ -1,0 +1,482 @@
+Section 10 — Kubernetes Security & Access Control
+
+In production environments, Kubernetes clusters may run **hundreds of applications and many users**.
+
+Without proper security controls:
+
+• anyone could access the cluster  
+• applications could access sensitive resources  
+• secrets could be exposed  
+• containers could run with excessive privileges
+
+Kubernetes provides **multiple layers of security**.
+
+This section explains:
+
+• Kubernetes security model  
+• Authentication  
+• Authorization  
+• RBAC (Role Based Access Control)  
+• Service Accounts  
+• TLS and certificates  
+• Network Policies  
+• Security Contexts  
+• Image security
+
+---
+
+# 10.1 Kubernetes Security Model
+
+Kubernetes security works in **multiple layers**.
+
+Architecture:
+
+```
+
+User / Application
+↓
+Authentication
+↓
+Authorization
+↓
+Admission Controllers
+↓
+Kubernetes API Server
+↓
+Cluster Resources
+
+```id="k8s-security-flow"
+
+Each layer ensures the request is **validated and allowed**.
+
+---
+
+# 10.2 Authentication
+
+Authentication answers the question:
+
+```
+
+Who are you?
+
+```
+
+Kubernetes supports multiple authentication methods.
+
+Examples:
+
+• Client certificates  
+• Bearer tokens  
+• Service accounts  
+• OpenID Connect (OIDC)  
+• Cloud IAM authentication
+
+Example flow:
+
+```
+
+User request
+↓
+Authentication check
+↓
+User identity verified
+
+```id="auth-flow"
+
+---
+
+# 10.3 Authorization
+
+Authorization answers the question:
+
+```
+
+What are you allowed to do?
+
+```
+
+Example:
+
+```
+
+User1 → allowed to view pods
+User2 → allowed to create deployments
+
+```id="authorization-example"
+
+Kubernetes supports several authorization modes.
+
+Common ones:
+
+• RBAC (most common)  
+• ABAC  
+• Node authorization
+
+Most clusters use **RBAC**.
+
+---
+
+# 10.4 Role-Based Access Control (RBAC)
+
+RBAC controls access to Kubernetes resources using **roles and permissions**.
+
+Architecture:
+
+```
+
+User
+↓
+RoleBinding
+↓
+Role
+↓
+Permissions
+
+````id="rbac-architecture"
+
+RBAC components:
+
+• Role  
+• ClusterRole  
+• RoleBinding  
+• ClusterRoleBinding
+
+---
+
+# 10.5 Roles
+
+A Role defines **permissions within a namespace**.
+
+Example Role:
+
+```yaml id="role-example"
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get","list","watch"]
+````
+
+Meaning:
+
+```
+User can read Pods
+But cannot create or delete them
+```
+
+---
+
+# 10.6 RoleBinding
+
+RoleBinding assigns a Role to a user.
+
+Example YAML:
+
+```yaml id="rolebinding-example"
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+subjects:
+- kind: User
+  name: dev-user
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+
+Architecture:
+
+```
+User
+   ↓
+RoleBinding
+   ↓
+Role
+```
+
+This grants permissions.
+
+---
+
+# 10.7 ClusterRoles
+
+ClusterRoles apply **across the entire cluster**.
+
+Example:
+
+```
+Cluster administrator
+```
+
+ClusterRole example:
+
+```yaml id="clusterrole-example"
+kind: ClusterRole
+rules:
+- resources: ["nodes"]
+  verbs: ["get","list"]
+```
+
+ClusterRoles are used for:
+
+• cluster-wide permissions
+• infrastructure components
+
+---
+
+# 10.8 Service Accounts
+
+Service accounts are used by **applications running inside the cluster**.
+
+Example:
+
+```
+Pod
+   ↓
+Service Account
+   ↓
+API access
+```
+
+Example YAML:
+
+```yaml id="serviceaccount-example"
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app-service-account
+```
+
+Assign service account to Pod:
+
+```yaml id="pod-serviceaccount"
+spec:
+  serviceAccountName: app-service-account
+```
+
+This allows the application to **interact with Kubernetes APIs securely**.
+
+---
+
+# 10.9 TLS in Kubernetes
+
+All communication in Kubernetes is secured using **TLS encryption**.
+
+Components communicate using **certificates**.
+
+Example:
+
+```
+kubectl
+   ↓ TLS
+API Server
+   ↓ TLS
+Kubelet
+```
+
+Certificates provide:
+
+• secure communication
+• identity verification
+
+---
+
+# 10.10 Certificates in Kubernetes
+
+Certificates are used for:
+
+• API server authentication
+• node authentication
+• client authentication
+
+Example flow:
+
+```
+Client certificate
+      ↓
+API Server verifies certificate
+      ↓
+Access granted
+```
+
+Kubernetes stores certificates in:
+
+````
+/etc/kubernetes/pki
+``` id="cert-location"
+
+---
+
+# 10.11 Network Policies
+
+Network policies control **which Pods can communicate with each other**.
+
+Without policies:
+
+````
+
+All Pods can talk to each other
+
+```id="open-network"
+
+With network policies:
+
+```
+
+Only allowed Pods communicate
+
+```id="restricted-network"
+
+Example architecture:
+
+```
+
+Frontend Pod
+↓
+Backend Pod
+↓
+Database Pod
+
+```id="app-network-flow"
+
+Network policy ensures:
+
+```
+
+Frontend → Backend allowed
+Backend → Database allowed
+Other traffic blocked
+
+````
+
+Example YAML:
+
+```yaml id="networkpolicy-example"
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+````
+
+---
+
+# 10.12 Security Contexts
+
+Security contexts control **container security settings**.
+
+Example restrictions:
+
+• run container as non-root
+• restrict Linux capabilities
+• enforce filesystem permissions
+
+Example YAML:
+
+```yaml id="security-context-example"
+securityContext:
+  runAsUser: 1000
+  runAsNonRoot: true
+```
+
+This prevents containers from running as root.
+
+---
+
+# 10.13 Image Security
+
+Container images must be secure.
+
+Best practices:
+
+• use minimal base images
+• scan images for vulnerabilities
+• avoid running containers as root
+• use signed images
+
+Common scanning tools:
+
+• Trivy
+• Clair
+• Docker Scan
+
+---
+
+# 10.14 Pod Security Policies (Concept)
+
+Pod Security Policies control **how Pods are allowed to run**.
+
+Examples of restrictions:
+
+• prevent privileged containers
+• enforce read-only filesystems
+• restrict host network access
+
+Modern Kubernetes replaces PSP with **Pod Security Standards**.
+
+---
+
+# 10.15 Security Architecture Summary
+
+Complete security flow:
+
+```
+User / Application
+       ↓
+Authentication
+       ↓
+Authorization (RBAC)
+       ↓
+Admission Controllers
+       ↓
+Network Policies
+       ↓
+Secure Pod Execution
+```
+
+Multiple layers protect the cluster.
+
+---
+
+# Section 10 Summary
+
+In this section you learned:
+
+• Kubernetes security architecture
+• authentication
+• authorization
+• RBAC roles and bindings
+• service accounts
+• TLS encryption
+• certificates
+• network policies
+• security contexts
+• image security
+
+Security ensures Kubernetes clusters are **protected against unauthorized access and attacks**.
+
+---
+
+# Next Section
+
+Section 11 — **Cluster Administration & Maintenance**
+
+You will learn:
+
+• Namespaces
+• Resource quotas
+• Node maintenance
+• Cluster upgrades
+• Backup and restore (ETCD)
+• High availability clusters
+
+```
+```

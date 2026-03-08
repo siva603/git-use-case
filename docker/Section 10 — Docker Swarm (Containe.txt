@@ -1,0 +1,491 @@
+Section 10 — Docker Swarm (Container Orchestration)
+
+Before learning concepts, here are the **most important Docker Swarm commands categorized**.  
+These commands are used in real environments to **create and manage clusters of containers**.
+
+---
+
+# 10.1 Docker Swarm Commands (Categorized)
+
+## Swarm Cluster Initialization
+
+Initialize swarm cluster
+
+```bash
+docker swarm init
+````
+
+Join a worker node
+
+```bash
+docker swarm join --token <worker-token> <manager-ip>:2377
+```
+
+Join a manager node
+
+```bash
+docker swarm join --token <manager-token> <manager-ip>:2377
+```
+
+Leave swarm
+
+```bash
+docker swarm leave
+```
+
+Force leave swarm (manager)
+
+```bash
+docker swarm leave --force
+```
+
+---
+
+## Node Management Commands
+
+List swarm nodes
+
+```bash
+docker node ls
+```
+
+Inspect node
+
+```bash
+docker node inspect <node-id>
+```
+
+Drain node (stop scheduling containers)
+
+```bash
+docker node update --availability drain <node-id>
+```
+
+Activate node again
+
+```bash
+docker node update --availability active <node-id>
+```
+
+---
+
+## Service Management Commands
+
+Create service
+
+```bash
+docker service create --name web nginx
+```
+
+List services
+
+```bash
+docker service ls
+```
+
+Inspect service
+
+```bash
+docker service inspect web
+```
+
+View service logs
+
+```bash
+docker service logs web
+```
+
+Remove service
+
+```bash
+docker service rm web
+```
+
+---
+
+## Scaling Services
+
+Scale service
+
+```bash
+docker service scale web=5
+```
+
+Update replicas
+
+```bash
+docker service update --replicas 3 web
+```
+
+---
+
+## Service Deployment Options
+
+Publish port
+
+```bash
+docker service create -p 80:80 nginx
+```
+
+Attach to network
+
+```bash
+docker service create --network mynetwork nginx
+```
+
+Limit CPU
+
+```bash
+docker service create --limit-cpu 0.5 nginx
+```
+
+Limit memory
+
+```bash
+docker service create --limit-memory 512M nginx
+```
+
+---
+
+## Stack Deployment Commands
+
+Deploy application stack
+
+```bash
+docker stack deploy -c docker-compose.yml mystack
+```
+
+List stacks
+
+```bash
+docker stack ls
+```
+
+List services in stack
+
+```bash
+docker stack services mystack
+```
+
+Remove stack
+
+```bash
+docker stack rm mystack
+```
+
+---
+
+# 10.2 What is Docker Swarm
+
+Docker Swarm is Docker's **native container orchestration platform**.
+
+It allows you to manage **multiple Docker hosts as a single cluster**.
+
+This means containers can run across **many machines automatically**.
+
+Swarm provides:
+
+• container clustering
+• load balancing
+• high availability
+• automatic scheduling
+• service scaling
+
+---
+
+# 10.3 Why Container Orchestration is Needed
+
+When applications grow, running containers manually becomes difficult.
+
+Example production architecture:
+
+```
+Frontend Containers
+        |
+Backend Containers
+        |
+Database Containers
+```
+
+If one container crashes:
+
+• someone must restart it manually
+• traffic must be redirected
+
+Container orchestration automates this process.
+
+---
+
+# 10.4 Docker Swarm Architecture
+
+Docker Swarm consists of **nodes**.
+
+Two types of nodes exist.
+
+| Node Type    | Purpose              |
+| ------------ | -------------------- |
+| Manager Node | Controls the cluster |
+| Worker Node  | Runs containers      |
+
+Architecture example:
+
+```
+Manager Node
+   |
+   |---- Worker Node 1
+   |
+   |---- Worker Node 2
+   |
+   |---- Worker Node 3
+```
+
+Manager nodes control:
+
+• scheduling containers
+• cluster state
+• service management
+
+Workers execute containers.
+
+---
+
+# 10.5 Initializing a Swarm Cluster
+
+Convert a Docker host into a **swarm manager**.
+
+Command:
+
+```bash
+docker swarm init
+```
+
+Example output:
+
+```
+Swarm initialized: current node is manager
+```
+
+Docker generates a **join token**.
+
+Example:
+
+```
+docker swarm join --token SWMTKN-xxxx 192.168.1.10:2377
+```
+
+Other machines use this token to join the cluster.
+
+---
+
+# 10.6 Adding Worker Nodes
+
+Run join command on worker machines.
+
+```bash
+docker swarm join --token <token> <manager-ip>:2377
+```
+
+Now worker nodes become part of the cluster.
+
+Verify nodes:
+
+```bash
+docker node ls
+```
+
+Example output:
+
+```
+ID       HOSTNAME     STATUS
+abc123   manager      Ready
+def456   worker1      Ready
+ghi789   worker2      Ready
+```
+
+---
+
+# 10.7 Creating Services
+
+In Swarm, containers are managed as **services**.
+
+Example:
+
+```bash
+docker service create --name web nginx
+```
+
+This creates a service running an nginx container.
+
+Verify:
+
+```bash
+docker service ls
+```
+
+Example output:
+
+```
+ID      NAME   REPLICAS
+abc12   web    1/1
+```
+
+---
+
+# 10.8 Scaling Services
+
+Services can scale automatically.
+
+Example:
+
+```bash
+docker service scale web=5
+```
+
+This creates:
+
+```
+web.1
+web.2
+web.3
+web.4
+web.5
+```
+
+These containers may run across multiple nodes.
+
+---
+
+# 10.9 Swarm Load Balancing
+
+Docker Swarm automatically provides **load balancing**.
+
+Example:
+
+```
+Client Request
+      |
+      ▼
+Load Balancer
+      |
+      ├─ Container 1
+      ├─ Container 2
+      └─ Container 3
+```
+
+Swarm distributes traffic evenly.
+
+---
+
+# 10.10 Routing Mesh
+
+Docker Swarm includes a feature called **Routing Mesh**.
+
+Routing mesh ensures that **any node can receive requests**.
+
+Example:
+
+```
+Request → Node 1 → Container on Node 3
+```
+
+Users don't need to know where containers run.
+
+---
+
+# 10.11 Deploying Applications with Stacks
+
+Stacks allow deployment of **multi-container applications in swarm**.
+
+Example stack file:
+
+```yaml
+version: "3"
+
+services:
+
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+```
+
+Deploy stack:
+
+```bash
+docker stack deploy -c docker-compose.yml mystack
+```
+
+---
+
+# 10.12 Swarm High Availability
+
+Multiple manager nodes ensure **fault tolerance**.
+
+Example:
+
+```
+Manager 1
+Manager 2
+Manager 3
+```
+
+If one manager fails, another takes control.
+
+Swarm uses **Raft consensus algorithm**.
+
+---
+
+# 10.13 Service Placement
+
+Swarm can control where containers run.
+
+Example constraint:
+
+```bash
+docker service create \
+--constraint node.role==worker nginx
+```
+
+This ensures containers run only on worker nodes.
+
+---
+
+# 10.14 Rolling Updates
+
+Swarm supports **zero-downtime deployments**.
+
+Example update:
+
+```bash
+docker service update --image nginx:latest web
+```
+
+Swarm replaces containers gradually.
+
+---
+
+# Section 10 Summary
+
+In this section you learned:
+
+• Docker Swarm commands
+• Container orchestration concepts
+• Swarm architecture
+• Manager vs worker nodes
+• Creating services
+• Scaling services
+• Routing mesh
+• Stack deployment
+• High availability
+• Rolling updates
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Security, Resource Limits, and Container Isolation**
+
+```
+```

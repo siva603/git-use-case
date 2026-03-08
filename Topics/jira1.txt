@@ -1,0 +1,261 @@
+Play
+1. Introduction to Understanding Jira for Users, Managers, and Admins
+2min
+Play
+2. How to Use This Course Successfully
+7min
+Play
+3. Introduction to the Terms and Concepts Section
+1min
+Play
+4. Jira Defined: What It Does and What It Doesn’t Do
+3min
+Play
+5. Understanding the Basics of Agile
+13min
+Play
+6. Agile Terms You Need to Know
+5min
+Play
+7. Jira Terms You Need to Know
+5min
+Play
+8. Terminology Update: Projects Are Now Spaces
+1min
+Play
+9. Getting to Know the Different Versions of Jira
+5min
+Start
+Quiz 1: Terms & Concepts Quiz
+Play
+10. Introduction to the Jira for Users Section
+1min
+Play
+11. Getting Familiar with Jira's Interface
+8min
+Play
+12. First Look at Jira's Sidebar Features
+8min
+Play
+13. Understanding the Differences Between Team and Company-Managed Projects
+7min
+Start
+Quiz 2: Team-Managed and Company-Managed Projects
+Play
+14. Creating a Team-Managed Project
+5min
+Play
+15. Creating Work in Team-Managed Projects
+12min
+Play
+16. Navigating Team-Managed Projects
+3min
+Play
+17. Customizing Team-Managed Projects
+7min
+Play
+18. Overview of Team-Managed Project Settings
+12min
+Start
+Quiz 3: Team-Managed Projects Quiz
+Play
+19. Unraveling the Features in Company-Managed Projects
+13min
+Play
+20. Understanding Kanban Agile Boards
+14min
+Play
+21. Understanding Scrum Agile Boards
+14min
+Play
+22. Comparing Kanban and Scrum Boards
+4min
+Play
+23. Adding Work to Company-Managed Projects
+7min
+Play
+24. Viewing and Editing Work Items
+15min
+Play
+25. Using the Calendar View
+5min
+Play
+26. Getting Reports in Jira
+5min
+Play
+27. Using Jira's List View
+9min
+Play
+28. How to Use Goals with Jira
+7min
+Play
+29. Searching and Finding Work in the All Work View
+10min
+Play
+30. Working Faster with Filters
+5min
+Play
+31. Exporting Work from Jira to Excel
+7min
+Play
+32. Roadmapping Work in the Timeline View
+9min
+Play
+33. Using the Project Summary
+8min
+Start
+Quiz 4: Company-Managed Projects Quiz
+Play
+34. Introduction to the Jira for Managers Section
+1min
+Play
+35. Working with Jira's Teams
+8min
+Play
+36. Creating a Scrum Board and Bulk Importing Work
+8min
+Play
+37. Bulk Editing and Controlling the Work on Our Scrum Board
+5min
+Play
+38. Configuring Our Scrum Board
+8min
+Play
+39. Starting Our First Sprint on a Scrum Board
+11min
+Play
+40. Day-to-Day Workflow of a Sprint with Stand-ups in Jira
+10min
+Play
+41. Completing Our First Sprint and Starting a New One
+6min
+Play
+42. Adding New Work in the Middle of a Sprint
+5min
+Play
+43. Creating a Kanban Board with a Backlog
+7min
+Play
+44. Configuring Our Kanban Board
+4min
+Play
+45. Day-to-Day Workflows with a Kanban Board
+4min
+Play
+46. Creating, Sharing, and Customizing Dashboards
+6min
+Play
+47. Helpful Reports for Managers in Jira
+5min
+Start
+Quiz 5: Jira for Managers Quiz
+Play
+48. Introduction to the Jira for Administrators Section
+1min
+Play
+49. Creating a Company-Managed Project
+5min
+Play
+50. Understanding Permissions in Jira
+6min
+Play
+51. How User Management Works in Jira
+7min
+Play
+52. Overview of the Company-Managed Project Settings
+8min
+Play
+53. Understanding the Concept of Schemes
+5min
+Play
+54. Creating Custom Work Types
+5min
+Play
+55. Creating and Adding Custom Fields to Work
+10min
+Play
+56. Using Screens and Layouts
+7min
+Play
+57. Understanding the Concept of Workflows
+8min
+Play
+58. Getting Started with Automation in Jira
+8min
+Play
+59. How to Use Jira's Components
+8min
+Play
+60. Using Resolutions to Track Completed Work
+4min
+Play
+61. Creating Custom Statuses
+6min
+Play
+62. Using Release Versions
+10min
+Play
+63. Overview of Jira's Admin Settings: System
+15min
+Play
+64. Overview of Jira's Admin Settings: Products and Projects
+7min
+Play
+65. Overview of Jira's Admin Settings: Work Items and Apps
+11min
+Play
+66. Course Summary and Where to Go from Here
+2min
+Start
+Quiz 6: Jira for Admins Quiz
+Play
+67. Introduction to Tips and Tricks for Everyone
+1min
+Play
+68. How to get issues to show up on scrum and kanban boards at the same time
+15min
+Play
+69. How to move issues between projects
+10min
+Play
+70. How to show the search dropdown boxes
+5min
+Play
+71. Understanding "Automatic" assignees
+4min
+Play
+72. How to tag issues from a sprint with a specific version
+5min
+Play
+73. How to fix an error when adding transitions in a workflow
+11min
+Play
+74. Customizing the issues in a new Agile board
+8min
+Play
+75. Troubleshooting a mismatch in projects
+7min
+Play
+76. How to delete a board
+2min
+Play
+77. Understanding boards and filters
+10min
+Play
+78. Creating a screen from scratch
+11min
+Play
+79. Color cards based on status
+2min
+Play
+80. Enabling dark mode in Jira
+2min
+Play
+81. Bringing an epic back in the epic panel
+4min
+Play
+82. Working faster with Jira's breadcrumb
+3min
+Play
+83. Creating your first public form in Jira
+4min

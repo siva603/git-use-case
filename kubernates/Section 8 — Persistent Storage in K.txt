@@ -1,0 +1,464 @@
+Section 8 — Persistent Storage in Kubernetes
+
+Containers are **ephemeral**.
+
+This means:
+
+When a container stops or a Pod is deleted, the **data inside the container is lost**.
+
+Example problem:
+
+```
+
+Pod running database
+↓
+Pod crashes
+↓
+Database data lost
+
+```
+
+This is unacceptable for applications like:
+
+• Databases  
+• File storage systems  
+• Message queues  
+• Logs  
+• User uploads
+
+Kubernetes solves this using **persistent storage mechanisms**.
+
+This section explains:
+
+• Volumes  
+• Persistent Volumes (PV)  
+• Persistent Volume Claims (PVC)  
+• Storage Classes  
+• Container Storage Interface (CSI)
+
+---
+
+# 8.1 The Container Storage Problem
+
+Default container storage is **temporary**.
+
+Example:
+
+```
+
+Pod
+└── Container
+└── Local filesystem
+
+```
+
+If Pod is deleted:
+
+```
+
+Filesystem data disappears
+
+```
+
+This is called **ephemeral storage**.
+
+Example issue:
+
+```
+
+MySQL Pod
+↓
+Database stored inside container
+↓
+Pod crashes
+↓
+All database data lost
+
+```
+
+We need storage that **survives Pod restarts**.
+
+---
+
+# 8.2 Kubernetes Volume
+
+A **Volume** provides storage that exists for the **lifetime of a Pod**.
+
+Example architecture:
+
+```
+
+Pod
+│
+├── Container
+│
+└── Volume
+
+```
+
+Containers inside the Pod can **read/write data to the volume**.
+
+Example:
+
+```
+
+/data
+
+````
+
+Mounted inside container.
+
+Example YAML:
+
+```yaml id="volume-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-example
+spec:
+  containers:
+  - name: app
+    image: nginx
+    volumeMounts:
+    - mountPath: "/data"
+      name: app-storage
+
+  volumes:
+  - name: app-storage
+    emptyDir: {}
+````
+
+Explanation:
+
+emptyDir creates a **temporary volume for the Pod**.
+
+However:
+
+```
+Pod deleted → data lost
+```
+
+Therefore we need **persistent storage**.
+
+---
+
+# 8.3 Persistent Volume (PV)
+
+A **Persistent Volume (PV)** is a piece of storage provided to the Kubernetes cluster.
+
+It is created by:
+
+• cluster administrator
+• storage system
+
+Examples of storage backends:
+
+• AWS EBS
+• Azure Disk
+• Google Persistent Disk
+• NFS
+• Ceph
+• Local disks
+
+Architecture:
+
+```
+Storage Backend
+       ↓
+Persistent Volume
+       ↓
+Pod
+```
+
+Example PV YAML:
+
+```yaml id="pv-example"
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-storage
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+```
+
+Explanation:
+
+capacity → storage size
+
+accessModes → how Pods access storage
+
+hostPath → storage location
+
+---
+
+# 8.4 Persistent Volume Claims (PVC)
+
+Pods do not use PVs directly.
+
+Instead they request storage using **Persistent Volume Claims**.
+
+Architecture:
+
+```
+Pod
+ ↓
+PVC (Request storage)
+ ↓
+Persistent Volume
+ ↓
+Storage Backend
+```
+
+Example PVC YAML:
+
+```yaml id="pvc-example"
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+```
+
+PVC requests storage.
+
+Kubernetes automatically binds it to a matching PV.
+
+---
+
+# 8.5 Using PVC in a Pod
+
+Pods mount PVCs as volumes.
+
+Example YAML:
+
+```yaml id="pod-pvc-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-pod
+spec:
+  containers:
+  - name: app
+    image: nginx
+    volumeMounts:
+    - mountPath: "/data"
+      name: storage
+
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: app-pvc
+```
+
+Storage flow:
+
+```
+Pod
+ ↓
+PVC
+ ↓
+Persistent Volume
+ ↓
+Physical Storage
+```
+
+---
+
+# 8.6 Access Modes
+
+Persistent volumes support different access modes.
+
+Common modes:
+
+ReadWriteOnce (RWO)
+
+```
+Volume mounted by one node
+```
+
+ReadOnlyMany (ROX)
+
+```
+Multiple nodes read-only
+```
+
+ReadWriteMany (RWX)
+
+```
+Multiple nodes read/write
+```
+
+Example use case:
+
+```
+Shared file server → RWX
+Database → RWO
+```
+
+---
+
+# 8.7 Storage Classes
+
+Manually creating PVs can be difficult.
+
+Kubernetes solves this using **Storage Classes**.
+
+Storage Classes allow **dynamic volume provisioning**.
+
+Architecture:
+
+```
+Pod
+ ↓
+PVC
+ ↓
+Storage Class
+ ↓
+Automatically created PV
+ ↓
+Cloud Storage
+```
+
+Example StorageClass YAML:
+
+```yaml id="storage-class-example"
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+```
+
+When a PVC requests this StorageClass:
+
+```
+Kubernetes automatically creates storage
+```
+
+---
+
+# 8.8 Dynamic Storage Provisioning
+
+Dynamic provisioning automatically creates storage when needed.
+
+Example flow:
+
+```
+PVC created
+     ↓
+StorageClass selected
+     ↓
+Cloud storage automatically created
+     ↓
+PV created
+     ↓
+Pod uses storage
+```
+
+This is used in **cloud environments**.
+
+Examples:
+
+AWS EBS
+Azure Disk
+Google Persistent Disk
+
+---
+
+# 8.9 Container Storage Interface (CSI)
+
+CSI is a **standard interface for storage providers**.
+
+It allows Kubernetes to integrate with different storage systems.
+
+Architecture:
+
+```
+Kubernetes
+     ↓
+CSI Driver
+     ↓
+Storage Provider
+```
+
+Examples of CSI drivers:
+
+• AWS EBS CSI
+• Azure Disk CSI
+• Google PD CSI
+• Ceph CSI
+• NFS CSI
+
+CSI makes Kubernetes storage **extensible and cloud-native**.
+
+---
+
+# 8.10 Storage Architecture Summary
+
+Complete storage flow:
+
+```
+Pod
+ ↓
+Volume Mount
+ ↓
+Persistent Volume Claim
+ ↓
+Persistent Volume
+ ↓
+Storage Class
+ ↓
+Storage Backend
+```
+
+This allows applications to store **durable data even if Pods restart**.
+
+---
+
+# Section 8 Summary
+
+In this section you learned:
+
+• why container storage is temporary
+• Kubernetes volumes
+• Persistent Volumes (PV)
+• Persistent Volume Claims (PVC)
+• access modes
+• Storage Classes
+• dynamic provisioning
+• Container Storage Interface (CSI)
+
+Persistent storage enables Kubernetes to run **stateful applications like databases**.
+
+---
+
+# Next Section
+
+Section 9 — **Scheduling, Health Checks & Autoscaling**
+
+You will learn:
+
+• Labels and selectors
+• NodeSelector
+• Affinity / Anti-affinity
+• Taints and tolerations
+• Liveness probes
+• Readiness probes
+• Metrics server
+• Horizontal Pod Autoscaler (HPA)
+• Vertical Pod Autoscaler (VPA)
+
+```
+```

@@ -1,0 +1,253 @@
+Jenkins Pipeline (Groovy) script** that automates the full flow you asked:
+
+**Git → Jenkins → Maven Build → Docker Build → Docker Run**
+
+This is a **production-style declarative pipeline** used in Jenkins.
+
+---
+
+# Jenkins Pipeline (Groovy) — Full Automation
+
+```groovy
+pipeline {
+
+    agent any
+
+    tools {
+        maven 'Maven'
+        jdk 'JDK17'
+    }
+
+    environment {
+
+        APP_NAME = "devops-demo"
+        IMAGE_NAME = "devops-demo-image"
+        CONTAINER_NAME = "devops-demo-container"
+        DOCKER_PORT = "8080"
+
+    }
+
+    stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/your-username/devops-maven-docker-jenkins-project.git'
+            }
+        }
+
+        stage('Verify Tools') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+                sh 'docker --version'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                docker build -t ${IMAGE_NAME}:latest .
+                """
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                sh """
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+                """
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh """
+                docker run -d \
+                --name ${CONTAINER_NAME} \
+                -p ${DOCKER_PORT}:8080 \
+                ${IMAGE_NAME}:latest
+                """
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh "curl http://localhost:${DOCKER_PORT} || true"
+            }
+        }
+
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline completed successfully 🚀'
+        }
+
+        failure {
+            echo 'Pipeline failed ❌'
+        }
+
+        always {
+            sh 'docker ps'
+        }
+
+    }
+}
+```
+
+---
+
+# Pipeline Flow
+
+```text
+Developer Push Code
+        ↓
+Git Repository
+        ↓
+Jenkins Pipeline Trigger
+        ↓
+Clone Repository
+        ↓
+Maven Build (mvn clean package)
+        ↓
+Docker Image Build
+        ↓
+Stop Old Container
+        ↓
+Run New Container
+        ↓
+Application Live
+```
+
+---
+
+# Jenkins Job Setup
+
+### 1️⃣ Install Required Tools in Jenkins
+
+Manage Jenkins → Global Tool Configuration
+
+Add:
+
+```
+JDK 17
+Maven 3.9+
+Docker installed on server
+```
+
+---
+
+### 2️⃣ Create Pipeline Job
+
+Jenkins → **New Item**
+
+Select:
+
+```
+Pipeline
+```
+
+---
+
+### 3️⃣ Add Jenkinsfile
+
+Pipeline → Definition:
+
+```
+Pipeline Script
+```
+
+Paste the Groovy code.
+
+---
+
+# Jenkins Server Requirements
+
+The Jenkins server must have:
+
+```bash
+java
+maven
+git
+docker
+```
+
+Verify:
+
+```bash
+java -version
+mvn -version
+git --version
+docker --version
+```
+
+---
+
+# Example Output
+
+Successful pipeline stages:
+
+```text
+Stage: Clone Repository
+Stage: Maven Build
+Stage: Build Docker Image
+Stage: Stop Old Container
+Stage: Run Docker Container
+Stage: Verify Deployment
+```
+
+Application available at:
+
+```
+http://jenkins-server-ip:8080
+```
+
+---
+
+# Real Production Version (Companies)
+
+In real DevOps systems the pipeline is usually:
+
+```text
+Git
+ ↓
+Jenkins Pipeline
+ ↓
+Maven Build
+ ↓
+Docker Build
+ ↓
+Push to Docker Hub
+ ↓
+Deploy to Kubernetes
+ ↓
+Monitoring (Prometheus + Grafana)
+```
+
+---
+
+If you want, I can also give you a **MUCH MORE ADVANCED Jenkins Pipeline** that includes:
+
+* Docker Hub login
+* Image tagging
+* Push to Docker Hub
+* Kubernetes deployment
+* Rollback support
+* Slack notifications
+
+That is the **exact pipeline used in real DevOps teams**.

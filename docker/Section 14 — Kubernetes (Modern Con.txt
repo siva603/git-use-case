@@ -1,0 +1,269 @@
+Section 14 — Kubernetes (Modern Container Orchestration)
+
+Modern production systems use **Kubernetes** to manage and run containerized applications at scale.  
+While Docker packages applications into containers, **Kubernetes orchestrates** those containers across many machines.
+
+Key Kubernetes components:
+
+• Pod  
+• Deployment  
+• Service  
+• ConfigMap  
+• Secret
+
+---
+
+# Kubernetes Workflow
+
+A typical Kubernetes deployment workflow looks like this:
+
+```
+
+Application Code
+↓
+Docker Image
+↓
+Push Image to Registry
+↓
+Kubernetes Deployment
+↓
+Pods Created
+↓
+Service Exposes Application
+
+````
+
+Explanation:
+
+1. The application is packaged as a **Docker image**.
+2. The image is stored in a **container registry**.
+3. Kubernetes creates **Pods** from the image.
+4. A **Service** exposes the application to users or other services.
+
+---
+
+# Core Kubernetes Concepts
+
+## Pod
+
+A **Pod** is the smallest deployable unit in Kubernetes.
+
+A Pod contains:
+
+• one or more containers  
+• shared networking  
+• shared storage
+
+Example Pod definition:
+
+```yaml id="pod-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+spec:
+  containers:
+    - name: app-container
+      image: nginx
+````
+
+This Pod runs an **nginx container**.
+
+---
+
+## Deployment
+
+A **Deployment** manages Pods and ensures the desired number of Pods are always running.
+
+Features:
+
+• automatic scaling
+• rolling updates
+• self-healing
+
+Example Deployment:
+
+```yaml id="deployment-example"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: myapp
+
+  template:
+    metadata:
+      labels:
+        app: myapp
+
+    spec:
+      containers:
+        - name: app-container
+          image: nginx
+```
+
+This creates **3 running Pods**.
+
+---
+
+## Service
+
+Pods have dynamic IP addresses.
+A **Service** provides a stable network endpoint.
+
+Types of services:
+
+• ClusterIP
+• NodePort
+• LoadBalancer
+• Ingress
+
+Example Service:
+
+```yaml id="service-example"
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+
+spec:
+  selector:
+    app: myapp
+
+  ports:
+    - port: 80
+      targetPort: 80
+
+  type: NodePort
+```
+
+This exposes the application externally.
+
+---
+
+## ConfigMap
+
+A **ConfigMap** stores configuration data separately from containers.
+
+Example:
+
+```yaml id="configmap-example"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+
+data:
+  APP_ENV: production
+```
+
+Containers can read this configuration.
+
+---
+
+## Secret
+
+A **Secret** stores sensitive data securely.
+
+Examples:
+
+• database passwords
+• API keys
+• certificates
+
+Example Secret:
+
+```yaml id="secret-example"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+
+type: Opaque
+
+data:
+  password: cGFzc3dvcmQ=
+```
+
+The value is **Base64 encoded**.
+
+---
+
+# Scaling Applications
+
+Kubernetes can automatically scale applications.
+
+Example scaling command:
+
+```bash id="kubectl-scale"
+kubectl scale deployment app --replicas=5
+```
+
+This changes the number of running Pods to **5 replicas**.
+
+Scaling helps handle increased traffic.
+
+---
+
+# Kubernetes Cluster Architecture
+
+A Kubernetes cluster contains two types of nodes.
+
+```
+Control Plane (Master Node)
+      |
+      ├── Worker Node 1
+      ├── Worker Node 2
+      └── Worker Node 3
+```
+
+Control Plane manages:
+
+• scheduling Pods
+• cluster state
+• API server
+
+Worker nodes run the containers.
+
+---
+
+# Kubernetes Self-Healing
+
+If a Pod crashes, Kubernetes automatically recreates it.
+
+Example:
+
+```
+Pod Crash
+   ↓
+Kubernetes detects failure
+   ↓
+New Pod automatically created
+```
+
+This ensures **high availability**.
+
+---
+
+# Section 14 Summary
+
+In this section you learned:
+
+• why Kubernetes is used in modern systems
+• Kubernetes deployment workflow
+• Pods
+• Deployments
+• Services
+• ConfigMaps
+• Secrets
+• scaling applications
+• Kubernetes cluster architecture
+• self-healing containers
+
+```
+```

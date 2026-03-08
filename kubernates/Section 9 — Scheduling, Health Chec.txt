@@ -1,0 +1,560 @@
+Section 9 — Scheduling, Health Checks & Autoscaling
+
+In Kubernetes, the **scheduler decides where Pods run**, while monitoring systems ensure Pods stay healthy and scale when traffic increases.
+
+In real production systems Kubernetes must handle:
+
+• intelligent pod placement  
+• health monitoring  
+• automatic recovery  
+• automatic scaling
+
+This section explains:
+
+• Labels and Selectors  
+• NodeSelector  
+• Affinity and Anti-Affinity  
+• Taints and Tolerations  
+• Health checks (Liveness / Readiness probes)  
+• Resource monitoring  
+• Autoscaling (HPA / VPA)
+
+---
+
+# 9.1 The Pod Scheduling Problem
+
+In a Kubernetes cluster there may be **many worker nodes**.
+
+Example:
+
+```
+
+Cluster
+│
+├── Node1
+├── Node2
+├── Node3
+└── Node4
+
+```id="cluster-nodes"
+
+When a Pod is created:
+
+```
+
+Deployment
+↓
+Pod
+↓
+Scheduler chooses node
+
+```id="scheduler-flow"
+
+The Kubernetes **Scheduler** decides where the Pod should run.
+
+The scheduler considers:
+
+• CPU availability  
+• Memory availability  
+• scheduling constraints  
+• node labels  
+• affinity rules
+
+---
+
+# 9.2 Labels
+
+Labels are **key-value metadata attached to Kubernetes objects**.
+
+Example:
+
+```
+
+app=frontend
+environment=production
+tier=backend
+
+````id="labels-example"
+
+Labels help Kubernetes:
+
+• organize resources  
+• select resources  
+• route traffic
+
+Example Pod YAML:
+
+```yaml id="pod-label-example"
+metadata:
+  name: web-pod
+  labels:
+    app: web
+    environment: production
+````
+
+---
+
+# 9.3 Selectors
+
+Selectors allow Kubernetes to **select resources based on labels**.
+
+Example:
+
+````
+selector:
+  app: web
+``` id="selector-example"
+
+Architecture:
+
+````
+
+Service
+↓
+Selector
+↓
+Pods with matching labels
+
+```id="selector-architecture"
+
+Example:
+
+```
+
+Pod1 → app=web
+Pod2 → app=web
+Pod3 → app=db
+
+```
+
+Selector:
+
+```
+
+app=web
+
+```
+
+Result:
+
+```
+
+Pod1
+Pod2
+
+```
+
+---
+
+# 9.4 NodeSelector
+
+Sometimes Pods must run on **specific nodes**.
+
+Example scenario:
+
+```
+
+GPU workload → GPU nodes
+Database → high storage nodes
+
+```
+
+Nodes can be labeled.
+
+Example:
+
+```
+
+node1 → disk=ssd
+node2 → disk=hdd
+
+````id="node-labels"
+
+Add label to node:
+
+```bash
+kubectl label nodes node1 disk=ssd
+````
+
+Pod specification:
+
+```yaml id="nodeselector-example"
+spec:
+  nodeSelector:
+    disk: ssd
+```
+
+Result:
+
+```
+Pod runs only on SSD nodes
+```
+
+---
+
+# 9.5 Affinity and Anti-Affinity
+
+Affinity provides **advanced scheduling rules**.
+
+Two main types:
+
+Node Affinity
+Pod Affinity
+
+---
+
+## Node Affinity
+
+Node affinity controls **which nodes Pods prefer to run on**.
+
+Example:
+
+````
+Run Pod on nodes with GPU
+``` id="node-affinity-example"
+
+---
+
+## Pod Affinity
+
+Pod affinity places Pods **close to other Pods**.
+
+Example:
+
+````
+
+Web pod near cache pod
+
+```id="pod-affinity-example"
+
+Architecture:
+
+```
+
+Web Pod
+│
+└── Cache Pod
+
+```
+
+---
+
+## Pod Anti-Affinity
+
+Ensures Pods run **on different nodes**.
+
+Example:
+
+```
+
+Pod1 → Node1
+Pod2 → Node2
+Pod3 → Node3
+
+```id="anti-affinity-example"
+
+This improves **high availability**.
+
+---
+
+# 9.6 Taints and Tolerations
+
+Taints prevent Pods from running on certain nodes.
+
+Example:
+
+```
+
+Node dedicated for database workloads
+
+````
+
+Taint example:
+
+```bash
+kubectl taint nodes node1 workload=database:NoSchedule
+````
+
+Meaning:
+
+```
+No Pod can run here unless it tolerates this taint
+```
+
+Pod toleration:
+
+```yaml id="toleration-example"
+tolerations:
+- key: "workload"
+  operator: "Equal"
+  value: "database"
+  effect: "NoSchedule"
+```
+
+Architecture:
+
+```
+Node (tainted)
+       │
+Only tolerated Pods allowed
+```
+
+---
+
+# 9.7 Health Checks
+
+Kubernetes continuously checks whether containers are healthy.
+
+Two types of probes:
+
+• Liveness Probe
+• Readiness Probe
+
+---
+
+# 9.8 Liveness Probe
+
+Liveness probes detect **whether a container is alive**.
+
+Example:
+
+```
+Container stuck or dead
+```
+
+Kubernetes action:
+
+```
+Restart container
+```
+
+Example YAML:
+
+```yaml id="liveness-probe-example"
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 5
+```
+
+Flow:
+
+```
+Probe fails
+     ↓
+Kubernetes restarts container
+```
+
+---
+
+# 9.9 Readiness Probe
+
+Readiness probes determine **whether the application is ready to serve traffic**.
+
+Example:
+
+```
+Application starting
+Database connection not ready
+```
+
+Kubernetes action:
+
+```
+Remove Pod from Service load balancing
+```
+
+Example YAML:
+
+```yaml id="readiness-probe-example"
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+```
+
+Flow:
+
+```
+Pod not ready
+     ↓
+Service does not send traffic
+```
+
+---
+
+# 9.10 Resource Monitoring
+
+Kubernetes can monitor resource usage.
+
+Important metrics:
+
+• CPU usage
+• Memory usage
+• Pod resource consumption
+
+Monitoring component:
+
+```
+Metrics Server
+```
+
+Install metrics server.
+
+Check node usage:
+
+```bash
+kubectl top nodes
+```
+
+Check pod usage:
+
+```bash
+kubectl top pods
+```
+
+Example output:
+
+```
+NAME       CPU   MEMORY
+web-pod    50m   120Mi
+```
+
+---
+
+# 9.11 Horizontal Pod Autoscaler (HPA)
+
+HPA automatically scales the number of Pods based on resource usage.
+
+Example:
+
+```
+CPU usage > 70%
+```
+
+Scaling action:
+
+```
+3 Pods → 10 Pods
+```
+
+Architecture:
+
+```
+Metrics Server
+      ↓
+HPA Controller
+      ↓
+Deployment
+      ↓
+Pods scaled
+```
+
+Create HPA:
+
+```bash
+kubectl autoscale deployment web-deployment \
+  --cpu-percent=70 \
+  --min=2 \
+  --max=10
+```
+
+Check HPA:
+
+```bash
+kubectl get hpa
+```
+
+---
+
+# 9.12 Vertical Pod Autoscaler (VPA)
+
+VPA adjusts **CPU and memory resources of Pods**.
+
+Example:
+
+```
+Pod requires more memory
+```
+
+Action:
+
+```
+Increase container memory allocation
+```
+
+Example:
+
+```
+512MB → 1GB
+```
+
+VPA is useful for **optimizing resource usage**.
+
+---
+
+# 9.13 Scaling Architecture
+
+Autoscaling workflow:
+
+```
+User traffic increases
+       ↓
+CPU usage increases
+       ↓
+Metrics Server detects load
+       ↓
+HPA scales pods
+       ↓
+More pods handle traffic
+```
+
+Example:
+
+```
+2 Pods → 8 Pods
+```
+
+---
+
+# Section 9 Summary
+
+In this section you learned:
+
+• Kubernetes scheduling concepts
+• labels and selectors
+• nodeSelector
+• affinity and anti-affinity
+• taints and tolerations
+• liveness probes
+• readiness probes
+• resource monitoring
+• horizontal autoscaling
+• vertical autoscaling
+
+These mechanisms ensure applications are:
+
+• resilient
+• scalable
+• efficiently scheduled
+
+---
+
+# Next Section
+
+Section 10 — **Kubernetes Security & Access Control**
+
+You will learn:
+
+• Authentication
+• Authorization
+• RBAC
+• Service Accounts
+• TLS and certificates
+• Network policies
+• Security contexts
+
+```
+```

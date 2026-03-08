@@ -1,0 +1,531 @@
+Section 5 — Core Workflow (Docker CLI & Real Project Flow)
+
+In this section you will learn **how Docker is actually used in real projects**.
+
+This section focuses on the **real workflow developers follow daily**.
+
+After completing this section you will understand:
+
+• Docker CLI commands  
+• Image lifecycle  
+• Container lifecycle  
+• Running containers with different options  
+• Managing containers  
+• Managing images  
+• Debugging containers  
+• Real developer workflow  
+
+---
+
+# 5.1 Real Docker Workflow
+
+In real development, Docker usage follows this sequence.
+
+Write Application  
+↓  
+Create Dockerfile  
+↓  
+Build Docker Image  
+↓  
+Run Docker Container  
+↓  
+Test Application  
+↓  
+Push Image to Registry  
+↓  
+Deploy Container
+
+This workflow is used in **most DevOps pipelines**.
+
+---
+
+# 5.2 Docker Image Workflow
+
+Docker images go through multiple stages.
+
+Build Image  
+↓  
+Tag Image  
+↓  
+Push Image  
+↓  
+Pull Image  
+↓  
+Run Container
+
+Commands used in each stage will be explained next.
+
+---
+
+# 5.3 Build Docker Image
+
+Build an image using Dockerfile.
+
+Command:
+
+```bash
+docker build -t myapp .
+````
+
+Explanation:
+
+docker build → build image
+-t → tag name
+myapp → image name
+. → current directory
+
+Example:
+
+```bash
+docker build -t docker-learning-app .
+```
+
+After building, verify images.
+
+```bash
+docker images
+```
+
+Example output:
+
+```
+REPOSITORY             TAG       IMAGE ID
+docker-learning-app    latest    ab12cd34
+```
+
+---
+
+# 5.4 Tagging Images
+
+Docker images can have multiple versions.
+
+Example:
+
+```
+myapp:v1
+myapp:v2
+myapp:latest
+```
+
+Tag command:
+
+```bash
+docker tag myapp myrepo/myapp:v1
+```
+
+Tagging is required before pushing images to registry.
+
+---
+
+# 5.5 Running Containers
+
+Run container from image.
+
+Command:
+
+```bash
+docker run myapp
+```
+
+This will:
+
+1. Create container
+2. Start container
+3. Execute startup command
+
+---
+
+# 5.6 Running Interactive Containers
+
+Interactive mode allows you to enter container shell.
+
+Command:
+
+```bash
+docker run -it ubuntu bash
+```
+
+Explanation:
+
+* `-i` interactive mode
+* `-t` terminal
+* `bash` shell inside container
+
+Example prompt:
+
+```
+root@container:/#
+```
+
+---
+
+# 5.7 Running Containers in Detached Mode
+
+Detached mode runs container in background.
+
+Command:
+
+```bash
+docker run -d nginx
+```
+
+Example output:
+
+```
+container_id
+```
+
+Verify running containers:
+
+```bash
+docker ps
+```
+
+---
+
+# 5.8 Naming Containers
+
+Containers can have custom names.
+
+Command:
+
+```bash
+docker run --name webserver nginx
+```
+
+Now the container can be referenced easily.
+
+Example:
+
+```bash
+docker stop webserver
+```
+
+---
+
+# 5.9 Port Mapping
+
+Applications inside containers expose ports.
+
+Port mapping allows external access.
+
+Command:
+
+```bash
+docker run -p 8080:80 nginx
+```
+
+Meaning:
+
+Host port → Container port
+
+```
+8080 → 80
+```
+
+Access application:
+
+```
+http://localhost:8080
+```
+
+---
+
+# 5.10 Environment Variables
+
+Applications often require configuration.
+
+Docker allows passing environment variables.
+
+Example:
+
+```bash
+docker run -e NODE_ENV=production myapp
+```
+
+Multiple variables:
+
+```bash
+docker run \
+-e DB_HOST=database \
+-e DB_USER=root \
+-e DB_PASSWORD=root \
+myapp
+```
+
+---
+
+# 5.11 Using Environment Files
+
+Instead of passing many variables, use `.env`.
+
+Example:
+
+```
+PORT=5000
+DB_HOST=database
+DB_USER=root
+DB_PASSWORD=root
+```
+
+Run container:
+
+```bash
+docker run --env-file .env myapp
+```
+
+---
+
+# 5.12 Viewing Running Containers
+
+List running containers.
+
+```bash
+docker ps
+```
+
+List all containers.
+
+```bash
+docker ps -a
+```
+
+Example output:
+
+```
+CONTAINER ID   IMAGE    STATUS
+123abc         nginx    running
+```
+
+---
+
+# 5.13 Stopping Containers
+
+Stop container.
+
+```bash
+docker stop container_id
+```
+
+Example:
+
+```bash
+docker stop webserver
+```
+
+---
+
+# 5.14 Starting Stopped Containers
+
+Restart container.
+
+```bash
+docker start container_id
+```
+
+Example:
+
+```bash
+docker start webserver
+```
+
+---
+
+# 5.15 Removing Containers
+
+Remove container.
+
+```bash
+docker rm container_id
+```
+
+Remove multiple containers.
+
+```bash
+docker rm container1 container2
+```
+
+Remove all stopped containers.
+
+```bash
+docker container prune
+```
+
+---
+
+# 5.16 Removing Images
+
+Delete image.
+
+```bash
+docker rmi image_name
+```
+
+Example:
+
+```bash
+docker rmi nginx
+```
+
+Remove unused images.
+
+```bash
+docker image prune
+```
+
+---
+
+# 5.17 Container Logs
+
+View container logs.
+
+```bash
+docker logs container_name
+```
+
+Example:
+
+```bash
+docker logs webserver
+```
+
+Follow logs live.
+
+```bash
+docker logs -f webserver
+```
+
+---
+
+# 5.18 Executing Commands in Running Containers
+
+Sometimes you need to enter a running container.
+
+Command:
+
+```bash
+docker exec -it container_name bash
+```
+
+Example:
+
+```bash
+docker exec -it webserver bash
+```
+
+Now you are inside container shell.
+
+---
+
+# 5.19 Inspecting Containers
+
+Docker provides detailed metadata.
+
+Command:
+
+```bash
+docker inspect container_name
+```
+
+Shows:
+
+• IP address
+• environment variables
+• mounted volumes
+• network settings
+
+---
+
+# 5.20 Viewing Container Resource Usage
+
+Docker provides resource monitoring.
+
+Command:
+
+```bash
+docker stats
+```
+
+Example output:
+
+```
+CONTAINER   CPU %   MEMORY
+nginx       2%      50MB
+```
+
+---
+
+# 5.21 Cleaning Docker System
+
+Over time Docker accumulates unused resources.
+
+Clean unused containers and images.
+
+```bash
+docker system prune
+```
+
+Clean everything including volumes.
+
+```bash
+docker system prune -a
+```
+
+---
+
+# 5.22 Real Developer Workflow Example
+
+Example development workflow.
+
+Step 1 — Write application
+Step 2 — Create Dockerfile
+Step 3 — Build image
+
+```bash
+docker build -t myapp .
+```
+
+Step 4 — Run container
+
+```bash
+docker run -p 5000:5000 myapp
+```
+
+Step 5 — Test application
+
+```
+http://localhost:5000
+```
+
+Step 6 — Push image to registry
+
+```bash
+docker push myrepo/myapp:v1
+```
+
+Step 7 — Deploy using Kubernetes or Docker Compose
+
+---
+
+# Section 5 Summary
+
+In this section you learned:
+
+• Docker CLI workflow
+• Image build process
+• Running containers
+• Interactive containers
+• Detached containers
+• Port mapping
+• Environment variables
+• Container logs
+• Container inspection
+• Resource monitoring
+• Docker cleanup commands
+
+Next section will cover:
+
+**Docker Storage — Volumes, Bind Mounts, and Persistent Data**
+
+```
+```

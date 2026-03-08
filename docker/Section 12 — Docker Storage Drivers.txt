@@ -1,0 +1,230 @@
+Section 12 — Container Storage Drivers
+
+Docker uses **storage drivers** to manage how images and containers store data on disk.
+
+Storage drivers control:
+
+• how image layers are stored  
+• how container filesystems are created  
+• how data is read and written  
+
+Every Docker image is built from **multiple layers**, and storage drivers manage these layers efficiently.
+
+---
+
+## Why Storage Drivers Exist
+
+Docker images use a **layered filesystem**.
+
+Example image:
+
+Base OS Layer  
+↓  
+Runtime Layer  
+↓  
+Dependencies Layer  
+↓  
+Application Layer  
+
+When a container starts, Docker creates a **writable container layer** on top of the image layers.
+
+Structure:
+
+```
+
+Image Layers (Read Only)
+↓
+Writable Container Layer
+
+```
+
+The storage driver manages how these layers are merged and stored.
+
+---
+
+## Common Docker Storage Drivers
+
+Different storage drivers exist depending on the operating system and filesystem.
+
+Examples:
+
+• Overlay2  
+• Device Mapper  
+• Btrfs  
+• ZFS  
+• AUFS (older systems)
+
+---
+
+## Overlay2 (Recommended Driver)
+
+Overlay2 is the **modern default Docker storage driver**.
+
+Advantages:
+
+• fast performance  
+• efficient disk usage  
+• stable and widely supported  
+• simple architecture
+
+Overlay2 works by combining multiple filesystem layers into a **single unified view**.
+
+Structure:
+
+```
+
+Lower Layers (Image)
+↓
+Upper Layer (Container)
+↓
+Merged Filesystem
+
+```
+
+Most Linux systems today use:
+
+```
+
+overlay2
+
+````
+
+---
+
+## Checking the Storage Driver
+
+You can verify which storage driver Docker is using.
+
+```bash
+docker info
+````
+
+Example output:
+
+```
+Storage Driver: overlay2
+```
+
+---
+
+## Device Mapper
+
+Device Mapper is an older storage driver that manages block devices.
+
+Features:
+
+• block-level storage
+• thin provisioning
+• snapshot support
+
+However, it is **less commonly used today** because Overlay2 is simpler and faster.
+
+---
+
+## Btrfs Storage Driver
+
+Btrfs is a modern Linux filesystem that supports advanced features.
+
+Features:
+
+• snapshots
+• subvolumes
+• compression
+• fast cloning
+
+Docker can use Btrfs to manage image layers.
+
+---
+
+## ZFS Storage Driver
+
+ZFS is a high-performance filesystem used in enterprise environments.
+
+Features:
+
+• data integrity verification
+• snapshots
+• compression
+• deduplication
+
+It is powerful but **requires specialized setup**.
+
+---
+
+## Where Docker Stores Data
+
+Docker stores container and image data in:
+
+```
+/var/lib/docker
+```
+
+Inside this directory:
+
+```
+containers/
+images/
+volumes/
+overlay2/
+network/
+```
+
+Each component stores specific Docker data.
+
+---
+
+## Container Filesystem Behavior
+
+When a container writes data:
+
+1. Docker writes it to the **container writable layer**
+2. Image layers remain unchanged
+3. When container is deleted, writable layer disappears
+
+Example:
+
+```
+Container writes file → stored in container layer
+Container removed → file disappears
+```
+
+That is why **volumes are required for persistent data**.
+
+---
+
+## Storage Driver Best Practices
+
+Use **Overlay2 whenever possible**
+
+Avoid older drivers like AUFS
+
+Store persistent data using:
+
+• Docker volumes
+• external storage systems
+
+Keep container filesystems **small and efficient**.
+
+---
+
+# Section 12 Summary
+
+In this section you learned:
+
+• what Docker storage drivers are
+• how layered filesystems work
+• Overlay2 storage driver
+• Device Mapper, Btrfs, and ZFS
+• where Docker stores data on disk
+• container writable layer behavior
+
+```
+
+---
+
+Next I will generate the **correct Section 13** exactly as your structure:
+
+**Section 13 — Continuous Deployment with Docker**
+
+If you want, I can also **merge Sections 12–16 into one clean Markdown document** so you have the **final Docker learning guide ready to use.**
+```

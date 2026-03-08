@@ -1,0 +1,480 @@
+Section 8 — Docker Compose in Depth (Managing Multi-Container Applications)
+
+In real projects, applications rarely consist of a single container.  
+Most modern systems use **multiple services** such as:
+
+Frontend  
+Backend API  
+Database  
+Cache  
+Message Queue
+
+Managing all these containers manually with `docker run` becomes difficult.
+
+Docker Compose solves this problem by allowing you to **define and run multi-container applications using a single YAML configuration file**.
+
+After completing this section you will understand:
+
+• What Docker Compose is  
+• Compose architecture  
+• docker-compose.yml structure  
+• Defining services  
+• Environment variables  
+• Networks in Compose  
+• Volumes in Compose  
+• Running multi-container applications  
+• Scaling services  
+
+---
+
+# 8.1 What is Docker Compose
+
+Docker Compose is a **tool for defining and running multi-container Docker applications**.
+
+Instead of running multiple commands:
+
+```bash
+docker run backend
+docker run database
+docker run redis
+````
+
+You define everything in a single file:
+
+```yaml
+docker-compose.yml
+```
+
+Then start all services with one command:
+
+```bash
+docker compose up
+```
+
+---
+
+# 8.2 Why Docker Compose is Important
+
+Docker Compose solves several problems.
+
+Without Compose:
+
+• many docker run commands
+• manual network configuration
+• manual volume configuration
+• difficult environment setup
+
+With Compose:
+
+• single configuration file
+• automatic networking
+• automatic container startup order
+• easier development environments
+
+---
+
+# 8.3 Docker Compose Architecture
+
+Compose manages:
+
+Services
+Networks
+Volumes
+Configurations
+
+Application architecture example:
+
+```
+Frontend
+   |
+Backend API
+   |
+Database
+```
+
+Compose automatically creates a **network connecting all services**.
+
+---
+
+# 8.4 Compose File Structure
+
+The configuration file is:
+
+```
+docker-compose.yml
+```
+
+Basic structure:
+
+```yaml
+version: "3.9"
+
+services:
+
+  backend:
+    image: node
+
+  database:
+    image: mysql
+
+volumes:
+
+networks:
+```
+
+Main sections:
+
+| Section  | Purpose              |
+| -------- | -------------------- |
+| version  | Compose file version |
+| services | containers to run    |
+| volumes  | persistent storage   |
+| networks | container networking |
+
+---
+
+# 8.5 Defining Services
+
+Services represent containers.
+
+Example:
+
+```yaml
+services:
+
+  api:
+    image: node
+```
+
+Compose will start a container named:
+
+```
+project_api_1
+```
+
+---
+
+# 8.6 Building Images with Compose
+
+Instead of using prebuilt images, Compose can **build images from Dockerfiles**.
+
+Example:
+
+```yaml
+services:
+
+  api:
+    build: ./api
+```
+
+This tells Docker to:
+
+1. Navigate to `./api`
+2. Build image from Dockerfile
+3. Run container
+
+---
+
+# 8.7 Port Mapping in Compose
+
+Expose container ports.
+
+Example:
+
+```yaml
+services:
+
+  api:
+    build: ./api
+    ports:
+      - "5000:5000"
+```
+
+Meaning:
+
+```
+Host Port → Container Port
+5000 → 5000
+```
+
+Access application:
+
+```
+http://localhost:5000
+```
+
+---
+
+# 8.8 Environment Variables
+
+Applications require configuration.
+
+Compose supports environment variables.
+
+Example:
+
+```yaml
+services:
+
+  api:
+    environment:
+      DB_HOST: database
+      DB_USER: root
+```
+
+Alternative approach using `.env` file.
+
+Example `.env`:
+
+```
+DB_HOST=database
+DB_USER=root
+```
+
+Compose usage:
+
+```yaml
+env_file:
+  - .env
+```
+
+---
+
+# 8.9 Container Dependencies
+
+Sometimes services must start in order.
+
+Example:
+
+Backend depends on database.
+
+```yaml
+services:
+
+  backend:
+    depends_on:
+      - database
+```
+
+This ensures database starts first.
+
+---
+
+# 8.10 Volumes in Compose
+
+Volumes provide persistent storage.
+
+Example:
+
+```yaml
+services:
+
+  database:
+    image: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
+```
+
+Benefits:
+
+• database persistence
+• container restarts do not remove data
+
+---
+
+# 8.11 Networks in Compose
+
+Compose automatically creates a network.
+
+Example:
+
+```yaml
+services:
+
+  backend:
+    image: node
+
+  database:
+    image: mysql
+```
+
+Both services communicate using **service names**.
+
+Example backend connection:
+
+```
+mysql://database:3306
+```
+
+---
+
+# 8.12 Running Docker Compose
+
+Start services:
+
+```bash
+docker compose up
+```
+
+Build images:
+
+```bash
+docker compose up --build
+```
+
+Run in background:
+
+```bash
+docker compose up -d
+```
+
+---
+
+# 8.13 Viewing Running Services
+
+Check containers.
+
+```bash
+docker compose ps
+```
+
+View logs.
+
+```bash
+docker compose logs
+```
+
+Follow logs.
+
+```bash
+docker compose logs -f
+```
+
+---
+
+# 8.14 Stopping Compose Applications
+
+Stop services.
+
+```bash
+docker compose down
+```
+
+Remove volumes.
+
+```bash
+docker compose down -v
+```
+
+---
+
+# 8.15 Scaling Services
+
+Docker Compose supports scaling containers.
+
+Example:
+
+```bash
+docker compose up --scale api=3
+```
+
+This starts:
+
+```
+api_1
+api_2
+api_3
+```
+
+Scaling is useful for **load balancing and high availability**.
+
+---
+
+# 8.16 Real-World Example
+
+Example architecture using Compose.
+
+```
+React Frontend
+      |
+Node Backend
+      |
+PostgreSQL Database
+      |
+Redis Cache
+```
+
+Compose file:
+
+```yaml
+services:
+
+  frontend:
+    build: ./frontend
+
+  backend:
+    build: ./backend
+
+  postgres:
+    image: postgres
+
+  redis:
+    image: redis
+```
+
+Compose automatically:
+
+• creates network
+• starts containers
+• connects services
+
+---
+
+# 8.17 Best Practices
+
+Use `.env` files for configuration.
+
+Use **volumes for databases**.
+
+Use **service names instead of IP addresses**.
+
+Keep Compose files **simple and readable**.
+
+Separate **development and production Compose files**.
+
+Example:
+
+```
+docker-compose.dev.yml
+docker-compose.prod.yml
+```
+
+---
+
+# Section 8 Summary
+
+In this section you learned:
+
+• What Docker Compose is
+• Compose architecture
+• docker-compose.yml structure
+• Defining services
+• Environment variables
+• Networks and volumes
+• Running Compose applications
+• Viewing logs
+• Scaling services
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Registries — Storing and Distributing Docker Images**
+
+```
+```

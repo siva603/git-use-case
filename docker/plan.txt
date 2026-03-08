@@ -1,0 +1,836 @@
+````markdown
+# Docker — Complete Learning Guide (Beginner → Advanced)
+
+---
+
+# Section 1 — Introduction
+
+## What is Docker
+
+Docker is a **containerization platform** used to package applications along with their dependencies into **portable units called containers**.
+
+A container ensures that an application runs the **same way on every machine**.
+
+Example problem before Docker:
+
+Developer machine → Works  
+Testing server → Fails  
+Production server → Different behavior
+
+Docker solves this problem.
+
+---
+
+## Why Docker Exists
+
+Traditional software deployment had many issues:
+
+• Dependency conflicts  
+• Different OS environments  
+• Hard to scale applications  
+• Difficult to reproduce bugs
+
+Docker solves these problems by packaging:
+
+Application  
+Libraries  
+Runtime  
+Configuration
+
+inside **containers**.
+
+---
+
+## Containers vs Virtual Machines
+
+### Virtual Machine
+
+VM includes:
+
+Application  
+Libraries  
+Guest OS  
+Hypervisor
+
+This makes VMs **heavy and slow**.
+
+### Containers
+
+Containers include:
+
+Application  
+Libraries  
+Runtime
+
+Containers **share the host OS kernel**, making them:
+
+• Lightweight  
+• Fast  
+• Portable
+
+---
+
+## Docker in DevOps Pipeline
+
+Typical modern pipeline:
+
+Developer  
+↓  
+Git  
+↓  
+CI Tool (Jenkins / GitHub Actions)  
+↓  
+Docker Build  
+↓  
+Docker Image  
+↓  
+Docker Registry  
+↓  
+Deployment (Kubernetes / Cloud)
+
+Docker acts as the **standard packaging format for applications**.
+
+---
+
+## Key Docker Features
+
+• Lightweight virtualization  
+• Fast application deployment  
+• Version-controlled images  
+• Easy scaling  
+• Microservices friendly  
+• Works across any environment
+
+---
+
+# Section 2 — Environment Setup
+
+## Required Tools
+
+You need:
+
+• Docker Desktop (Windows / Mac)  
+• Docker Engine (Linux)  
+• Code Editor (VS Code / IntelliJ)  
+• Git (for cloning projects)
+
+---
+
+## Installing Docker
+
+### Windows
+
+Install:
+
+Docker Desktop
+
+Requirements:
+
+• Windows 10/11  
+• WSL2 enabled
+
+Command to verify:
+
+```bash
+docker --version
+````
+
+---
+
+### Mac
+
+Install Docker Desktop.
+
+Verification:
+
+```bash
+docker --version
+```
+
+---
+
+### Linux
+
+Example for Ubuntu:
+
+```bash
+sudo apt update
+sudo apt install docker.io
+```
+
+Start Docker:
+
+```bash
+sudo systemctl start docker
+```
+
+Enable Docker:
+
+```bash
+sudo systemctl enable docker
+```
+
+Verify:
+
+```bash
+docker --version
+```
+
+---
+
+## Test Docker Installation
+
+Run:
+
+```bash
+docker run hello-world
+```
+
+This command:
+
+1. Pulls the hello-world image
+2. Creates a container
+3. Runs the container
+
+---
+
+# Section 3 — Project Setup
+
+## Docker Project Structure
+
+Typical project:
+
+```
+project
+│
+├── src
+│
+├── Dockerfile
+│
+├── .dockerignore
+│
+└── docker-compose.yml
+```
+
+---
+
+## Folder Purpose
+
+### src
+
+Application source code.
+
+---
+
+### Dockerfile
+
+Instructions for building Docker images.
+
+---
+
+### .dockerignore
+
+Files excluded from Docker image build.
+
+Example:
+
+```
+node_modules
+.git
+.env
+```
+
+---
+
+### docker-compose.yml
+
+Defines **multi-container applications**.
+
+---
+
+# Section 4 — Core Concepts
+
+## Docker Architecture
+
+Main components:
+
+Client → Docker CLI
+Daemon → Docker Engine
+Registry → Docker Hub
+
+Workflow:
+
+Developer runs command
+↓
+Docker Client sends request
+↓
+Docker Engine executes
+↓
+Image pulled from Registry
+
+---
+
+## Docker Engine
+
+Docker Engine manages:
+
+• Containers
+• Images
+• Networks
+• Volumes
+
+It runs as a **background service**.
+
+---
+
+## Docker Images
+
+A Docker image is a **read-only template** used to create containers.
+
+Images contain:
+
+• OS base layer
+• Runtime
+• Libraries
+• Application code
+
+Example:
+
+Ubuntu Image
+Node Image
+Python Image
+
+---
+
+## Docker Containers
+
+A container is a **running instance of an image**.
+
+Example:
+
+```
+docker run ubuntu
+```
+
+This creates and runs a container.
+
+---
+
+## Dockerfile
+
+A Dockerfile defines **how to build an image**.
+
+Example:
+
+```Dockerfile
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["node","server.js"]
+```
+
+Explanation:
+
+FROM → Base image
+WORKDIR → Working directory
+COPY → Copy files
+RUN → Execute command
+CMD → Default start command
+
+---
+
+## Docker Image Layers
+
+Images are built using **layers**.
+
+Example:
+
+Layer 1 → Base OS
+Layer 2 → Runtime
+Layer 3 → Dependencies
+Layer 4 → Application
+
+Layer caching makes builds **fast**.
+
+---
+
+## .dockerignore
+
+Used to prevent unnecessary files from entering images.
+
+Example:
+
+```
+node_modules
+.git
+.env
+```
+
+---
+
+# Section 5 — Core Workflow
+
+## Pulling Images
+
+Download image from registry.
+
+```bash
+docker pull ubuntu
+```
+
+---
+
+## Running Containers
+
+Start container:
+
+```bash
+docker run ubuntu
+```
+
+Run interactive shell:
+
+```bash
+docker run -it ubuntu bash
+```
+
+Options:
+
+* `-i` interactive
+* `-t` terminal
+
+---
+
+## Detached Mode
+
+Run container in background.
+
+```bash
+docker run -d nginx
+```
+
+---
+
+## Container Port Binding
+
+Expose container port.
+
+```bash
+docker run -p 8080:80 nginx
+```
+
+Meaning:
+
+Host port → Container port
+
+---
+
+## List Containers
+
+Running containers:
+
+```bash
+docker ps
+```
+
+All containers:
+
+```bash
+docker ps -a
+```
+
+---
+
+## Stop Container
+
+```bash
+docker stop container_id
+```
+
+---
+
+## Remove Container
+
+```bash
+docker rm container_id
+```
+
+---
+
+## Remove Images
+
+```bash
+docker rmi image_name
+```
+
+---
+
+# Section 6 — Docker Storage
+
+Containers are **ephemeral**.
+
+Data disappears when container stops.
+
+Docker provides storage solutions.
+
+---
+
+## Volume Mounts
+
+Volumes store persistent data.
+
+Create volume:
+
+```bash
+docker volume create mydata
+```
+
+Mount volume:
+
+```bash
+docker run -v mydata:/data ubuntu
+```
+
+---
+
+## Bind Mounts
+
+Mount host directory.
+
+```bash
+docker run -v /host/path:/container/path
+```
+
+Used for development.
+
+---
+
+## Tmpfs Mounts
+
+Stores data in **memory only**.
+
+Used for temporary sensitive data.
+
+---
+
+# Section 7 — Docker Networking
+
+Docker containers communicate through networks.
+
+Default network:
+
+bridge
+
+---
+
+## Create Network
+
+```bash
+docker network create mynetwork
+```
+
+---
+
+## Run Containers on Network
+
+```bash
+docker run --network=mynetwork nginx
+```
+
+Containers can now communicate using names.
+
+---
+
+# Section 8 — Docker Compose
+
+Docker Compose manages **multi-container applications**.
+
+Example:
+
+Frontend
+Backend
+Database
+
+---
+
+## docker-compose.yml
+
+Example:
+
+```yaml
+version: "3"
+
+services:
+
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+```
+
+---
+
+## Run Compose
+
+```bash
+docker compose up
+```
+
+---
+
+## Stop Compose
+
+```bash
+docker compose down
+```
+
+---
+
+# Section 9 — Docker Registry
+
+Docker images are stored in **registries**.
+
+Examples:
+
+• Docker Hub
+• Amazon ECR
+• Google Container Registry
+• Azure Container Registry
+
+---
+
+## Push Image
+
+Tag image:
+
+```bash
+docker tag app myrepo/app:v1
+```
+
+Push:
+
+```bash
+docker push myrepo/app:v1
+```
+
+---
+
+# Section 10 — Docker Swarm (Container Orchestration)
+
+Docker Swarm is Docker’s built-in orchestrator.
+
+Features:
+
+• Cluster management
+• Service scaling
+• Load balancing
+
+---
+
+## Initialize Swarm
+
+```bash
+docker swarm init
+```
+
+---
+
+## Create Service
+
+```bash
+docker service create nginx
+```
+
+---
+
+## Scale Service
+
+```bash
+docker service scale nginx=5
+```
+
+---
+
+# Section 11 — Docker Security
+
+Important security features:
+
+• Linux namespaces
+• Control groups (cgroups)
+• Container isolation
+• Docker content trust
+
+---
+
+## Resource Limits
+
+Limit CPU:
+
+```bash
+docker run --cpus="1" nginx
+```
+
+Limit memory:
+
+```bash
+docker run -m 512m nginx
+```
+
+---
+
+# Section 12 — Container Storage Drivers
+
+Docker uses storage drivers for filesystem management.
+
+Examples:
+
+• Overlay2 (modern standard)
+• Device Mapper
+• Btrfs
+
+Overlay2 is the **recommended driver**.
+
+---
+
+# Section 13 — Continuous Deployment with Docker
+
+Docker integrates with CI/CD.
+
+Example pipeline:
+
+Developer
+↓
+GitHub
+↓
+GitHub Actions / Jenkins
+↓
+Docker Build
+↓
+Docker Hub / ECR
+↓
+Deployment
+
+---
+
+## Automatic Image Build
+
+CI tools automatically:
+
+1. Build image
+2. Tag image
+3. Push to registry
+
+---
+
+# Section 14 — Kubernetes (Modern Container Orchestration)
+
+Modern production systems use **Kubernetes** instead of Docker Swarm.
+
+Key components:
+
+Pod
+Deployment
+Service
+ConfigMap
+Secret
+
+---
+
+## Kubernetes Workflow
+
+Application
+↓
+Docker Image
+↓
+Kubernetes Deployment
+↓
+Pods created
+↓
+Service exposes application
+
+---
+
+## Scaling
+
+Example:
+
+```bash
+kubectl scale deployment app --replicas=5
+```
+
+---
+
+# Section 15 — Real World Capstone Project
+
+Example architecture:
+
+React Frontend
+↓
+Python Backend
+↓
+Blockchain Network Nodes
+
+Docker used for:
+
+• Backend containers
+• Frontend container
+• Blockchain node containers
+
+Docker Compose used to:
+
+• run multiple nodes
+• scale services
+
+---
+
+# Section 16 — Best Practices
+
+• Use small base images (Alpine)
+• Use multi-stage builds
+• Avoid large images
+• Use environment variables
+• Keep containers stateless
+• Store data in volumes
+
+---
+
+# Final Learning Path Summary
+
+You learned:
+
+1. Docker fundamentals
+2. Containers and images
+3. Dockerfile
+4. Docker CLI
+5. Storage and networking
+6. Docker Compose
+7. Docker registries
+8. Docker Swarm
+9. Docker security
+10. CI/CD with Docker
+11. Kubernetes integration
+
+---
+
+# Next Technologies to Learn
+
+After Docker:
+
+1. Kubernetes
+2. Helm
+3. Terraform
+4. Jenkins / GitHub Actions
+5. Monitoring (Prometheus + Grafana)
+
+These tools complete a **modern DevOps stack**.
+
+---
+
+```
+```

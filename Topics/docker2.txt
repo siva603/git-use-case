@@ -1,0 +1,162 @@
+Play
+1. Introduction
+3min
+Play
+2. Docker Overview
+13min
+Play
+3. Getting started with Docker
+2min
+Start
+4. A note on installing Docker
+1min
+Play
+5. Demo - Setup and Install Docker
+4min
+Play
+6. A Quick Reminder
+1min
+Start
+7. Resources
+0min
+Start
+8. Student Preferences
+1min
+Start
+9. Join our Community Channel for support and interaction
+1min
+Play
+10. Basic Docker Commands
+8min
+Play
+11. Demo - Docker Commands
+18min
+Start
+12. Download Course Deck
+1min
+Play
+13. Demo - Docker Labs
+3min
+Play
+14. Demo - Accessing labs
+2min
+Start
+15. Course setup - accessing the labs
+1min
+Start
+16. Labs - Basic Docker Commands
+1min
+Play
+17. Docker Run
+9min
+Start
+18. Article on Jenkins Image
+1min
+Play
+19. Demo - Advanced Docker Run Features
+25min
+Start
+20. Labs - Docker Run
+1min
+Play
+21. Docker Images
+5min
+Play
+22. Demo - Creating a new Docker Image
+18min
+Start
+23. Labs - Docker Images
+1min
+Play
+24. Environment Variables
+2min
+Start
+25. Labs - Environment Variables
+1min
+Play
+26. Command vs Entrypoint
+6min
+Start
+27. Labs - Command vs Entrypoint
+1min
+Play
+28. Docker Compose
+18min
+Start
+29. Pre-Requisite - YAML
+1min
+Play
+30. Demo - Example Voting Application
+16min
+Play
+31. Demo - Example Voting Application with Docker Compose
+6min
+Play
+32. Demo - Docker Compose
+5min
+Start
+33. Labs: Docker Compose
+1min
+Start
+34. References
+1min
+Start
+35. Stay Updated!
+1min
+Play
+36. Docker Registry
+5min
+Start
+37. Lab: Docker Registry
+1min
+Play
+38. Docker Engine
+7min
+Play
+39. Docker PID - Demo
+5min
+Play
+40. Docker Storage
+13min
+Play
+41. Docker Storage - Demo
+24min
+Start
+42. Labs - Docker Storage
+1min
+Play
+43. Docker Networking
+5min
+Start
+44. Labs - Docker Networking
+1min
+Play
+45. Docker on Windows
+7min
+Play
+46. Demo - Docker on Windows
+9min
+Start
+47. References
+1min
+Play
+48. Docker on MAC
+2min
+Play
+49. Container Orchestration
+4min
+Play
+50. Docker Swarm
+4min
+Play
+51. Kubernetes Introduction
+6min
+Play
+52. Conclusion
+1min
+Play
+53. Course Completion Certificate
+2min
+Start
+54. Bonus Lecture - Docker Certification Course
+1min

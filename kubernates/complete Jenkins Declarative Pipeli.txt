@@ -1,0 +1,347 @@
+complete Jenkins Declarative Pipeline (Groovy) for a real DevOps flow**:
+
+Git → Jenkins → Maven → Docker → DockerHub → Kubernetes
+
+This pipeline is **production-style and fully automated**.
+
+---
+
+# Complete Jenkins Declarative Pipeline (Groovy)
+
+```groovy
+pipeline {
+
+    agent any
+
+    tools {
+        maven 'Maven-3.9'
+        jdk 'JDK-17'
+    }
+
+    environment {
+
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKER_IMAGE = "yourdockerhub/demo-app"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+
+        KUBECONFIG_CREDENTIAL = credentials('kubeconfig')
+    }
+
+    stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/yourusername/k8s-devops-demo.git'
+            }
+        }
+
+        stage('Verify Tools') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+                sh 'docker --version'
+                sh 'kubectl version --client'
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
+                """
+            }
+        }
+
+        stage('Login DockerHub') {
+            steps {
+                sh """
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login \
+                -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                """
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                sh """
+                docker push $DOCKER_IMAGE:$IMAGE_TAG
+                docker tag $DOCKER_IMAGE:$IMAGE_TAG $DOCKER_IMAGE:latest
+                docker push $DOCKER_IMAGE:latest
+                """
+            }
+        }
+
+        stage('Update Kubernetes Deployment') {
+            steps {
+                sh """
+                sed -i 's|IMAGE_PLACEHOLDER|$DOCKER_IMAGE:$IMAGE_TAG|g' k8s/deployment.yaml
+                """
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                    kubectl apply -f k8s/deployment.yaml
+                    kubectl apply -f k8s/service.yaml
+                    """
+                }
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh """
+                kubectl get pods
+                kubectl get svc
+                kubectl rollout status deployment/demo-deployment
+                """
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed. Check logs.'
+        }
+
+        always {
+            sh 'docker system prune -f'
+        }
+    }
+}
+```
+
+---
+
+# Jenkins Pipeline Stages Explained
+
+### 1️⃣ Clean Workspace
+
+```
+cleanWs()
+```
+
+Removes previous build files.
+
+---
+
+### 2️⃣ Checkout Code
+
+```
+git clone repository
+```
+
+Fetches code from Git.
+
+---
+
+### 3️⃣ Verify Tools
+
+Checks installed tools:
+
+```
+java
+maven
+docker
+kubectl
+```
+
+---
+
+### 4️⃣ Build Application
+
+Build Java project.
+
+```
+mvn clean package
+```
+
+Produces:
+
+```
+target/demo.jar
+```
+
+---
+
+### 5️⃣ Run Tests
+
+```
+mvn test
+```
+
+Runs unit tests.
+
+---
+
+### 6️⃣ Build Docker Image
+
+```
+docker build -t image .
+```
+
+Creates container image.
+
+---
+
+### 7️⃣ Docker Login
+
+Authenticates Jenkins with DockerHub.
+
+---
+
+### 8️⃣ Push Image
+
+```
+docker push
+```
+
+Uploads image to registry.
+
+---
+
+### 9️⃣ Update Kubernetes YAML
+
+Replaces placeholder image with new version.
+
+---
+
+### 🔟 Deploy to Kubernetes
+
+```
+kubectl apply
+```
+
+Deploys application.
+
+---
+
+### 11️⃣ Verify Deployment
+
+```
+kubectl get pods
+kubectl rollout status
+```
+
+Ensures deployment is successful.
+
+---
+
+# Kubernetes Deployment Image Placeholder
+
+Your `deployment.yaml` should contain:
+
+```yaml
+containers:
+- name: demo-container
+  image: IMAGE_PLACEHOLDER
+```
+
+Pipeline replaces it with:
+
+```
+yourdockerhub/demo-app:BUILD_NUMBER
+```
+
+---
+
+# Credentials Needed in Jenkins
+
+Create these credentials:
+
+### DockerHub Credentials
+
+ID:
+
+```
+dockerhub-credentials
+```
+
+Type:
+
+```
+Username + Password
+```
+
+---
+
+### Kubernetes Credential
+
+ID:
+
+```
+kubeconfig
+```
+
+Type:
+
+```
+Secret File
+```
+
+Upload:
+
+```
+~/.kube/config
+```
+
+---
+
+# Real DevOps Pipeline Flow
+
+```
+Developer Push Code
+        ↓
+GitHub
+        ↓
+Jenkins Trigger
+        ↓
+Maven Build
+        ↓
+Docker Build
+        ↓
+Docker Push
+        ↓
+Kubernetes Deploy
+        ↓
+Application Running
+```
+
+---
+
+If you want, I can also give you a **much more advanced Jenkins pipeline used by DevOps engineers** with:
+
+* **parallel stages**
+* **quality gate (SonarQube)**
+* **security scan (Trivy)**
+* **Helm deployment**
+* **blue-green deployment**
+* **Slack notifications**
+
+That is the **exact pipeline used in large companies**.

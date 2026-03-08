@@ -1,0 +1,400 @@
+Section 7 — Docker Networking (How Containers Communicate)
+
+In this section you will learn **how Docker containers communicate with each other and with external systems**.
+
+Networking is critical because real applications contain **multiple containers** such as:
+
+Frontend  
+Backend  
+Database  
+Cache
+
+All these services must **communicate over networks**.
+
+After completing this section you will understand:
+
+• Docker networking architecture  
+• Default Docker networks  
+• Bridge networks  
+• Host networks  
+• None networks  
+• User-defined networks  
+• Container DNS resolution  
+• Networking in Docker Compose  
+
+---
+
+# 7.1 Why Docker Networking is Required
+
+In real applications multiple containers must communicate.
+
+Example system:
+
+```
+
+Frontend Container
+|
+▼
+Backend API Container
+|
+▼
+Database Container
+
+````
+
+Without networking, containers would **not be able to communicate**.
+
+Docker networking provides:
+
+• container-to-container communication  
+• container-to-host communication  
+• external access to containers  
+
+---
+
+# 7.2 Docker Network Types
+
+Docker provides several network drivers.
+
+| Network Type | Purpose |
+|---|---|
+Bridge | Default container communication |
+Host | Uses host network directly |
+None | No networking |
+Overlay | Multi-host networking |
+Macvlan | Assigns MAC addresses |
+
+For most applications we use:
+
+Bridge Network  
+User-defined Bridge Network  
+
+---
+
+# 7.3 Default Bridge Network
+
+When Docker starts, it creates a **default bridge network**.
+
+View networks:
+
+```bash
+docker network ls
+````
+
+Example output:
+
+```
+NETWORK ID     NAME      DRIVER
+abc123         bridge    bridge
+def456         host      host
+ghi789         none      null
+```
+
+The **bridge network is used by default**.
+
+---
+
+# 7.4 Running Containers on Default Network
+
+Example:
+
+```bash
+docker run -d nginx
+docker run -d redis
+```
+
+Both containers run on the **default bridge network**.
+
+However, containers **cannot resolve each other by name** on the default bridge.
+
+This is why **user-defined networks are recommended**.
+
+---
+
+# 7.5 Creating a User-Defined Network
+
+Create a custom network.
+
+```bash
+docker network create mynetwork
+```
+
+Verify:
+
+```bash
+docker network ls
+```
+
+Output:
+
+```
+mynetwork
+```
+
+---
+
+# 7.6 Running Containers on Custom Network
+
+Run containers using the custom network.
+
+Example:
+
+```bash
+docker run -d --name backend --network=mynetwork node
+```
+
+Run database:
+
+```bash
+docker run -d --name database --network=mynetwork mysql
+```
+
+Now containers can communicate using **container names**.
+
+Example connection string:
+
+```
+mysql://database:3306
+```
+
+---
+
+# 7.7 Container DNS Resolution
+
+Docker automatically provides **DNS resolution inside networks**.
+
+Example:
+
+Backend container connects to database.
+
+Database hostname:
+
+```
+database
+```
+
+Docker resolves it automatically.
+
+This is extremely useful for **microservices architecture**.
+
+---
+
+# 7.8 Inspecting Networks
+
+Inspect network configuration.
+
+```bash
+docker network inspect mynetwork
+```
+
+This shows:
+
+• connected containers
+• IP addresses
+• network driver
+• subnet configuration
+
+Example output:
+
+```
+Containers:
+backend
+database
+```
+
+---
+
+# 7.9 Connecting Containers to Existing Network
+
+Attach container to network.
+
+```bash
+docker network connect mynetwork container_name
+```
+
+Disconnect container.
+
+```bash
+docker network disconnect mynetwork container_name
+```
+
+---
+
+# 7.10 Host Network
+
+Host networking removes network isolation.
+
+Container shares the **host network stack**.
+
+Example:
+
+```bash
+docker run --network host nginx
+```
+
+Now container uses **host ports directly**.
+
+Example:
+
+```
+localhost:80
+```
+
+Host networking is used mainly for **performance-sensitive applications**.
+
+---
+
+# 7.11 None Network
+
+Containers run without networking.
+
+Example:
+
+```bash
+docker run --network none nginx
+```
+
+This container cannot:
+
+• access internet
+• connect to other containers
+
+Used for **high-security environments**.
+
+---
+
+# 7.12 Port Publishing
+
+Containers expose internal ports.
+
+To access from host we publish ports.
+
+Example:
+
+```bash
+docker run -p 8080:80 nginx
+```
+
+Meaning:
+
+```
+Host Port → Container Port
+8080 → 80
+```
+
+Access:
+
+```
+http://localhost:8080
+```
+
+---
+
+# 7.13 Docker Networking in Compose
+
+Docker Compose automatically creates a network.
+
+Example compose file:
+
+```yaml
+services:
+
+  backend:
+    build: ./backend
+
+  database:
+    image: mysql
+```
+
+Docker automatically creates network:
+
+```
+project_default
+```
+
+Both services can communicate.
+
+Example backend connection:
+
+```
+mysql://database:3306
+```
+
+---
+
+# 7.14 Real Multi-Container Example
+
+Application architecture:
+
+```
+React Frontend
+      |
+      ▼
+Node Backend
+      |
+      ▼
+PostgreSQL Database
+      |
+      ▼
+Redis Cache
+```
+
+All containers run on the **same Docker network**.
+
+Communication happens through **service names**.
+
+Example:
+
+```
+DB_HOST=postgres
+REDIS_HOST=redis
+```
+
+---
+
+# 7.15 Best Practices for Docker Networking
+
+Use **user-defined bridge networks** instead of default.
+
+Use **service names instead of IP addresses**.
+
+Separate networks for different layers.
+
+Example:
+
+```
+frontend-network
+backend-network
+database-network
+```
+
+Avoid exposing unnecessary ports.
+
+Use **reverse proxy (Nginx)** for external access.
+
+---
+
+#Section 7 Summary
+
+In this section you learned:
+
+• Why Docker networking is needed
+• Default bridge network
+• User-defined networks
+• Container DNS resolution
+• Connecting containers
+• Host networking
+• None networking
+• Port publishing
+• Networking in Docker Compose
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Compose in Depth — Managing Multi-Container Applications**
+
+```
+```

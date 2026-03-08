@@ -1,0 +1,354 @@
+Section 2 — Kubernetes Environment Setup (Linux / Ubuntu)
+
+This section explains how to **prepare a Linux machine (Ubuntu) for Kubernetes development and practice**.
+
+We will install the essential tools required to work with Kubernetes:
+
+• Container runtime  
+• kubectl CLI  
+• Local Kubernetes cluster (Minikube)  
+
+After completing this section you will be able to:
+
+• run a Kubernetes cluster locally  
+• interact with the cluster using kubectl  
+• deploy Kubernetes resources
+
+---
+
+# 2.1 System Requirements
+
+Minimum requirements for running Kubernetes locally.
+
+Recommended system configuration:
+
+CPU  
+2+ cores
+
+RAM  
+4 GB minimum (8 GB recommended)
+
+Storage  
+20 GB free space
+
+Operating System
+
+Ubuntu versions supported:
+
+• Ubuntu 20.04 LTS  
+• Ubuntu 22.04 LTS  
+• Ubuntu 24.04 LTS
+
+---
+
+# 2.2 Update System Packages
+
+Before installing Kubernetes tools update the system.
+
+Command:
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+````
+
+Explanation:
+
+apt update
+updates package list from repositories
+
+apt upgrade
+installs latest package versions
+
+---
+
+# 2.3 Install Required Dependencies
+
+Install required packages.
+
+```bash
+sudo apt install -y curl wget apt-transport-https ca-certificates gnupg
+```
+
+Explanation:
+
+curl
+used for downloading installation scripts
+
+wget
+download files from internet
+
+apt-transport-https
+allows apt to access https repositories
+
+ca-certificates
+secure communication with repositories
+
+gnupg
+used to verify package signatures
+
+---
+
+# 2.4 Install Container Runtime (containerd)
+
+Kubernetes requires a container runtime.
+
+Modern Kubernetes uses:
+
+containerd
+
+---
+
+## Install containerd
+
+```bash
+sudo apt install -y containerd
+```
+
+Verify installation:
+
+```bash
+containerd --version
+```
+
+---
+
+## Configure containerd
+
+Generate default configuration.
+
+```bash
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+Restart containerd service.
+
+```bash
+sudo systemctl restart containerd
+sudo systemctl enable containerd
+```
+
+Verify service:
+
+```bash
+systemctl status containerd
+```
+
+---
+
+# 2.5 Install kubectl
+
+kubectl is the **command-line tool used to communicate with Kubernetes clusters**.
+
+---
+
+## Download kubectl
+
+```bash
+curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
+```
+
+Make it executable:
+
+```bash
+chmod +x kubectl
+```
+
+Move to system path:
+
+```bash
+sudo mv kubectl /usr/local/bin/
+```
+
+Verify installation:
+
+```bash
+kubectl version --client
+```
+
+Expected output shows kubectl version.
+
+---
+
+# 2.6 Install Minikube
+
+Minikube allows running a **single-node Kubernetes cluster locally**.
+
+This is useful for:
+
+• development
+• testing
+• learning Kubernetes
+
+---
+
+## Download Minikube
+
+```bash
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+```
+
+Install Minikube:
+
+```bash
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+
+Verify installation:
+
+```bash
+minikube version
+```
+
+---
+
+# 2.7 Start Kubernetes Cluster
+
+Start the Minikube cluster.
+
+```bash
+minikube start
+```
+
+Minikube will automatically:
+
+• create a VM/container
+• start Kubernetes components
+• configure kubectl
+
+---
+
+# 2.8 Verify Cluster Installation
+
+Check cluster information.
+
+```bash
+kubectl cluster-info
+```
+
+Example output:
+
+```
+Kubernetes control plane running
+CoreDNS running
+```
+
+---
+
+Check nodes.
+
+```bash
+kubectl get nodes
+```
+
+Example output:
+
+```
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   2m    v1.x.x
+```
+
+---
+
+# 2.9 Verify Pods in System Namespace
+
+Check Kubernetes system components.
+
+```bash
+kubectl get pods -n kube-system
+```
+
+Example components:
+
+• kube-apiserver
+• kube-scheduler
+• kube-controller-manager
+• coredns
+
+These components form the **Kubernetes control plane**.
+
+---
+
+# 2.10 Test Kubernetes with First Pod
+
+Create a simple pod using nginx.
+
+```bash
+kubectl run nginx --image=nginx
+```
+
+Check pod status.
+
+```bash
+kubectl get pods
+```
+
+Expected output:
+
+```
+NAME    READY   STATUS    AGE
+nginx   1/1     Running   20s
+```
+
+This confirms Kubernetes is working.
+
+---
+
+# 2.11 Useful Minikube Commands
+
+Start cluster
+
+```bash
+minikube start
+```
+
+Stop cluster
+
+```bash
+minikube stop
+```
+
+Delete cluster
+
+```bash
+minikube delete
+```
+
+Check cluster status
+
+```bash
+minikube status
+```
+
+---
+
+# Section 2 Summary
+
+In this section you learned how to:
+
+• prepare Ubuntu for Kubernetes
+• install container runtime (containerd)
+• install kubectl
+• install Minikube
+• start a Kubernetes cluster
+• verify cluster components
+• run your first pod
+
+Your local Kubernetes environment is now ready.
+
+---
+
+# Next Section
+
+Section 3 — **Container Images & Docker Fundamentals**
+
+You will learn:
+
+• Docker architecture
+• Building container images
+• Docker registries
+• Pushing images to registry
+
+```
+```

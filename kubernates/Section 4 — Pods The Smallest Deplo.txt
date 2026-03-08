@@ -1,0 +1,434 @@
+Section 4 — Pods: The Smallest Deployable Unit in Kubernetes
+
+In Kubernetes, applications are not deployed directly as containers.  
+Instead, containers run **inside Pods**.
+
+A **Pod** is the **smallest deployable and manageable unit in Kubernetes**.
+
+This section explains:
+
+• What a Pod is  
+• Why Kubernetes uses Pods instead of containers directly  
+• Pod architecture  
+• Pod lifecycle  
+• Pod states  
+• Multi-container Pods  
+• Init containers  
+• Self-healing behavior
+
+---
+
+# 4.1 What is a Pod
+
+A **Pod** is a wrapper around one or more containers.
+
+It represents a **single running instance of an application**.
+
+Example:
+
+```
+
+Pod
+│
+├── Container 1 (Application)
+├── Container 2 (Sidecar)
+└── Shared Resources
+
+```id="pod-basic-structure"
+
+Shared resources inside a pod:
+
+• Network (IP address)  
+• Storage volumes  
+• Linux namespaces
+
+---
+
+# 4.2 Why Kubernetes Uses Pods Instead of Containers
+
+Kubernetes introduces Pods because many applications need **multiple containers working together**.
+
+Example architecture:
+
+```
+
+Pod
+│
+├── App Container
+└── Logging Container
+
+```id="pod-sidecar-example"
+
+The containers share:
+
+• localhost network  
+• shared storage
+
+This allows containers to **communicate easily**.
+
+Example:
+
+```
+
+App container → writes logs
+Logging container → collects logs
+
+```
+
+---
+
+# 4.3 Pod Networking Model
+
+Every Pod gets its own **unique IP address inside the cluster**.
+
+Example:
+
+```
+
+Pod A → 10.244.1.5
+Pod B → 10.244.1.6
+Pod C → 10.244.1.7
+
+```id="pod-ip-example"
+
+Containers inside the same Pod communicate using **localhost**.
+
+Example:
+
+```
+
+localhost:8080
+
+````
+
+This is called the **Kubernetes Pod networking model**.
+
+---
+
+# 4.4 Pod YAML Definition
+
+Pods are usually created using **YAML configuration files**.
+
+Example Pod configuration:
+
+```yaml id="pod-yaml-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+````
+
+Explanation:
+
+apiVersion
+Defines Kubernetes API version
+
+kind
+Resource type (Pod)
+
+metadata
+Information about the Pod
+
+spec
+Desired state
+
+containers
+Container definitions
+
+---
+
+# 4.5 Creating a Pod
+
+Apply YAML configuration:
+
+```bash id="kubectl-create-pod"
+kubectl apply -f pod.yaml
+```
+
+Verify Pod creation:
+
+```bash id="kubectl-get-pods"
+kubectl get pods
+```
+
+Example output:
+
+````
+NAME        READY   STATUS    AGE
+nginx-pod   1/1     Running   10s
+``` id="pod-running-output"
+
+---
+
+# 4.6 Pod Lifecycle
+
+A Pod goes through several lifecycle stages.
+
+Lifecycle flow:
+
+````
+
+Create Pod
+↓
+Schedule Pod to Node
+↓
+Pull Container Image
+↓
+Start Containers
+↓
+Running
+
+```id="pod-lifecycle-flow"
+
+If a container crashes:
+
+```
+
+Kubernetes restarts container
+
+````id="pod-self-healing"
+
+This behavior provides **self-healing applications**.
+
+---
+
+# 4.7 Pod States
+
+Pods can exist in different states.
+
+Common states:
+
+Pending  
+The Pod has been created but not scheduled.
+
+Running  
+Containers are running normally.
+
+Succeeded  
+Pod finished successfully.
+
+Failed  
+Pod terminated with an error.
+
+Unknown  
+Pod state cannot be determined.
+
+Check pod state:
+
+```bash id="kubectl-check-pod-status"
+kubectl get pods
+````
+
+---
+
+# 4.8 Multi-Container Pods
+
+A Pod can contain **multiple containers**.
+
+Example:
+
+````
+Pod
+│
+├── Application Container
+└── Sidecar Container
+``` id="multi-container-pod"
+
+Common use cases:
+
+Logging container  
+Monitoring container  
+Proxy container
+
+Example architecture:
+
+````
+
+Pod
+│
+├── Web Server
+├── Log Collector
+└── Metrics Exporter
+
+```id="multi-container-usecase"
+
+---
+
+# 4.9 Multi-Container Pod Design Patterns
+
+Common patterns used in Kubernetes.
+
+### Sidecar Pattern
+
+A helper container runs alongside the main container.
+
+Example:
+
+```
+
+App Container
+Log Collector
+
+```id="sidecar-pattern"
+
+---
+
+### Ambassador Pattern
+
+A proxy container handles communication with external services.
+
+Example:
+
+```
+
+App Container
+Proxy Container
+
+```id="ambassador-pattern"
+
+---
+
+### Adapter Pattern
+
+Transforms output from the main container.
+
+Example:
+
+```
+
+App Container
+Metrics Adapter
+
+```id="adapter-pattern"
+
+---
+
+# 4.10 Init Containers
+
+Init containers run **before the main containers start**.
+
+Purpose:
+
+• prepare environment  
+• download configuration  
+• wait for dependencies
+
+Example:
+
+```
+
+Init Container
+↓
+Main Container
+
+````id="init-container-flow"
+
+Example YAML:
+
+```yaml id="init-container-example"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-example
+spec:
+  initContainers:
+  - name: init-container
+    image: busybox
+    command: ["sh","-c","echo Initializing..."]
+
+  containers:
+  - name: main-container
+    image: nginx
+````
+
+Init containers must **complete successfully** before the main container starts.
+
+---
+
+# 4.11 Pod Self-Healing
+
+Kubernetes automatically maintains desired state.
+
+Example:
+
+````
+Container crashes
+      ↓
+Kubernetes restarts container
+``` id="pod-restart-example"
+
+This feature ensures **application reliability**.
+
+---
+
+# 4.12 Useful Pod Commands
+
+List Pods:
+
+```bash id="kubectl-list-pods"
+kubectl get pods
+````
+
+Describe Pod:
+
+```bash id="kubectl-describe-pod"
+kubectl describe pod nginx-pod
+```
+
+View Pod logs:
+
+```bash id="kubectl-pod-logs"
+kubectl logs nginx-pod
+```
+
+Delete Pod:
+
+```bash id="kubectl-delete-pod"
+kubectl delete pod nginx-pod
+```
+
+---
+
+# Section 4 Summary
+
+In this section you learned:
+
+• what a Pod is
+• why Pods exist
+• Pod architecture
+• Pod lifecycle
+• Pod states
+• multi-container Pods
+• init containers
+• self-healing behavior
+
+Pods are the **foundation of all Kubernetes workloads**.
+
+However Pods alone are **not scalable or resilient**.
+
+That is why Kubernetes introduces **Controllers**.
+
+---
+
+# Next Section
+
+Section 5 — **Workload Controllers**
+
+You will learn:
+
+• Replication Controllers
+• ReplicaSets
+• Deployments
+• Rolling updates
+• Rollbacks
+• StatefulSets
+• DaemonSets
+
+```
+```

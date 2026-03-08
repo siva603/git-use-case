@@ -1,0 +1,476 @@
+Section 13 — Docker Logging, Monitoring, and Debugging Containers
+
+Before learning the concepts, here are the **important Docker logging, monitoring, and debugging commands categorized**.
+
+These commands help in **troubleshooting containers, analyzing logs, and monitoring performance in production systems**.
+
+---
+
+# 13.1 Docker Logging & Monitoring Commands (Categorized)
+
+## Container Logs
+
+View logs of a container
+
+```bash
+docker logs container_name
+````
+
+Follow logs in real time
+
+```bash
+docker logs -f container_name
+```
+
+Show last N lines
+
+```bash id="8q7z2t"
+docker logs --tail 50 container_name
+```
+
+Show logs with timestamps
+
+```bash id="n9p2re"
+docker logs --timestamps container_name
+```
+
+---
+
+## Container Monitoring
+
+View container resource usage
+
+```bash id="6knv32"
+docker stats
+```
+
+Monitor a specific container
+
+```bash id="5wppj1"
+docker stats container_name
+```
+
+View container processes
+
+```bash id="k8u2ce"
+docker top container_name
+```
+
+---
+
+## Container Debugging
+
+Enter container shell
+
+```bash id="9cs4eo"
+docker exec -it container_name bash
+```
+
+Run command inside container
+
+```bash id="6r5n7l"
+docker exec container_name ls
+```
+
+Inspect container metadata
+
+```bash id="o4z02x"
+docker inspect container_name
+```
+
+View container events
+
+```bash id="fr7g92"
+docker events
+```
+
+---
+
+## System Diagnostics
+
+View disk usage
+
+```bash id="3m9rja"
+docker system df
+```
+
+Check Docker information
+
+```bash id="v73sco"
+docker info
+```
+
+List running containers
+
+```bash id="29tsv1"
+docker ps
+```
+
+---
+
+# 13.2 Why Logging and Monitoring Are Important
+
+In production environments, containers run **critical applications**.
+
+Problems can occur due to:
+
+• application bugs
+• network issues
+• memory leaks
+• container crashes
+
+Logging and monitoring help developers:
+
+• diagnose problems
+• monitor system performance
+• track errors
+• understand application behavior
+
+---
+
+# 13.3 Docker Logging Architecture
+
+Docker captures logs from containers and stores them using **logging drivers**.
+
+Basic flow:
+
+```
+Application
+     |
+     ▼
+Container stdout / stderr
+     |
+     ▼
+Docker Logging Driver
+     |
+     ▼
+Log Storage System
+```
+
+Docker collects logs from:
+
+```
+STDOUT
+STDERR
+```
+
+This means applications should **print logs to the console**.
+
+---
+
+# 13.4 Default Logging Driver
+
+Docker uses the **json-file logging driver** by default.
+
+Logs are stored as JSON files.
+
+Example location (Linux):
+
+```
+/var/lib/docker/containers/<container-id>/
+```
+
+Example log entry:
+
+```
+{
+  "log": "Server started",
+  "time": "2025-01-01T10:00:00Z"
+}
+```
+
+---
+
+# 13.5 Viewing Container Logs
+
+View logs using:
+
+```bash
+docker logs container_name
+```
+
+Example:
+
+```bash id="h8b9c7"
+docker logs webserver
+```
+
+This displays application output.
+
+Example output:
+
+```
+Server started on port 5000
+Database connected
+User created
+```
+
+---
+
+# 13.6 Real-Time Log Monitoring
+
+Use the `-f` option to follow logs.
+
+```bash id="g8yq2v"
+docker logs -f container_name
+```
+
+Example:
+
+```bash id="y0c8tb"
+docker logs -f api-container
+```
+
+Useful for:
+
+• debugging applications
+• monitoring startup processes
+
+---
+
+# 13.7 Docker Logging Drivers
+
+Docker supports multiple logging drivers.
+
+| Driver    | Purpose             |
+| --------- | ------------------- |
+| json-file | default logging     |
+| syslog    | system logging      |
+| journald  | Linux journal       |
+| fluentd   | centralized logging |
+| gelf      | Graylog integration |
+| awslogs   | AWS CloudWatch logs |
+| splunk    | Splunk integration  |
+
+Example:
+
+```bash id="e3p1x7"
+docker run --log-driver=syslog nginx
+```
+
+---
+
+# 13.8 Centralized Logging Systems
+
+Large production systems send logs to centralized platforms.
+
+Example architecture:
+
+```
+Containers
+    |
+    ▼
+Logging Driver
+    |
+    ▼
+Log Collector (Fluentd / Logstash)
+    |
+    ▼
+Log Storage (Elasticsearch)
+    |
+    ▼
+Visualization (Kibana)
+```
+
+This stack is called **ELK Stack**.
+
+---
+
+# 13.9 Container Monitoring
+
+Monitoring tracks **resource usage and system health**.
+
+Important metrics:
+
+• CPU usage
+• memory usage
+• disk usage
+• network traffic
+
+Docker command:
+
+```bash id="b4m8p0"
+docker stats
+```
+
+Example output:
+
+```
+CONTAINER   CPU %   MEMORY   NET I/O
+api         2.5%    50MB     1MB
+redis       1.0%    30MB     500KB
+```
+
+---
+
+# 13.10 Monitoring Tools
+
+Production systems use specialized monitoring tools.
+
+Popular tools:
+
+| Tool       | Purpose                |
+| ---------- | ---------------------- |
+| Prometheus | metrics collection     |
+| Grafana    | visualization          |
+| cAdvisor   | container monitoring   |
+| Datadog    | cloud monitoring       |
+| New Relic  | application monitoring |
+
+Example architecture:
+
+```
+Containers
+     |
+     ▼
+Prometheus
+     |
+     ▼
+Grafana Dashboard
+```
+
+---
+
+# 13.11 Debugging Containers
+
+Sometimes containers fail to start.
+
+To debug:
+
+1. Check container logs
+2. Inspect container configuration
+3. Enter container shell
+
+Example:
+
+```bash id="v1yo7c"
+docker exec -it container_name bash
+```
+
+Now you can run commands inside the container.
+
+Example:
+
+```bash id="y2n0sv"
+ls
+```
+
+---
+
+# 13.12 Inspecting Container Metadata
+
+Docker provides detailed container information.
+
+Command:
+
+```bash id="6j9u42"
+docker inspect container_name
+```
+
+Information available:
+
+• environment variables
+• network settings
+• volume mounts
+• resource limits
+
+Example output:
+
+```
+IP Address: 172.18.0.3
+Network: project_default
+```
+
+---
+
+# 13.13 Docker Events
+
+Docker records runtime events.
+
+Example command:
+
+```bash id="z7b8fc"
+docker events
+```
+
+Example events:
+
+```
+container start
+container stop
+container restart
+image pull
+network create
+```
+
+Useful for **real-time system monitoring**.
+
+---
+
+# 13.14 Health Checks
+
+Containers can define health checks.
+
+Example Dockerfile:
+
+```Dockerfile
+HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
+```
+
+Docker monitors container health.
+
+View status:
+
+```bash id="p8e3rm"
+docker ps
+```
+
+Example:
+
+```
+STATUS: healthy
+```
+
+---
+
+# 13.15 Logging Best Practices
+
+Follow these practices for production systems.
+
+Print logs to **stdout / stderr**
+
+Avoid writing logs to files inside containers.
+
+Use centralized logging systems.
+
+Monitor container resource usage.
+
+Enable health checks for services.
+
+---
+
+# Section 13 Summary
+
+In this section you learned:
+
+• Docker logging architecture
+• Viewing container logs
+• Logging drivers
+• Real-time log monitoring
+• Container monitoring tools
+• Debugging containers
+• Docker inspect command
+• Docker events
+• Health checks
+• Production logging strategies
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Best Practices, Production Deployment Strategies, and Real DevOps Workflows**
+
+```
+```

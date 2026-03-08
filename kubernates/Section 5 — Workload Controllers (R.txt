@@ -1,0 +1,474 @@
+Section 5 — Workload Controllers (Replication, Deployments & Application Lifecycle)
+
+Pods alone are **not reliable for production systems**.
+
+Problem:
+
+If a Pod crashes or a node fails, the Pod disappears.
+
+Example:
+
+```
+
+Pod running
+↓
+Node crashes
+↓
+Pod lost
+
+```id="pod-failure-example"
+
+Kubernetes solves this problem using **Controllers**.
+
+Controllers ensure the **desired state of the system is always maintained**.
+
+This section explains:
+
+• Replication Controller  
+• ReplicaSets  
+• Deployments  
+• Rolling updates  
+• Rollbacks  
+• Scaling applications  
+• StatefulSets  
+• DaemonSets
+
+---
+
+# 5.1 What is a Controller
+
+A **Controller** is a control loop that continuously checks the cluster state and ensures the **desired state matches the actual state**.
+
+Example:
+
+Desired State:
+
+```
+
+3 Pods running
+
+```id="desired-state-example"
+
+Actual State:
+
+```
+
+2 Pods running
+
+```id="actual-state-example"
+
+Controller action:
+
+```
+
+Create 1 new Pod
+
+```id="controller-action-example"
+
+This mechanism is called **reconciliation**.
+
+---
+
+# 5.2 Replication Controller
+
+A **Replication Controller (RC)** ensures that a specific number of Pods are always running.
+
+Example:
+
+```
+
+Replication Controller
+│
+Replica count = 3
+│
+┌──────┼──────┐
+Pod1  Pod2  Pod3
+
+```id="replication-controller-diagram"
+
+If a Pod fails:
+
+```
+
+Pod2 crashes
+↓
+Controller creates new Pod
+
+````id="replication-controller-recovery"
+
+Example YAML:
+
+```yaml id="replication-controller-yaml"
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: web-rc
+spec:
+  replicas: 3
+  selector:
+    app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+````
+
+Create controller:
+
+```bash id="create-rc-command"
+kubectl apply -f rc.yaml
+```
+
+Check pods:
+
+```bash id="check-pods-command"
+kubectl get pods
+```
+
+Note:
+
+Replication Controller is **older and mostly replaced by ReplicaSets**.
+
+---
+
+# 5.3 ReplicaSets
+
+ReplicaSets are the **modern replacement for Replication Controllers**.
+
+They perform the same function but support **advanced label selectors**.
+
+Architecture:
+
+````
+ReplicaSet
+     │
+Replicas = 3
+     │
+Pods managed using labels
+``` id="replicaset-architecture"
+
+Example YAML:
+
+```yaml id="replicaset-yaml"
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+````
+
+Create ReplicaSet:
+
+```bash id="create-replicaset-command"
+kubectl apply -f replicaset.yaml
+```
+
+Verify ReplicaSet:
+
+```bash id="check-replicaset-command"
+kubectl get rs
+```
+
+---
+
+# 5.4 Scaling Applications
+
+ReplicaSets allow scaling applications easily.
+
+Example:
+
+Increase replicas from 3 → 5.
+
+```bash id="scale-command"
+kubectl scale replicaset web-rs --replicas=5
+```
+
+Result:
+
+````
+ReplicaSet
+     │
+5 Pods running
+``` id="scaling-example"
+
+Scaling can also be done by editing YAML.
+
+---
+
+# 5.5 Deployments
+
+Deployments are the **most commonly used controller in Kubernetes**.
+
+Deployments manage:
+
+• ReplicaSets  
+• Rolling updates  
+• Rollbacks  
+• Application lifecycle
+
+Architecture:
+
+````
+
+Deployment
+│
+ReplicaSet
+│
+Pods
+
+````id="deployment-architecture"
+
+Example YAML:
+
+```yaml id="deployment-yaml"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+````
+
+Create deployment:
+
+```bash id="create-deployment-command"
+kubectl apply -f deployment.yaml
+```
+
+Check deployment:
+
+```bash id="check-deployment-command"
+kubectl get deployments
+```
+
+---
+
+# 5.6 Rolling Updates
+
+Rolling updates allow updating applications **without downtime**.
+
+Example:
+
+Update image version.
+
+````
+nginx:1.20 → nginx:1.21
+``` id="rolling-update-example"
+
+Kubernetes performs update gradually.
+
+````
+
+Old Pod → terminate
+New Pod → start
+
+````id="rolling-update-flow"
+
+Update image:
+
+```bash id="update-image-command"
+kubectl set image deployment/web-deployment nginx=nginx:1.21
+````
+
+Monitor rollout:
+
+```bash id="rollout-status-command"
+kubectl rollout status deployment web-deployment
+```
+
+---
+
+# 5.7 Rollbacks
+
+If a new version causes problems, Kubernetes can revert to the previous version.
+
+Check rollout history:
+
+```bash id="rollout-history-command"
+kubectl rollout history deployment web-deployment
+```
+
+Rollback deployment:
+
+```bash id="rollback-command"
+kubectl rollout undo deployment web-deployment
+```
+
+This ensures **safe application updates**.
+
+---
+
+# 5.8 StatefulSets
+
+StatefulSets are used for **stateful applications**.
+
+Examples:
+
+• databases
+• distributed systems
+• messaging systems
+
+Examples:
+
+````
+MySQL
+PostgreSQL
+MongoDB
+Kafka
+``` id="stateful-apps-example"
+
+Characteristics:
+
+• stable network identity  
+• persistent storage  
+• ordered deployment
+
+Example architecture:
+
+````
+
+StatefulSet
+│
+Pod-0
+Pod-1
+Pod-2
+
+```id="statefulset-architecture"
+
+Each Pod has its **own storage and identity**.
+
+---
+
+# 5.9 DaemonSets
+
+DaemonSets ensure that **one Pod runs on every node**.
+
+Example architecture:
+
+```
+
+Node1 → Pod
+Node2 → Pod
+Node3 → Pod
+
+```id="daemonset-architecture"
+
+Use cases:
+
+Logging agents  
+Monitoring agents  
+Security agents
+
+Examples:
+
+```
+
+Fluentd
+Prometheus Node Exporter
+Security scanners
+
+````id="daemonset-usecases"
+
+Example YAML:
+
+```yaml id="daemonset-yaml"
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-agent
+spec:
+  selector:
+    matchLabels:
+      app: log-agent
+  template:
+    metadata:
+      labels:
+        app: log-agent
+    spec:
+      containers:
+      - name: fluentd
+        image: fluentd
+````
+
+---
+
+# 5.10 Application Lifecycle Flow
+
+In real systems Kubernetes follows this flow:
+
+````
+Deployment
+     ↓
+ReplicaSet
+     ↓
+Pods
+     ↓
+Containers
+``` id="application-lifecycle-flow"
+
+The controller ensures:
+
+• correct number of pods  
+• application updates  
+• automatic recovery
+
+---
+
+# Section 5 Summary
+
+In this section you learned:
+
+• why controllers are needed  
+• Replication Controller  
+• ReplicaSets  
+• Deployments  
+• scaling applications  
+• rolling updates  
+• rollbacks  
+• StatefulSets  
+• DaemonSets
+
+Controllers provide **reliability, scalability, and lifecycle management**.
+
+---
+
+# Next Section
+
+Section 6 — **Kubernetes Networking & Services**
+
+You will learn:
+
+• Services  
+• ClusterIP  
+• NodePort  
+• LoadBalancer  
+• Service discovery  
+• External DNS
+````

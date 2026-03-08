@@ -1,0 +1,284 @@
+SECTION 1 — MAVEN FUNDAMENTALS
+
+Topics covered
+
+1. Welcome: What's In This Course
+2. Maven Key Concepts
+3. Course Tools
+4. Quick Start Overview
+
+Goal of this section
+
+Understand what Maven is, why it exists, and how it works at a high level before installing or using it.
+
+---
+
+1. What is Maven
+
+Apache Maven is a **build automation and project management tool** mainly used for Java projects.
+
+It helps developers automatically:
+
+* compile code
+* manage dependencies
+* run tests
+* package applications
+
+Instead of doing many steps manually, Maven performs them with one command.
+
+Example command
+
+mvn clean install
+
+Explanation
+
+mvn      → Maven command line tool
+clean    → removes previous build files
+install  → builds the project and stores artifact in local repository
+
+What happens internally
+
+1. Deletes old build files
+2. Compiles Java source code
+3. Runs unit tests
+4. Packages application
+5. Installs artifact in local repository
+
+---
+
+2. Problem Before Maven
+
+Before Maven, developers had to manage builds manually.
+
+Typical manual workflow
+
+1. Download libraries manually
+2. Add JAR files to project
+3. Compile Java files manually
+4. Run tests manually
+5. Package application manually
+
+Problems
+
+* dependency conflicts
+* inconsistent project structures
+* difficult builds
+* manual work for every build
+
+---
+
+3. What Maven Solves
+
+Maven solves these problems using automation.
+
+Main features
+
+Dependency management
+Standard project structure
+Automated builds
+Plugin system
+Centralized repository
+
+Example
+
+Instead of manually downloading libraries, Maven downloads them automatically.
+
+---
+
+4. Maven Standard Project Structure
+
+Every Maven project follows a standard structure.
+
+project
+pom.xml
+src
+src/main/java
+src/test/java
+target
+
+Explanation
+
+pom.xml → main project configuration file
+src/main/java → application source code
+src/test/java → unit test code
+target → compiled output files
+
+This structure makes all Maven projects look similar.
+
+---
+
+5. Maven Key Concepts
+
+To use Maven effectively, you must understand five important concepts.
+
+---
+
+POM (Project Object Model)
+
+The POM file defines the entire project configuration.
+
+File name
+
+pom.xml
+
+It contains
+
+* project information
+* dependencies
+* plugins
+* build configuration
+
+Example
+
+<project>
+  <groupId>com.company</groupId>
+  <artifactId>demo-app</artifactId>
+  <version>1.0</version>
+</project>
+
+Explanation
+
+groupId → organization name
+artifactId → project name
+version → project version
+
+---
+
+Dependencies
+
+Dependencies are external libraries required by a project.
+
+Example libraries
+
+Spring
+Hibernate
+JUnit
+
+Example dependency
+
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-core</artifactId>
+  <version>6.0.0</version>
+</dependency>
+
+Explanation
+
+groupId → organization
+artifactId → library name
+version → library version
+
+Maven automatically downloads dependencies from repositories.
+
+---
+
+Repositories
+
+Repositories store project dependencies.
+
+Types
+
+Local repository
+Remote repository
+
+Local repository location
+
+~/.m2/repository
+
+Purpose
+
+Stores downloaded libraries so Maven does not download them again.
+
+Remote repository example
+
+Maven Central
+
+Most dependencies are downloaded from Maven Central.
+
+---
+
+Build Lifecycle
+
+Maven uses predefined build phases.
+
+Important phases
+
+validate
+compile
+test
+package
+install
+deploy
+
+Example command
+
+mvn compile
+
+Explanation
+
+mvn → Maven command
+compile → compiles Java source code
+
+---
+
+Plugins
+
+Plugins add functionality to Maven.
+
+Example plugins
+
+maven-compiler-plugin
+maven-surefire-plugin
+maven-jar-plugin
+
+Example plugin
+
+<plugin>
+  <artifactId>maven-compiler-plugin</artifactId>
+</plugin>
+
+Purpose
+
+Compiles Java source code.
+
+---
+
+6. Maven Workflow
+
+Typical Maven workflow
+
+Developer writes code
+↓
+Maven compiles code
+↓
+Maven runs tests
+↓
+Maven packages application
+↓
+Artifact is generated
+
+Example build command
+
+mvn package
+
+Explanation
+
+package → creates deployable artifact
+
+Output
+
+target/project-name.jar
+
+---
+
+What you should understand after Section 1
+
+What Maven is
+Why Maven is used
+What problems Maven solves
+What POM is
+What dependencies are
+What repositories are
+What Maven lifecycle is
+What plugins are
+

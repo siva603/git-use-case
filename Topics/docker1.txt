@@ -1,0 +1,483 @@
+Play
+1. Big Picture Docker: What, Why, Who and Features - Revised
+8min
+Start
+2. Course Repo And Resources
+1min
+Play
+3. Install Docker for Mac
+3min
+Play
+4. Install Docker for Windows
+7min
+Play
+5. Install Docker for Linux
+5min
+Start
+6. Other Course Requirements - A Code Editor
+1min
+Start
+7. Section Preview: Docker Containers and the Docker Engine
+1min
+Play
+8. Section Kickoff: Docker Containers and the Docker Engine
+10min
+Start
+9. Section Notes [Copy/Paste]: Docker Containers and the Docker Engine
+6min
+Play
+10. Docker Containers and the Docker Engine
+6min
+Play
+11. Containers vs VMs
+2min
+Play
+12. Just enough about Docker Images for Containers
+5min
+Play
+13. Run a Ubuntu Container and a Container Shell
+12min
+Play
+14. For Windows: Run a Ubuntu Container and Container Shell
+16min
+Play
+15. Run a Ubuntu Container Continued
+9min
+Start
+16. Docker Containers and Images | Summary and Commands
+1min
+Start
+17. Section Preview: Docker Images in Depth
+2min
+Play
+18. Section Kickoff: Docker Images in Depth
+10min
+Start
+19. Section Notes [Copy/Paste]: Docker Images in Depth
+5min
+Play
+20. Docker Images and the Dockerfile
+2min
+Play
+21. Build a File Server Image
+15min
+Play
+22. Build an Express.js image
+19min
+Play
+23. Layered Image Cache and .dockerignore
+17min
+Play
+24. Optional: Build a PHP Image
+10min
+Play
+25. Optional: Build a Python Flask Image
+12min
+Start
+26. Docker Images in Depth | Summary and Commands
+2min
+Start
+27. Section Preview: Volume, Bind, and Tmpfs Mounts
+1min
+Play
+28. Section Kickoff: Docker Storage: Volume, Bind, and Tmpfs Mounts
+12min
+Start
+29. Section Notes [Copy/Paste]: Docker Storage: Volume, Bind, and Tmpfs Mounts
+3min
+Play
+30. Docker Storage: Volume, Bind, and Tmpfs Mounts - Overview
+6min
+Play
+31. Volume Mounts
+10min
+Play
+32. Bind Mounts
+7min
+Play
+33. For Windows: Bind Mounts
+7min
+Play
+34. Tmpfs Mounts
+7min
+Start
+35. Docker Container Storage - Mounts | Summary and Commands
+2min
+Start
+36. Section Preview: Multicontainer Docker: Networking and Compose
+1min
+Play
+37. Docker Container Networking
+4min
+Play
+38. Use and Create a Docker Container Network
+18min
+Play
+39. Docker Compose and docker-compose.yml
+8min
+Play
+40. Compose a Two-Container App - Part One
+18min
+Play
+41. Compose a Two-Container App - Part Two
+18min
+Start
+42. Multicontainer Docker: Networking and Compose | Summary and Commands
+3min
+Start
+43. Section preview: Docker Compose in Depth | Volumes and Networks
+1min
+Play
+44. Volumes - Update Compose Containers Dynamically
+17min
+Play
+45. Part 1 - Custom Networks, Compose another Multicontainer Application
+17min
+Play
+46. Part 2 - Custom Networks, Compose another Multicontainer Application
+27min
+Play
+47. Part 3 - Custom Networks, Compose another Multicontainer Application
+20min
+Start
+48. Docker Compose in Depth - Volumes and Networks | Summary and Commands
+3min
+Play
+49. Module Overview - Containerizing a Distributed Blockchain Network
+7min
+Start
+50. Module Code Repository and Outline
+3min
+Play
+51. Cloning the Python Blockchain Tutorial Project
+6min
+Play
+52. Containerizing the Python Backend
+17min
+Play
+53. Environment Variables and Configuration
+13min
+Play
+54. Docker Compose - Running Multiple Blockchain Nodes
+20min
+Play
+55. Backend Seed Node with Docker Compose Profiles
+18min
+Play
+56. Containerizing the React Frontend
+19min
+Play
+57. Adding the Frontend to Docker Compose
+11min
+Play
+58. Scaling with Docker Compose
+18min
+Play
+59. Module Conclusion and Next Steps
+8min
+Start
+60. Section Kickoff: From Docker to Kubernetes | Capstone Project on Kubernetes
+2min
+Play
+61. Kubernetes Overview - Extending the Blockchain Capstone Project
+13min
+Play
+62. Kubernetes in One Picture: Key Terms Diagram and Glossary
+11min
+Start
+63. [Copy/Paste Diagram and Glossary] Kubernetes in One Picture
+1min
+Play
+64. Clone the Module Repo and Important Code Changes
+17min
+Start
+65. Module Repository Reference and Installation Instructions
+4min
+Play
+66. Kubernetes Deployments, Pods, and Services
+30min
+Play
+67. Skaffold - Speeding up Kubernetes Development
+12min
+Play
+68. Kubernetes Networking - Port Forwarding, From Browser to Pod
+14min
+Play
+69. Ingress - Simplifying Cluster Networking
+19min
+Play
+70. Cloudflare and DNS - Creating a Temporary Public Domain
+8min
+Play
+71. Pod Autoscaling, Kubernetes HPA, and Load Testing
+22min
+Start
+72. Optional Reference: Understanding the Capstone Dockerized Blockchain Application
+2min
+Play
+73. The Blockchain and Cryptocurrencies, What Why and How
+8min
+Play
+74. Mining Blocks and the Genesis Block
+9min
+Play
+75. Hashing and SHA-256
+3min
+Play
+76. Proof of Work & the 51% Attack
+8min
+Play
+77. Proof of Work System | Average Work Script
+8min
+Play
+78. Chain Validation and Replacement Overview
+4min
+Play
+79. APIs, HTTP & Flask Overview
+3min
+Play
+80. Real-Time Messaging Network through Pub/Sub
+3min
+Play
+81. Broadcast Transactions
+16min
+Play
+82. Wallets, Keys & Transactions Overview
+7min
+Play
+83. Calculate Wallet Balances: Overview
+3min
+Play
+84. Transaction Pool: Overview
+2min
+Play
+85. Check Historic Balances
+12min
+Play
+86. The Backend Review and Frontend Preview
+3min
+Play
+87. A 7m Introduction to Web Development (and its relationship to React)
+7min
+Play
+88. The React Runtime and How React Applies Hooks
+11min
+Play
+89. Backend Interlude: Cors
+8min
+Play
+90. Backend Interlude: Seed the Backend with Data
+5min
+Play
+91. Backend Interlude: Blockchain Pagination Endpoints
+10min
+Start
+92. Section Preview: Docker Swarm
+1min
+Play
+93. Docker Swarm
+7min
+Play
+94. Create 3 Azure Linux VMs
+29min
+Play
+95. Install Docker on Linux VMs
+14min
+Play
+96. Scale Services and Explore the Routing Mesh in Docker Swarm
+27min
+Play
+97. Tear Down Azure VMs
+2min
+Start
+98. Docker Swarm | Summary and Commands
+3min
+Start
+99. Section Preview: Docker and Continuous Deployment
+1min
+Play
+100. Docker and Continuous Deployment
+5min
+Play
+101. Host Docker Images with Dockerhub
+11min
+Play
+102. Automatic Image Builds with Github and Amazon ECR Part 1
+38min
+Play
+103. Automatic Image Builds with Github and Amazon ECR Part 2
+19min
+Start
+104. Docker and Continuous Deployment
+3min
+Play
+105. Optional: Mega JavaScript and Node.js Overview for Newcomers part 1
+16min
+Play
+106. Optional: Mega JavaScript and Node.js Overview for Newcomers part 2
+10min
+Start
+107. Section Overview: Python Fundamentals
+1min
+Start
+108. Set up Python and other Software Installations (Mac, Linux, and Windows)
+2min
+Play
+109. For Windows: Install Windows Subsystem for Linux and VS Code
+9min
+Play
+110. Python Interpreter and Fundamentals
+4min
+Play
+111. Strings and Variables
+7min
+Play
+112. Functions
+9min
+Play
+113. Control Flow: Booleans, Comparison Operators, and If Statements
+7min
+Play
+114. Loops: While and For
+6min
+Play
+115. Data Structures: Lists, Sets, and Dictionaries
+9min
+Play
+116. Overview: Classes and Object-Oriented Programming
+4min
+Play
+117. Code: Classes and Object-Oriented Programming
+11min
+Start
+118. Section Summary: Python Fundamentals
+1min
+Start
+119. Section Overview: [Optional Reference Content] In-Depth JavaScript Content
+3min
+Play
+120. The Console, Operators, and Variables
+5min
+Play
+121. Booleans and Conditionals
+12min
+Play
+122. Syntax - Semicolons and Comments
+6min
+Play
+123. Undefined and Primitives
+3min
+Play
+124. Arrays
+7min
+Play
+125. Objects
+4min
+Play
+126. Loops and Iteration
+9min
+Play
+127. Functions - Declarations vs. Expressions
+10min
+Play
+128. Arrow Functions
+7min
+Play
+129. Methods and the `this` Keyword
+6min
+Play
+130. More on `this` and Function Expressions vs. Arrow functions
+6min
+Play
+131. Callbacks
+9min
+Play
+132. A Dynamic Language and Types
+6min
+Play
+133. Almost Everything is an Object
+4min
+Play
+134. Equality and Type Coercion
+8min
+Play
+135. Truthy and Falsy
+10min
+Play
+136. Null vs. Undefined
+5min
+Play
+137. Explicit Type Conversion
+4min
+Play
+138. Let, Const, and Mutability
+6min
+Play
+139. Let, Const, Var, and Scope
+10min
+Play
+140. Var and Function Hoisting
+8min
+Play
+141. Template Literals and Ternary Operators
+9min
+Play
+142. The Property Shorthand and Destructuring Assignment
+10min
+Play
+143. Object methods
+7min
+Play
+144. Spread Syntax
+5min
+Play
+145. Object.is, References, and Shallow Clone
+12min
+Play
+146. JSON.parse, JSON.stringify, and an Attempt at Deep Cloning
+11min
+Play
+147. Custom and Lodash CloneDeep
+17min
+Play
+148. Closures
+9min
+Play
+149. Function Factories
+6min
+Play
+150. Higher Order Functions
+6min
+Play
+151. Object-Oriented Programming
+4min
+Play
+152. Constructor functions
+10min
+Play
+153. Classes
+6min
+Play
+154. Prototypes and the Prototype-Based Inheritance
+10min
+Play
+155. Object Prototype, .__proto__, and the prototype chain
+7min
+Play
+156. Asynchronous Code with SetTimeout
+6min
+Play
+157. Fetch and Promise
+7min
+Play
+158. Promise from Scratch
+6min
+Play
+159. JavaScript Engine and Runtime
+15min
+Play
+160. Await and Async
+6min
+Start
+161. Final Remarks and Bonus Content
+1min

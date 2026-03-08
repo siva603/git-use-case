@@ -1,0 +1,355 @@
+Section 1 — Introduction
+
+## 1.1 What is Docker
+
+Docker is an **open-source containerization platform** used to package an application together with all its dependencies into a **container**.
+
+A container contains:
+
+• Application code  
+• Runtime  
+• System tools  
+• Libraries  
+• Configuration
+
+This ensures the application **runs the same everywhere**.
+
+Example:
+
+Application runs on developer laptop  
+Application runs the same on testing server  
+Application runs the same on production server
+
+This concept is called **environment consistency**.
+
+---
+
+## 1.2 The Problem Before Docker
+
+Before Docker, software was installed **directly on servers**.
+
+Example problem:
+
+Developer Machine  
+Java 17 + MySQL 8 + Node 18
+
+Production Server  
+Java 11 + MySQL 5.7 + Node 16
+
+Result:
+
+Application fails in production.
+
+Common issues:
+
+• Dependency conflicts  
+• Different OS environments  
+• Library incompatibility  
+• Difficult deployments
+
+Docker solves this by **packaging everything together**.
+
+---
+
+## 1.3 What is Containerization
+
+Containerization is a method of **running applications in isolated environments called containers**.
+
+Each container includes:
+
+Application  
+Dependencies  
+Runtime
+
+Containers share the **host operating system kernel**, making them **lightweight and fast**.
+
+---
+
+## 1.4 Containers vs Virtual Machines
+
+### Virtual Machines
+
+A Virtual Machine contains:
+
+Application  
+Libraries  
+Guest OS  
+Hypervisor
+
+Structure:
+
+Application  
+↓  
+Guest OS  
+↓  
+Hypervisor  
+↓  
+Host OS
+
+Problems:
+
+• Heavy  
+• Slow startup  
+• Large disk size
+
+---
+
+### Containers
+
+A container contains:
+
+Application  
+Dependencies  
+Runtime
+
+Structure:
+
+Application  
+↓  
+Container Runtime (Docker)  
+↓  
+Host OS Kernel
+
+Advantages:
+
+• Lightweight  
+• Fast startup  
+• Efficient resource usage  
+• Easy to scale
+
+---
+
+## 1.5 What is Docker Engine
+
+Docker Engine is the **core runtime that manages containers**.
+
+It performs:
+
+• Building images  
+• Running containers  
+• Managing networks  
+• Managing storage
+
+Docker Engine consists of:
+
+Docker Client  
+Docker Daemon  
+Docker API
+
+Workflow:
+
+User runs command  
+↓  
+Docker Client sends request  
+↓  
+Docker Daemon processes it  
+↓  
+Container or image is created
+
+---
+
+## 1.6 Docker Architecture
+
+Docker has three main components.
+
+### Docker Client
+
+The CLI tool used by developers.
+
+Example command:
+
+```
+
+docker run nginx
+
+```
+
+The client sends the request to Docker Engine.
+
+---
+
+### Docker Daemon
+
+The background service that performs tasks such as:
+
+• building images  
+• running containers  
+• managing networks  
+• managing volumes
+
+---
+
+### Docker Registry
+
+A storage location where Docker images are stored.
+
+Examples:
+
+Docker Hub  
+Amazon ECR  
+Google Container Registry  
+Azure Container Registry
+
+Developers **pull and push images** from registries.
+
+---
+
+## 1.7 Docker Images
+
+A Docker image is a **read-only template used to create containers**.
+
+Images contain:
+
+Operating system base layer  
+Application runtime  
+Libraries  
+Application code
+
+Example images:
+
+Ubuntu  
+Node  
+Python  
+MySQL
+
+Example command:
+
+```
+
+docker pull ubuntu
+
+```
+
+This downloads the Ubuntu image.
+
+---
+
+## 1.8 Docker Containers
+
+A container is a **running instance of a Docker image**.
+
+Example:
+
+```
+
+docker run ubuntu
+
+```
+
+Steps that happen internally:
+
+1. Docker checks if image exists
+2. If not, it downloads the image
+3. Creates container
+4. Runs the container
+
+---
+
+## 1.9 Docker in Modern DevOps
+
+Docker is a **core technology in DevOps pipelines**.
+
+Typical workflow:
+
+Developer  
+↓  
+Git Repository  
+↓  
+CI Tool (Jenkins / GitHub Actions)  
+↓  
+Docker Build  
+↓  
+Docker Image  
+↓  
+Docker Registry  
+↓  
+Deployment (Kubernetes / Cloud)
+
+Docker ensures the **same application artifact is used across environments**.
+
+---
+
+## 1.10 Key Features of Docker
+
+Docker provides many powerful features.
+
+### Portability
+
+Applications run **anywhere Docker is installed**.
+
+---
+
+### Fast Deployment
+
+Containers start in **seconds**.
+
+---
+
+### Isolation
+
+Each container runs in **separate isolated environments**.
+
+---
+
+### Scalability
+
+Containers can be **easily scaled horizontally**.
+
+---
+
+### Version Control
+
+Docker images support **versioning and tagging**.
+
+Example:
+
+```
+
+myapp:v1
+myapp:v2
+myapp:latest
+
+```
+
+---
+
+## 1.11 Real World Example
+
+Example application architecture:
+
+Frontend (React)  
+↓  
+Backend (Spring Boot / Node / Python)  
+↓  
+Database (MySQL / PostgreSQL)
+
+Without Docker:
+
+Each component must be installed manually.
+
+With Docker:
+
+Each component runs in a **separate container**.
+
+Example:
+
+Frontend Container  
+Backend Container  
+Database Container
+
+All managed using **Docker Compose or Kubernetes**.
+
+---
+
+## Section 1 Summary
+
+In this section you learned:
+
+• What Docker is  
+• Why Docker exists  
+• Containerization concept  
+• Containers vs Virtual Machines  
+• Docker architecture  
+• Docker images and containers  
+• Role of Docker in DevOps pipelines
+```

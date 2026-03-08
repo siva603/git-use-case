@@ -1,0 +1,331 @@
+SECTION 2 — DEVELOPMENT ENVIRONMENT SETUP
+
+Goal of this section
+Prepare your system so Maven projects can run correctly.
+
+Required tools
+
+* Git
+* Java JDK
+* Maven
+
+After this section you should be able to run:
+
+git --version
+java --version
+mvn --version
+
+---
+
+1. Install Git
+
+Why Git is needed
+
+Most projects are stored in **Git repositories**. Developers clone the project from Git and then build it using Maven.
+
+Download Git
+
+[https://git-scm.com](https://git-scm.com)
+
+Install Git using the default settings.
+
+---
+
+Verify Git Installation
+
+Command
+
+git --version
+
+Explanation
+
+git        → version control tool
+--version  → shows installed version
+
+Example
+
+git --version
+
+# prints installed Git version
+
+---
+
+Configure Git
+
+Set username
+
+git config --global user.name "YourName"
+
+Explanation
+
+git config  → configure Git settings
+--global    → apply setting for all repositories
+user.name   → Git username
+
+---
+
+Set email
+
+git config --global user.email "[your@email.com](mailto:your@email.com)"
+
+Explanation
+
+user.email → email used for Git commits
+
+---
+
+View configuration
+
+git config --list
+
+Explanation
+
+--list → shows all configured Git settings
+
+---
+
+
+
+
+
+
+
+
+
+
+
+2. Install Java JDK
+
+Maven builds Java projects, so Java must be installed.
+
+Recommended versions (modern)
+
+Java 17 (LTS)
+Java 21 (LTS)
+
+Download Java
+
+[https://adoptium.net](https://adoptium.net)
+
+Install the JDK.
+
+---
+
+Verify Java Installation
+
+Command
+
+java --version
+
+Explanation
+
+java        → Java runtime
+--version   → shows installed version
+
+Example
+
+java --version
+
+# confirms Java installation
+
+---
+
+Verify Java Compiler
+
+Command
+
+javac --version
+
+Explanation
+
+javac       → Java compiler
+--version   → shows compiler version
+
+Example
+
+javac --version
+
+# confirms compiler installation
+
+---
+
+
+
+
+
+
+
+
+3. Configure JAVA_HOME
+
+Maven requires the JAVA_HOME environment variable.
+
+Example path
+
+Windows
+
+C:\Program Files\Java\jdk-17
+
+Set environment variable
+
+JAVA_HOME = C:\Program Files\Java\jdk-17
+
+Add Java to system PATH
+
+%JAVA_HOME%\bin
+
+---
+
+Verify JAVA_HOME
+
+Command (Windows)
+
+echo %JAVA_HOME%
+
+Explanation
+
+echo        → prints variable value
+%JAVA_HOME% → environment variable
+
+---
+
+4. Install Maven
+
+Download Maven
+
+[https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi)
+
+Download binary zip file.
+
+Example
+
+apache-maven-3.9.x-bin.zip
+
+Extract the folder.
+
+Example location
+
+C:\apache-maven
+
+---
+
+5. Configure MAVEN_HOME
+
+Set environment variable
+
+MAVEN_HOME = C:\apache-maven
+
+Add Maven to PATH
+
+%MAVEN_HOME%\bin
+
+---
+
+6. Verify Maven Installation
+
+Command
+
+mvn --version
+
+Explanation
+
+mvn        → Maven command-line tool
+--version  → shows Maven installation info
+
+Example output
+
+Apache Maven 3.9.x
+Java version: 17
+Java home: C:\Program Files\Java\jdk-17
+
+This confirms Maven is correctly installed.
+
+---
+
+7. Maven Local Repository
+
+When Maven runs for the first time it creates a **local repository**.
+
+Location
+
+~/.m2/repository
+
+Example (Windows)
+
+C:\Users\username.m2\repository
+
+Purpose
+
+Stores downloaded dependencies.
+
+Example
+
+If you add Spring dependency, Maven downloads it and stores it in this folder.
+
+This prevents downloading the same library again.
+
+---
+
+8. Maven Configuration File
+
+Maven has a configuration file called **settings.xml**
+
+Location
+
+Maven installation folder
+
+apache-maven/conf/settings.xml
+
+Purpose
+
+Configure
+
+* proxies
+* authentication
+* repositories
+* mirrors
+
+Most projects use the default settings.
+
+---
+
+9. Environment Setup Checklist
+
+After completing this section your system should have
+
+Git installed
+Java installed
+JAVA_HOME configured
+Maven installed
+MAVEN_HOME configured
+
+---
+
+Verification commands
+
+git --version
+
+# verifies Git installation
+
+java --version
+
+# verifies Java runtime
+
+javac --version
+
+# verifies Java compiler
+
+mvn --version
+
+# verifies Maven installation
+
+---
+
+What you learned in Section 2
+
+How to install Git
+How to install Java JDK
+How to install Maven
+How to configure environment variables
+How to verify installation
+

@@ -1,0 +1,242 @@
+Section 15 — Real World Capstone Project
+
+This section demonstrates how Docker is used in a **real-world multi-service application**.
+
+The goal of this capstone project is to show how Docker can containerize a **distributed system** and run multiple services together.
+
+Example architecture:
+
+```
+
+React Frontend
+↓
+Python Backend API
+↓
+Blockchain Network Nodes
+
+```
+
+Docker allows each component to run in **separate containers** while still communicating with each other.
+
+---
+
+# Project Architecture
+
+The application contains three major parts.
+
+1. Frontend Application
+2. Backend API
+3. Blockchain Nodes
+
+Architecture diagram:
+
+```
+
+User Browser
+↓
+React Frontend Container
+↓
+Python Backend Container
+↓
+Blockchain Network Containers
+
+````
+
+Each component runs inside its **own Docker container**.
+
+---
+
+# Frontend Container
+
+The frontend is a **React application** that interacts with the backend API.
+
+Responsibilities:
+
+• Display blockchain transactions  
+• Send requests to backend API  
+• Show wallet balances  
+
+Docker container runs the frontend server.
+
+Example Dockerfile:
+
+```dockerfile
+FROM node:18
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+CMD ["npm","start"]
+````
+
+---
+
+# Backend Container
+
+The backend is written using **Python (Flask)**.
+
+Responsibilities:
+
+• handle API requests
+• process transactions
+• communicate with blockchain nodes
+
+Example Dockerfile:
+
+```dockerfile
+FROM python:3.11
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD ["python","app.py"]
+```
+
+---
+
+# Blockchain Node Containers
+
+Each blockchain node runs in its own container.
+
+Responsibilities:
+
+• maintain blockchain ledger
+• validate transactions
+• communicate with other nodes
+
+Example system:
+
+```
+Node 1 Container
+Node 2 Container
+Node 3 Container
+```
+
+All nodes communicate using a **peer-to-peer network**.
+
+---
+
+# Docker Compose for Multi-Container System
+
+Docker Compose runs all services together.
+
+Example `docker-compose.yml`:
+
+```yaml
+version: "3"
+
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+
+  node1:
+    build: ./blockchain-node
+    ports:
+      - "6001:6001"
+
+  node2:
+    build: ./blockchain-node
+    ports:
+      - "6002:6002"
+```
+
+This configuration starts **four containers simultaneously**.
+
+---
+
+# Running the Project
+
+Step 1 — Build containers
+
+```bash
+docker compose build
+```
+
+Step 2 — Start the system
+
+```bash
+docker compose up
+```
+
+Step 3 — Access the application
+
+Frontend
+
+```
+http://localhost:3000
+```
+
+Backend API
+
+```
+http://localhost:5000
+```
+
+---
+
+# Scaling Blockchain Nodes
+
+Docker Compose allows scaling nodes.
+
+Example:
+
+```bash
+docker compose up --scale node=5
+```
+
+Now the system runs **five blockchain nodes**.
+
+This simulates a **distributed blockchain network**.
+
+---
+
+# Benefits of Containerizing the Project
+
+Using Docker for this architecture provides:
+
+• isolated environments
+• easier deployment
+• consistent runtime environments
+• simplified scaling
+
+It also makes it easier to deploy this system to:
+
+• Kubernetes clusters
+• cloud infrastructure
+• CI/CD pipelines
+
+---
+
+# Section 15 Summary
+
+In this section you learned how Docker can be used to run a **real distributed application**.
+
+You saw how to containerize:
+
+• a React frontend
+• a Python backend
+• multiple blockchain nodes
+
+You also learned how Docker Compose manages **multi-container applications and scaling**.
+
+```
+
+If you want, I can also generate the **final section (Section 16 — Best Practices + Final Learning Path Summary)** so your **entire Docker learning guide becomes complete and ready to use.
+```

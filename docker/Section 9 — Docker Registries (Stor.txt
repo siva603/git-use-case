@@ -1,0 +1,431 @@
+Section 9 — Docker Registries (Storing and Distributing Docker Images)
+
+In real-world DevOps workflows, Docker images must be **stored and shared** so that other systems can download and run them.
+
+This is where **Docker Registries** come in.
+
+A Docker Registry is a **central repository for storing and distributing Docker images**.
+
+After completing this section you will understand:
+
+• What Docker registries are  
+• Public vs private registries  
+• Docker Hub usage  
+• Image tagging strategy  
+• Pushing images to registry  
+• Pulling images from registry  
+• Using registries in CI/CD pipelines  
+• Enterprise container registries  
+
+---
+
+# 9.1 What is a Docker Registry
+
+A Docker Registry is a **storage system for Docker images**.
+
+It allows developers and systems to:
+
+• Upload Docker images  
+• Download Docker images  
+• Share images with teams  
+• Deploy applications easily
+
+Example workflow:
+
+Developer builds image  
+↓  
+Push image to registry  
+↓  
+Server pulls image  
+↓  
+Container runs in production
+
+---
+
+# 9.2 Docker Registry Architecture
+
+Basic workflow:
+
+```
+
+Developer
+|
+▼
+Docker Build
+|
+▼
+Docker Image
+|
+▼
+Docker Registry
+|
+▼
+Production Server
+|
+▼
+Docker Pull
+|
+▼
+Run Container
+
+````
+
+The registry acts as the **central image storage**.
+
+---
+
+# 9.3 Types of Docker Registries
+
+Docker registries come in two main types.
+
+| Type | Description |
+|------|-------------|
+Public Registry | Accessible to everyone |
+Private Registry | Restricted access |
+
+Examples:
+
+Public:
+
+• Docker Hub  
+• GitHub Container Registry  
+
+Private:
+
+• Amazon ECR  
+• Google Container Registry  
+• Azure Container Registry  
+
+---
+
+# 9.4 Docker Hub
+
+Docker Hub is the **default public Docker registry**.
+
+It hosts millions of images.
+
+Examples:
+
+```text
+nginx
+mysql
+redis
+node
+python
+ubuntu
+````
+
+Pull image example:
+
+```bash
+docker pull nginx
+```
+
+Docker downloads the image from **Docker Hub**.
+
+---
+
+# 9.5 Official Images
+
+Official images are **verified images maintained by Docker**.
+
+Examples:
+
+```
+nginx
+redis
+postgres
+mysql
+node
+python
+```
+
+Advantages:
+
+• secure
+• optimized
+• maintained
+
+Example:
+
+```bash
+docker pull postgres:15
+```
+
+---
+
+# 9.6 Docker Image Naming Convention
+
+Docker images follow a naming format.
+
+```
+registry/username/repository:tag
+```
+
+Example:
+
+```
+docker.io/nginx:latest
+```
+
+Explanation:
+
+| Component  | Meaning    |
+| ---------- | ---------- |
+| registry   | Docker Hub |
+| repository | nginx      |
+| tag        | latest     |
+
+Another example:
+
+```
+myusername/myapp:v1
+```
+
+---
+
+# 9.7 Docker Image Tagging
+
+Tags represent **different versions of an image**.
+
+Examples:
+
+```
+myapp:v1
+myapp:v2
+myapp:latest
+myapp:dev
+```
+
+Create a tag:
+
+```bash
+docker tag myapp myusername/myapp:v1
+```
+
+Now the image is ready for pushing to registry.
+
+---
+
+# 9.8 Logging Into Docker Registry
+
+Before pushing images, authentication is required.
+
+Login command:
+
+```bash
+docker login
+```
+
+Docker will ask for:
+
+```
+Username
+Password
+```
+
+Successful login message:
+
+```
+Login Succeeded
+```
+
+---
+
+# 9.9 Pushing Images to Docker Hub
+
+Step 1 — Build image
+
+```bash
+docker build -t myapp .
+```
+
+Step 2 — Tag image
+
+```bash
+docker tag myapp myusername/myapp:v1
+```
+
+Step 3 — Push image
+
+```bash
+docker push myusername/myapp:v1
+```
+
+Now the image is stored in **Docker Hub**.
+
+---
+
+# 9.10 Pulling Images From Registry
+
+Download image from registry.
+
+```bash
+docker pull myusername/myapp:v1
+```
+
+Docker downloads the image layers.
+
+Example output:
+
+```
+Downloading layer 1
+Downloading layer 2
+Downloading layer 3
+```
+
+Once downloaded, containers can run from that image.
+
+---
+
+# 9.11 Private Docker Registry
+
+Companies often host their own registries.
+
+Reasons:
+
+• security
+• internal images
+• company policies
+• faster deployments
+
+Private registry example:
+
+```bash
+docker run -d -p 5000:5000 registry:2
+```
+
+Now images can be pushed locally.
+
+Example:
+
+```bash
+docker tag myapp localhost:5000/myapp
+docker push localhost:5000/myapp
+```
+
+---
+
+# 9.12 Cloud Container Registries
+
+Most companies use cloud registries.
+
+Examples:
+
+| Registry                  | Cloud Provider  |
+| ------------------------- | --------------- |
+| Amazon ECR                | AWS             |
+| Google Artifact Registry  | Google Cloud    |
+| Azure Container Registry  | Microsoft Azure |
+| GitHub Container Registry | GitHub          |
+
+Example AWS ECR workflow:
+
+```
+docker build
+↓
+docker tag
+↓
+docker push ECR
+↓
+Kubernetes pulls image
+```
+
+---
+
+# 9.13 Registry in CI/CD Pipelines
+
+Registries are essential for **continuous deployment pipelines**.
+
+Example pipeline:
+
+```
+Developer pushes code
+        |
+        ▼
+GitHub
+        |
+        ▼
+CI Pipeline (Jenkins / GitHub Actions)
+        |
+        ▼
+Build Docker Image
+        |
+        ▼
+Push Image to Registry
+        |
+        ▼
+Production Server Pulls Image
+        |
+        ▼
+Deploy Container
+```
+
+This ensures **consistent deployments**.
+
+---
+
+# 9.14 Image Versioning Strategy
+
+Best practice is to use **version tags**.
+
+Example:
+
+```
+myapp:1.0
+myapp:1.1
+myapp:2.0
+```
+
+Avoid relying only on:
+
+```
+latest
+```
+
+Because it can change unexpectedly.
+
+---
+
+# 9.15 Registry Security
+
+Security best practices:
+
+• use private registries
+• scan images for vulnerabilities
+• use signed images
+• avoid storing secrets in images
+
+Tools for scanning images:
+
+• Trivy
+• Docker Scout
+• Clair
+
+---
+
+# Section 9 Summary
+
+In this section you learned:
+
+• What Docker registries are
+• Public vs private registries
+• Docker Hub usage
+• Image naming conventions
+• Tagging images
+• Pushing images
+• Pulling images
+• Private registries
+• Cloud container registries
+• Registry usage in CI/CD pipelines
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Swarm — Native Docker Container Orchestration**
+
+```
+```

@@ -1,0 +1,744 @@
+Play
+1. Course Overview - AWS Certified DevOps Engineer Professional
+1min
+Start
+Quiz 1: Course Readiness
+Play
+2. About your instructor
+3min
+Start
+3. Note: other courses abbreviations
+1min
+Start
+4. Code & Slides Download
+1min
+Play
+5. [DVA] Introduction to CICD in AWS
+6min
+Play
+6. [DVA] CodeCommit - Overview
+4min
+Play
+7. [Important] AWS Console UI Update
+1min
+Play
+8. [DVA] CodeCommit - Hands On Part 1
+6min
+Play
+9. [DVA] CodeCommit - Hands On Part 2
+6min
+Play
+10. CodeCommit - Advanced
+5min
+Play
+11. [DVA] CodePipeline - Overview
+4min
+Play
+12. [DVA] CodePipeline - Hands On - Prerequisite
+2min
+Play
+13. [DVA] CodePipeline - Hands On
+10min
+Play
+14. [DVA] CodePipeline - Extras
+5min
+Play
+15. CodePipeline - CloudFormation Integration
+4min
+Play
+16. CodePipeline - Advanced
+7min
+Play
+17. CodeBuild - Overview
+6min
+Play
+18. [DVA] CodeBuild - Hands On Part 1
+4min
+Play
+19. [DVA] CodeBuild - Hands On Part 2
+9min
+Play
+20. CodeBuild - Advanced
+7min
+Play
+21. [DVA] CodeDeploy - Overview
+8min
+Play
+22. CodeDeploy - EC2 Deep Dive
+11min
+Play
+23. CodeDeploy - ECS Deep Dive
+6min
+Play
+24. CodeDeploy - Lambda Deep Dive
+3min
+Play
+25. CodeDeploy - Rollbacks & Troubleshooting
+4min
+Play
+26. [DVA] CodeArtifact - Overview
+6min
+Play
+27. [DVA] CodeArtifact - Upstream Repositories & Domains
+6min
+Play
+28. [DVA] CodeArtifact - Hands On
+6min
+Play
+29. [DVA] CodeGuru - Overview
+3min
+Play
+30. CodeGuru - Extras
+2min
+Play
+31. EC2 Image Builder
+3min
+Play
+32. EC2 Image Builder - Extras
+2min
+Play
+33. [SOA] AWS Amplify
+2min
+Play
+34. AWS Amplify - Extras
+1min
+Play
+35. [DVA/SOA] CloudFormation - Overview
+6min
+Play
+36. [DVA/SOA] CloudFormation - Create Stack - Hands On
+7min
+Play
+37. [DVA/SOA] CloudFormation - Update & Delete Stack - Hands On
+7min
+Play
+38. [DVA/SOA] YAML Crash Course
+3min
+Play
+39. [DVA/SOA] CloudFormation - Resources
+6min
+Play
+40. [DVA/SOA] CloudFormation - Parameters
+7min
+Play
+41. [DVA/SOA] CloudFormation - Mappings
+2min
+Play
+42. [DVA/SOA] CloudFormation - Outputs & Exports
+2min
+Play
+43. [DVA/SOA] CloudFormation - Conditions
+2min
+Play
+44. [DVA/SOA] CloudFormation - Intrinsic Functions
+5min
+Play
+45. [DVA/SOA] CloudFormation - Rollbacks
+6min
+Play
+46. [DVA/SOA] CloudFormation - Service Role
+3min
+Play
+47. [DVA/SOA] CloudFormation - Capabilities
+3min
+Play
+48. [DVA/SOA] CloudFormation - Deletion Policy
+5min
+Play
+49. [DVA/SOA] CloudFormation - Stack Policy
+1min
+Play
+50. [DVA/SOA] CloudFormation - Termination Protection
+1min
+Play
+51. [DVA/SOA] CloudFormation - Custom Resources
+3min
+Play
+52. CloudFormation - Custom Resources - Hands On
+7min
+Play
+53. [DVA/SOA] CloudFormation - Dynamic References
+5min
+Play
+54. [SOA] CloudFormation - User Data
+4min
+Play
+55. [SOA] CloudFormation - cfn-init
+8min
+Play
+56. [SOA] CloudFormation - cfn-signal & Wait Condition
+5min
+Play
+57. [SOA] CloudFormation - cfn-signal Failures
+5min
+Play
+58. [SOA] CloudFormation - Nested Stacks
+8min
+Play
+59. [SOA] CloudFormation - Depends On
+3min
+Start
+60. StackSets - Warning
+1min
+Play
+61. [SOA] CloudFormation - StackSets
+3min
+Play
+62. [SOA] CloudFormation - Create StackSets - Hands On
+12min
+Play
+63. [SOA] CloudFormation - Update StackSets - Hands On
+1min
+Play
+64. [SOA] CloudFormation - Delete StackSets - Hands On
+2min
+Play
+65. [SOA] CloudFormation - Troubleshooting
+5min
+Play
+66. CloudFormation - ChangeSets
+3min
+Play
+67. CloudFormation - cfn-hup
+6min
+Play
+68. CloudFormation - Drift
+6min
+Play
+69. Service Catalog - Overview
+4min
+Play
+70. Service Catalog - Extras
+3min
+Play
+71. [SAA/DVA/SOA] Elastic Beanstalk - Overview
+5min
+Play
+72. [SAA/DVA] Elastic Beanstalk - Hands On
+8min
+Play
+73. [DVA] Elastic Beanstalk - High Availability Environment
+7min
+Play
+74. [DVA] Elastic Beanstalk - Deployment Modes
+12min
+Play
+75. [DVA] Elastic Beanstalk - Deployment Modes Hands On
+9min
+Play
+76. Elastic Beanstalk - Extras
+3min
+Play
+77. [DVA] Serverless Application Model (SAM) - Overview
+4min
+Play
+78. [DVA] Serverless Application Model (SAM) with CodeDeploy
+10min
+Play
+79. [DVA] Cloud Development Kit (CDK) - Overview
+5min
+Play
+80. [DVA] Cloud Development Kit (CDK) - Hands On
+12min
+Play
+81. [DVA] Step Functions - Overview
+5min
+Play
+82. [DVA] Step Functions - Hands On
+6min
+Play
+83. [DVA] Step Functions - Invoke Lambda - Hands On
+5min
+Play
+84. [DVA] AppConfig - Overview
+3min
+Play
+85. [SOA] Systems Manager (SSM) - Overview
+4min
+Play
+86. [SOA] Start EC2 Instances with SSM Agent - Hands On
+4min
+Play
+87. [SOA] AWS Tags & SSM Resource Groups
+4min
+Play
+88. [SOA] SSM Documents & SSM Run Command
+12min
+Play
+89. [SOA] SSM Automations
+7min
+Play
+90. [SAA/DVA/SOA] SSM Parameter Store
+4min
+Play
+91. [SAA/DVA/SOA] SSM Parameter Store - Hands On
+7min
+Play
+92. [SOA] SSM Patch Manager and Maintenance Windows
+5min
+Play
+93. [SOA] SSM Patch Manager and Maintenance Windows - Hands On
+5min
+Play
+94. [SOA] SSM Session Manager
+3min
+Play
+95. [SOA] SSM Session Manager - Hands On
+2min
+Play
+96. [SOA] SSM Cleanup
+1min
+Play
+97. SSM Default Host Management Configuration (DHMC)
+2min
+Play
+98. SSM Default Host Management Configuration (DHMC) - Hands On
+5min
+Play
+99. SSM Hybrid Environments
+2min
+Play
+100. SSM Hybrid Environments - Hands On
+3min
+Play
+101. SSM with IoT Greengrass
+2min
+Play
+102. SSM Automations - Use Cases
+2min
+Play
+103. SSM Compliance
+1min
+Play
+104. SSM OpsCenter
+2min
+Play
+105. SSM Session Manager with VPC Endpoints
+2min
+Play
+106. [DVA] Lambda - Versions and Aliases
+3min
+Play
+107. [DVA] Lambda - Versions and Aliases Hands On
+6min
+Play
+108. [DVA] Lambda - Environment Variables
+1min
+Play
+109. [DVA] Lambda - Environment Variables Hands On
+3min
+Play
+110. [SAA/DVA/SOA] Lambda - Concurrency
+6min
+Play
+111. [SAA/DVA/SOA] Lambda - Concurrency Hands On
+3min
+Play
+112. [DVA] Lambda - File Systems Mounting
+4min
+Play
+113. Lambda - Cross-Account File Systems Mounting
+1min
+Play
+114. [SAA/DVA] API Gateway - Overview
+7min
+Play
+115. [SAA/DVA] API Gateway - Hands On
+10min
+Play
+116. [DVA] API Gateway - Stages and Deployment
+4min
+Play
+117. [DVA] API Gateway - Stages and Deployment Hands On
+8min
+Play
+118. [DVA] API Gateway - Open API
+3min
+Play
+119. [DVA] API Gateway - Open API Hands On
+2min
+Play
+120. [DVA] API Gateway - Caching
+4min
+Play
+121. [DVA] API Gateway - Canary Deployments
+1min
+Play
+122. [DVA] API Gateway - Canary Deployments Hands On
+4min
+Play
+123. [DVA] API Gateway - Monitoring, Logging and Tracing
+5min
+Play
+124. [SAA/DVA] Amazon ECS - Overview
+7min
+Play
+125. [SAA/DVA] Amazon ECS - Auto Scaling
+3min
+Play
+126. [SAA/DVA] Amazon ECS - Solutions Architectures
+3min
+Play
+127. Amazon ECS - Logging
+3min
+Play
+128. [SAA/DVA] Amazon ECR - Overview
+2min
+Play
+129. Amazon ECR - Extras
+2min
+Play
+130. [SAA/DVA] Amazon EKS - Overview
+4min
+Play
+131. Amazon EKS - Logging
+1min
+Play
+132. [SAA/DVA] Amazon Kinesis Data Streams
+4min
+Play
+133. [SAA/DVA] Amazon Kinesis Data Streams - Hands On
+10min
+Play
+134. [SAA/DVA] Amazon Data Firehose
+4min
+Play
+135. [SAA/DVA] Amazon Data Firehose - Hands On
+8min
+Play
+136. [SAA/DVA] Amazon Managed Service for Apache Flink
+2min
+Play
+137. [SAA] Amazon Managed Service for Apache Flink - Hands On
+2min
+Play
+138. [SAA/DVA/SOA] Route 53 - Overview
+6min
+Play
+139. [SAA/DVA/SOA] Route 53 - Routing Policy - Weighted
+5min
+Play
+140. [SAA/DVA/SOA] Route 53 - Routing Policy - Latency
+5min
+Play
+141. [SAA/DVA/SOA] Route 53 - Routing Policy - Failover
+4min
+Play
+142. [SAA/DVA/SOA] RDS Read Replicas vs. Multi-AZ
+7min
+Play
+143. Amazon Aurora - Extras
+4min
+Play
+144. [SAA/DVA/SOA] ElastiCache - Overview
+5min
+Play
+145. [SAA/DVA/SOA] ElastiCache - Hands On
+5min
+Play
+146. [SOA] ElastiCache - Redis Cluster Modes
+6min
+Play
+147. [SAA] DynamoDB - Overview
+5min
+Play
+148. [SAA] DynamoDB - Hands On
+5min
+Play
+149. [SAA] DynamoDB - Advanced Features
+9min
+Play
+150. [SAA] AWS DMS - Overview
+5min
+Play
+151. [SAA] AWS DMS - Hands On
+5min
+Play
+152. AWS DMS - Monitoring
+2min
+Play
+153. [SAA/DVA/SOA] Amazon S3 - Replication
+1min
+Play
+154. [SAA/DVA/SOA] Amazon S3 - Replication Hands On
+6min
+Play
+155. AWS Storage Gateway - Overview
+3min
+Play
+156. AWS Storage Gateway - File Gateway Cache Refresh
+2min
+Play
+157. [SAA/DVA/SOA] Auto Scaling Groups - Scaling Policies
+4min
+Play
+158. [SAA/DVA/SOA] Auto Scaling Groups - Scaling Policies Hands On
+9min
+Play
+159. Auto Scaling Groups - Lifecycle Hooks
+3min
+Play
+160. Auto Scaling Groups - Event Notifications
+2min
+Play
+161. Auto Scaling Groups - Termination Policies
+3min
+Play
+162. Auto Scaling Groups - Warm Pools
+10min
+Play
+163. Application Auto Scaling - Overview
+2min
+Play
+164. [SOA] Elastic Load Balancer - ALB Rules Deep Dive
+3min
+Play
+165. Elastic Load Balancer - Extras
+3min
+Play
+166. [SAA/SOA] NAT Gateway
+4min
+Play
+167. Multi-AZ Architectures
+2min
+Play
+168. Blue-Green Architectures
+3min
+Play
+169. Multi-Region Architectures
+3min
+Play
+170. [SAA] Disaster Recovery in AWS
+11min
+Play
+171. [SAA] CloudWatch Metrics
+4min
+Play
+172. [DVA/SOA] CloudWatch Custom Metrics
+4min
+Play
+173. CloudWatch Anomaly Detection
+1min
+Play
+174. [SAA/DVA/SOA] CloudWatch Logs - Overview
+6min
+Play
+175. [SAA/DVA/SOA] CloudWatch Logs - Hands On
+5min
+Play
+176. [SAA/DVA/SOA] CloudWatch Logs - Live Tail - Hands On
+2min
+Play
+177. [DVA] CloudWatch Logs - Metric Filters
+1min
+Play
+178. [DVA] CloudWatch Logs - Metric Filters Hands On
+4min
+Play
+179. All Kinds of Logs
+5min
+Play
+180. [SAA/DVA] CloudWatch Agent & CloudWatch Logs Agent
+3min
+Play
+181. [SAA/DVA/SOA] CloudWatch Alarms - Overview
+4min
+Play
+182. [SAA/DVA/SOA] CloudWatch Alarms - Hands On
+5min
+Play
+183. [DVA/SOA] CloudWatch Synthetics
+3min
+Play
+184. [SAA/DVA/SOA] Amazon Athena - Overview
+5min
+Play
+185. [SAA/DVA/SOA] Amazon Athena - Hands On
+6min
+Play
+186. [SAA/DVA/SOA] EventBridge - Overview
+7min
+Play
+187. [SAA/DVA/SOA] EventBridge - Hands On
+6min
+Play
+188. [SOA] EventBridge - Content Filtering Hands On
+6min
+Play
+189. [SOA] EventBridge - Input Transformation Hands On
+7min
+Play
+190. [SAA/DVA/SOA] Amazon S3 - Event Notifications
+4min
+Play
+191. [SAA/DVA/SOA] Amazon S3 - Event Notifications Hands On
+6min
+Play
+192. Amazon S3 - Object Integrity
+2min
+Play
+193. [SOA] AWS Health Dashboard - Overview
+2min
+Play
+194. [SOA] AWS Health Dashboard - Hands On
+2min
+Play
+195. [SOA] AWS Health Dashboard - Events & Notifications
+2min
+Play
+196. [SOA] EC2 Instance Status Checks - Overview
+5min
+Play
+197. [SOA] EC2 Instance Status Checks - Hands On
+6min
+Play
+198. [SAA/DVA/SOA] CloudTrail - Overview
+6min
+Play
+199. [SAA/DVA/SOA] CloudTrail - Hands On
+2min
+Play
+200. [SAA/DVA/SOA] CloudTrail - EventBridge Integration
+2min
+Play
+201. [DVA] SQS - Dead Letter Queues
+3min
+Play
+202. [DVA] SQS - Dead Letter Queues - Hands On
+4min
+Play
+203. SNS - Redrive Policy
+1min
+Play
+204. AWS X-Ray
+1min
+Play
+205. [DVA] AWS X-Ray with Beanstalk
+4min
+Play
+206. [DVA] AWS Distro for OpenTelemetry
+3min
+Play
+207. [SAA/SOA] AWS Config - Overview
+5min
+Play
+208. [SAA/SOA] AWS Config - Hands On
+10min
+Play
+209. AWS Config - Configurations Recorder and Aggregator
+3min
+Play
+210. AWS Config - Conformance Packs
+3min
+Play
+211. AWS Config - Organizational Rules
+2min
+Play
+212. AWS Organizations - Overview
+6min
+Play
+213. AWS Organizations - Service Control Policies (SCPs)
+4min
+Play
+214. AWS Control Tower - Overview
+4min
+Play
+215. [SOA] AWS Control Tower - Hands On
+7min
+Play
+216. AWS Control Tower - Landing Zones
+2min
+Play
+217. AWS Control Tower - Account Factory & Migrating Accounts
+3min
+Play
+218. Customizations for AWS Control Tower (CfCT)
+3min
+Play
+219. AWS Control Tower - Config Integration
+2min
+Play
+220. AWS Control Tower - Account Factory for Terraform
+2min
+Play
+221. [SAA/SOA] IAM Identity Center - Overview
+7min
+Play
+222. IAM Identity Center - Extras
+4min
+Play
+223. AWS Web Application Firewall (AWS WAF)
+6min
+Play
+224. [SAA] AWS Firewall Manager - Overview
+3min
+Play
+225. AWS Firewall Manager - Policies
+2min
+Play
+226. [SAA/SOA] Amazon GuardDuty - Overview
+3min
+Play
+227. Amazon GuardDuty - Advanced
+7min
+Play
+228. Amazon GuardDuty - CloudFormation Integration
+1min
+Play
+229. Amazon Detective
+1min
+Play
+230. [SAA/SOA] Amazon Inspector - Overview
+2min
+Play
+231. [SOA] Amazon Inspector - Hands On
+6min
+Play
+232. Amazon Inspector - EC2 Setup
+1min
+Play
+233. [SOA] EC2 Instance Migration using AMIs
+5min
+Play
+234. [CCP/SAA/SOA] AWS Trusted Advisor - Overview
+3min
+Play
+235. AWS Trusted Advisor - Architectures
+1min
+Play
+236. AWS Secrets Manager
+2min
+Play
+237. AWS Secrets Manager - Hands On
+4min
+Play
+238. AWS Tag Editor
+1min
+Play
+239. Amazon QuickSight
+1min
+Play
+240. [SAA] AWS Glue
+4min
+Play
+241. Exam Walkthrough and Signup
+5min
+Play
+242. Save 50% on your AWS Exam Cost!
+1min
+Play
+243. Get an Extra 30 Minutes on your AWS Exam - Non Native English Speakers only
+1min
+Play
+244. Next Steps - AWS Certified DevOps Engineer Professional
+1min
+Start
+Practice Test 1: Bonus Practice Exam (10 questions)
+Play
+245. AWS Certification Paths
+6min
+Play
+246. Congratulations
+2min
+Start
+247. Bonus Lecture

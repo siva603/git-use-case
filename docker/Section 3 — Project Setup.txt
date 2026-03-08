@@ -1,0 +1,407 @@
+Section 3 — Project Setup
+
+In this section you will learn how a **Docker-based project is structured** and how to prepare an application for containerization.
+
+After completing this section you will understand:
+
+• Standard Docker project structure  
+• Important configuration files  
+• Dockerfile creation  
+• .dockerignore usage  
+• Preparing applications for containers  
+
+---
+
+# 3.1 Understanding Dockerized Application Structure
+
+A typical Docker project has the following structure:
+
+```
+
+project-root
+│
+├── src/
+│   ├── app files
+│
+├── Dockerfile
+│
+├── .dockerignore
+│
+├── docker-compose.yml
+│
+└── README.md
+
+```
+
+Each file has a specific purpose in building and running containers.
+
+---
+
+# 3.2 Source Code Folder
+
+The **src folder** contains the actual application code.
+
+Example:
+
+```
+
+src
+├── app.js
+├── package.json
+├── routes
+└── services
+
+````
+
+This can be:
+
+• Node.js project  
+• Java Spring Boot project  
+• Python Flask project  
+• React frontend  
+
+Docker will package this code into an image.
+
+---
+
+# 3.3 Dockerfile
+
+The **Dockerfile** defines how to build a Docker image.
+
+It contains instructions that Docker follows step-by-step.
+
+Example Dockerfile:
+
+```Dockerfile
+FROM node:18
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+CMD ["node","app.js"]
+````
+
+Explanation:
+
+FROM → Base image used to build container
+WORKDIR → Working directory inside container
+COPY → Copies project files into container
+RUN → Executes commands during image build
+CMD → Default command when container starts
+
+---
+
+# 3.4 Understanding Base Images
+
+Docker images start from **base images**.
+
+Common base images:
+
+• ubuntu
+• node
+• python
+• openjdk
+• nginx
+• alpine
+
+Example:
+
+```
+FROM python:3.11
+```
+
+This means:
+
+Use Python 3.11 environment as the base image.
+
+---
+
+# 3.5 Image Build Process
+
+When Docker builds an image it follows **instructions sequentially**.
+
+Example build process:
+
+Step 1 → Pull base image
+Step 2 → Create container layer
+Step 3 → Copy application code
+Step 4 → Install dependencies
+Step 5 → Set startup command
+
+Each step becomes an **image layer**.
+
+---
+
+# 3.6 Docker Image Layers
+
+Docker images are built using **layered architecture**.
+
+Example:
+
+Layer 1 → Base OS
+Layer 2 → Runtime environment
+Layer 3 → Dependencies
+Layer 4 → Application code
+
+Advantages of layers:
+
+• Faster builds
+• Reusable layers
+• Efficient storage
+
+If only application code changes, Docker rebuilds only the **last layer**.
+
+---
+
+# 3.7 .dockerignore File
+
+The `.dockerignore` file prevents unnecessary files from entering the image.
+
+Example:
+
+```
+node_modules
+.git
+.env
+logs
+```
+
+Without `.dockerignore`:
+
+• Image size increases
+• Build time increases
+• Sensitive files may leak
+
+---
+
+# 3.8 Building Docker Images
+
+Once Dockerfile is ready, build the image.
+
+Command:
+
+```bash
+docker build -t myapp .
+```
+
+Explanation:
+
+docker build → build image
+-t → tag name
+myapp → image name
+. → current directory (Dockerfile location)
+
+Example output:
+
+```
+Successfully built image
+Successfully tagged myapp:latest
+```
+
+---
+
+# 3.9 Running the Application Container
+
+After building the image, run the container.
+
+Command:
+
+```bash
+docker run -p 3000:3000 myapp
+```
+
+Explanation:
+
+docker run → start container
+-p → port mapping
+3000:3000 → host port : container port
+myapp → image name
+
+Now the application runs on:
+
+```
+http://localhost:3000
+```
+
+---
+
+# 3.10 Naming Containers
+
+Containers can be given custom names.
+
+Command:
+
+```bash
+docker run --name mycontainer myapp
+```
+
+This helps manage containers easily.
+
+Example:
+
+```
+docker stop mycontainer
+```
+
+---
+
+# 3.11 Viewing Container Logs
+
+Logs help debug applications.
+
+Command:
+
+```bash
+docker logs container_name
+```
+
+Example:
+
+```
+docker logs mycontainer
+```
+
+This prints application output.
+
+---
+
+# 3.12 Inspecting Containers
+
+Docker provides detailed information about containers.
+
+Command:
+
+```bash
+docker inspect container_name
+```
+
+This shows:
+
+• container configuration
+• network settings
+• volume mounts
+• environment variables
+
+---
+
+# 3.13 Environment Variables
+
+Applications often require configuration variables.
+
+Example:
+
+Database host
+API keys
+Environment mode
+
+Docker allows environment variables.
+
+Example:
+
+```bash
+docker run -e NODE_ENV=production myapp
+```
+
+This sets the environment variable inside container.
+
+---
+
+# 3.14 Multi-Container Applications
+
+Most real systems contain **multiple services**.
+
+Example architecture:
+
+Frontend (React)
+Backend API
+Database (MySQL)
+
+Running these manually is difficult.
+
+Docker Compose solves this problem.
+
+Example structure:
+
+```
+project
+│
+├── frontend
+├── backend
+├── database
+└── docker-compose.yml
+```
+
+---
+
+# 3.15 Docker Compose File
+
+Docker Compose defines **multi-container applications**.
+
+Example:
+
+```yaml
+version: "3"
+
+services:
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+
+  database:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+```
+
+Compose manages container networking automatically.
+
+---
+
+# 3.16 Running Multi-Container Application
+
+Start application:
+
+```bash
+docker compose up
+```
+
+Stop application:
+
+```bash
+docker compose down
+```
+
+Compose automatically:
+
+• creates network
+• starts containers
+• connects services
+
+---
+
+# Section 3 Summary
+
+In this section you learned:
+
+• Docker project structure
+• Dockerfile fundamentals
+• Base images
+• Image layers
+• .dockerignore usage
+• Building Docker images
+• Running containers
+• Environment variables
+• Multi-container architecture
+• Docker Compose basics
+
+Next section will cover:
+
+**Docker Core Concepts and Internal Architecture**
+
+```
+```

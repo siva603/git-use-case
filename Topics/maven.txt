@@ -1,0 +1,233 @@
+1. Welcome: What's In This Course
+2min
+Play
+2. Maven Key Concepts
+4min
+Play
+3. Course Tools
+2min
+Play
+4. Quick Installation Overview
+1min
+Play
+5. Quick Installation Process for Windows Users
+9min
+Start
+6. Quick Installation Notes for Windows Users
+4min
+Play
+7. Quick Installation Process for Mac OS X Users
+6min
+Start
+8. Quick Installation Notes for Mac OS X Users
+3min
+Play
+9. Quick Start Overview
+1min
+Play
+10. The Setup: Source Control
+1min
+Play
+11. The Setup: Project Folder
+2min
+Play
+12. Accessing the Sample Content
+1min
+Play
+13. Maven Lifecycles Explained
+2min
+Play
+14. Minimal Maven Project
+3min
+Play
+15. Update Git Repository
+2min
+Play
+16. Directory Conventions in Maven
+2min
+Play
+17. Standard Directory Templates Explained
+3min
+Play
+18. Preserving Folders within Git
+3min
+Play
+19. Adding Java Source
+3min
+Play
+20. Building with Maven and the Target Directory
+2min
+Play
+21. Removing the Previous Build Results
+1min
+Play
+22. Multiple Goals
+1min
+Play
+23. Maven Local Repository
+4min
+Play
+24. Cleanup: Commit Changes to Git
+4min
+Play
+25. Plugins Overview
+1min
+Play
+26. Plugin Introduction and Documentation
+2min
+Play
+27. The Setup: Modern Java Source
+3min
+Play
+28. Compiler Plugin and Execution
+3min
+Play
+29. Executing the Sample Application
+1min
+Play
+30. Cleanup: Update Git Repository
+1min
+Play
+31. Dependency Overview and Scopes Explained
+3min
+Play
+32. Adding Dependencies
+2min
+Play
+33. Adding Dependencies from Maven Central
+2min
+Play
+34. Cleanup: Saving Changes in Git
+1min
+Play
+35. Listing Project Dependencies
+2min
+Play
+36. Unit Testing Overview
+1min
+Play
+37. Adding Unit Test Code
+2min
+Play
+38. JUnit Dependency Update
+2min
+Play
+39. Running Tests with Maven
+1min
+Play
+40. Test Reports
+1min
+Play
+41. Cleanup: Commit Changes in Git
+1min
+Play
+42. Eclipse-Maven Integration Overview
+1min
+Play
+43. Eclipse Quick Install on Windows
+1min
+Play
+44. Eclipse Quick Install on Mac OS X
+2min
+Play
+45. Creating a New Maven Project in Eclipse
+3min
+Play
+46. Importing Existing Maven Projects into Eclipse
+1min
+Play
+47. Reviewing the POM File within Eclipse
+2min
+Play
+48. Running Maven within Eclipse
+2min
+Play
+49. Cleanup: Git Updates
+5min
+Play
+50. Using Archetypes Overview
+1min
+Play
+51. Archetypes Documentation
+4min
+Play
+52. Simple Project and Review
+3min
+Play
+53. Generating a Project Non-Interactively
+2min
+Play
+54. Simple Project Review and Build
+3min
+Play
+55. Review and Final Thoughts
+1min
+Play
+56. Windows 10 Full Installation Overview
+2min
+Play
+57. Platform (32 vs 64 bits)
+1min
+Play
+58. Chrome Installation (Optional)
+3min
+Play
+59. Git for Windows Installation
+6min
+Play
+60. Git for Windows Help
+1min
+Play
+61. Git for Windows Minimal Configuration
+3min
+Play
+62. Notepad++ Installation
+5min
+Play
+63. Notepad++ Git Integration
+5min
+Play
+64. Java SDK (JDK) Installation
+3min
+Play
+65. Java SDK (JDK) Configuration
+3min
+Play
+66. Maven Installation
+5min
+Play
+67. Mac OS X Full Installation Overview
+2min
+Play
+68. Chrome Installation (Optional)
+3min
+Play
+69. Apple Git Installation
+1min
+Play
+70. Git Started: Help
+1min
+Play
+71. Minimal Git Configuration
+2min
+Play
+72. TextMate 2 Installation
+2min
+Play
+73. TextMate 2 Configuration
+1min
+Play
+74. TextMate 2 Git Integration
+1min
+Play
+75. Maven Installation
+4min
+Play
+76. Java Installation
+3min
+Play
+77. Bash Profile and Git Prompt
+3min
+Start
+78. Bonus: Exclusive Student Discounts
+5min

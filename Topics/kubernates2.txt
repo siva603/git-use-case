@@ -1,0 +1,852 @@
+Play
+1. Course Introduction
+3min
+Play
+2. Certification
+3min
+Start
+3. Course Release Notes
+2min
+Play
+4. The Kubernetes Trilogy
+5min
+Start
+5. Notes available at KodeKloud Notes
+1min
+Play
+6. Core Concepts - Section Introduction
+1min
+Start
+7. Download Presentation Deck for this section
+1min
+Play
+8. Cluster Architecture
+9min
+Play
+9. Docker-vs-ContainerD
+13min
+Play
+10. A note on Docker deprecation
+2min
+Play
+11. ETCD For Beginners
+7min
+Play
+12. ETCD in Kubernetes
+3min
+Start
+13. ETCD - Commands (Optional)
+1min
+Play
+14. Kube-API Server
+5min
+Play
+15. Kube Controller Manager
+4min
+Play
+16. Kube Scheduler
+4min
+Play
+17. Kubelet
+2min
+Play
+18. Kube Proxy
+4min
+Play
+19. Pods
+9min
+Play
+20. Pods with YAML
+7min
+Play
+21. Demo - Pods with YAML
+6min
+Play
+22. Practice Test Introduction
+6min
+Play
+23. Demo: Accessing Labs
+2min
+Start
+24. Lab - Pods
+1min
+Play
+25. Lab Solution - Pods (optional)
+12min
+Play
+26. Recap - ReplicaSets
+16min
+Start
+27. Lab - ReplicaSets
+1min
+Play
+28. Lab Solution - ReplicaSets (optional)
+14min
+Play
+29. Deployments
+4min
+Start
+30. Certification Tip!
+1min
+Start
+31. Course setup - accessing the labs
+1min
+Start
+32. Lab - Deployments
+1min
+Play
+33. Lab Solution - Deployments (optional)
+7min
+Play
+34. Services
+14min
+Play
+35. Services Cluster IP
+4min
+Play
+36. Services - Loadbalancer
+4min
+Start
+37. Lab- Services
+1min
+Play
+38. Lab Solution - Services (optional)
+9min
+Play
+39. Namespaces
+8min
+Start
+40. Lab - Namespaces
+1min
+Play
+41. Lab Solution - Namespaces (optional)
+6min
+Play
+42. Imperative vs Declarative
+13min
+Start
+43. Certification Tips - Imperative Commands with Kubectl
+2min
+Play
+44. Kubectl Explain Command
+2min
+Start
+45. Lab - Imperative Commands
+1min
+Play
+46. Lab Solution - Imperative Commands (optional)
+13min
+Play
+47. Kubectl Apply Command
+5min
+Start
+48. Here's some inspiration to keep going
+0min
+Play
+49. A Quick Reminder
+1min
+Start
+50. Reference Notes for lectures and labs
+1min
+Play
+90. Logging and Monitoring - Section Introduction
+1min
+Start
+91. Download Presentation Deck
+1min
+Play
+92. Monitor Cluster Components
+4min
+Start
+93. Lab - Monitoring Cluster Components
+1min
+Play
+94. Lab Solution: Monitor Cluster Components
+4min
+Play
+95. Managing Application Logs
+3min
+Start
+96. Lab - Monitor Application Logs
+0min
+Play
+97. Lab Solution: Logging : (Optional)
+3min
+Play
+98. Application Lifecycle Management - Section Introduction
+1min
+Start
+99. Download Slide Deck
+1min
+Play
+100. Rolling Updates and Rollbacks
+7min
+Start
+101. Lab - Rolling Updates and Rollbacks
+0min
+Play
+102. Lab Solution: Rolling update
+9min
+Start
+103. Configure Applications
+1min
+Play
+104. Commands and Arguments in Docker
+7min
+Play
+105. Commands and Arguments in Kubernetes
+3min
+Start
+106. Lab - Commands and Arguments
+0min
+Play
+107. Lab Solution - Commands and Arguments (Optional)
+20min
+Play
+108. Configure Environment Variables in Applications
+1min
+Play
+109. Configuring ConfigMaps in Applications
+5min
+Start
+110. Lab: Env Variables
+0min
+Play
+111. Lab Solution - Env Variables (Optional)
+9min
+Play
+112. Secrets
+6min
+Start
+113. Lab - Secrets
+0min
+Start
+114. Additional Resource
+1min
+Play
+115. Lab Solution - Secrets (Optional)
+10min
+Play
+116. Demo: Encrypting Secret Data at Rest
+19min
+Start
+117. A Note on Secrets
+1min
+Start
+118. Scale Applications
+1min
+Play
+119. Multi Container Pods
+2min
+Play
+120. Multi container Pods Design Pattern
+6min
+Start
+121. Lab - Multi Container Pods
+1min
+Start
+122. InitContainers
+2min
+Start
+123. Lab - Init Containers
+1min
+Play
+124. Lab Solution - Init Containers (Optional)
+11min
+Start
+125. Self Healing Applications
+1min
+Play
+126. (2025 Updates) Introduction to Autoscaling?
+5min
+Play
+127. (2025 Updates) Horizontal Pod Autoscaler (HPA)?
+5min
+Start
+128. (2025 Updates) Lab - Manual Scaling?
+1min
+Start
+129. (2025 Updates) Lab - HPA?
+1min
+Play
+130. (2025 Updates) In-Place Resize of Pods?
+4min
+Play
+131. (2025 Updates) Vertical Pod Autoscaling (VPA)?
+9min
+Start
+132. (2025 Updates) Lab - Install VPA?
+1min
+Start
+133. (2025 Updates) Lab - Modifying CPU resources in VPA?
+1min
+Play
+134. Cluster Maintenance - Section Introduction
+1min
+Start
+135. Download Presentation Deck
+1min
+Play
+136. OS Upgrades
+4min
+Start
+137. Lab - OS Upgrades
+0min
+Play
+138. Kubernetes Releases
+2min
+Start
+139. References
+1min
+Play
+140. Cluster Upgrade Introduction
+11min
+Play
+141. Demo - Cluster upgrade
+19min
+Start
+142. Lab - Cluster Upgrade
+0min
+Play
+143. Backup and Restore Methods
+6min
+Start
+144. Working with ETCDCTL and ETCDUTL
+1min
+Start
+145. Lab - Backup and Restore Methods
+1min
+Start
+146. Certification Exam Tip!
+1min
+Start
+147. References
+1min
+Play
+148. Security - Section Introduction
+2min
+Start
+149. Download Presentation Deck
+1min
+Play
+150. Kubernetes Security Primitives
+3min
+Play
+151. Authentication
+4min
+Play
+152. TLS Introduction
+1min
+Play
+153. TLS Basics
+20min
+Play
+154. TLS in Kubernetes
+8min
+Play
+155. TLS in Kubernetes - Certificate Creation
+11min
+Play
+156. View Certificate Details
+4min
+Start
+157. Resource: Download Kubernetes Certificate Health Check Spreadsheet
+1min
+Start
+158. Lab - View Certificates
+0min
+Play
+159. Lab Solution - View Certification Details
+21min
+Play
+160. Certificates API
+6min
+Start
+161. Lab - Certificates API
+0min
+Play
+162. Lab Solution - Certificates API
+8min
+Play
+163. KubeConfig
+8min
+Start
+164. Lab - KubeConfig
+0min
+Play
+165. Lab Solution - KubeConfig
+8min
+Start
+166. Persistent Key/Value Store
+1min
+Play
+167. API Groups
+6min
+Play
+168. Authorization
+8min
+Play
+169. Role Based Access Controls
+4min
+Start
+170. Lab - Role-Based Access Controls
+0min
+Play
+171. Lab Solution - Role-Based Access Controls
+13min
+Play
+172. Cluster Roles
+4min
+Start
+173. Lab - Cluster Roles
+0min
+Play
+174. Lab Solution - Cluster Roles
+11min
+Play
+175. Service Accounts
+8min
+Start
+176. Lab: Service Accounts
+1min
+Play
+177. Lab Solution: Service Accounts
+7min
+Play
+178. Image Security
+5min
+Start
+179. Lab - Image Security
+0min
+Play
+180. Lab Solution - Image Security
+7min
+Play
+181. Pre-requisite - Security in Docker
+6min
+Play
+182. Security Contexts
+2min
+Start
+183. Lab - Security Contexts
+0min
+Play
+184. Lab Solution - Security Contexts
+5min
+Play
+185. Network Policy
+8min
+Play
+186. Developing network policies
+11min
+Start
+187. Lab - Network Policy
+0min
+Play
+188. Lab Solution - Network Policies (optional)
+14min
+Start
+189. Kubectx and Kubens - Command Line Utilities
+1min
+Play
+190. (2025 Updates)Custorm Resource Definition (CRD)
+11min
+Start
+191. (2025 Updates) Lab - Custom Resource Definition
+1min
+Play
+192. (2025 Updates) Custom Controllers
+4min
+Play
+193. (2025 Updates) Operator Framework
+3min
+Play
+194. Storage - Section Introduction
+1min
+Play
+195. Docker Storage - Introduction
+1min
+Play
+196. Storage in Docker
+12min
+Play
+197. Volume Driver Plugins in Docker
+2min
+Play
+198. Container Storage Interface
+4min
+Play
+199. Volumes
+4min
+Play
+200. Persistent Volumes
+3min
+Play
+201. Persistent Volume Claims
+5min
+Start
+202. Using PVCs in Pods
+1min
+Start
+203. Lab - Persistent Volume Claims
+0min
+Play
+204. Lab Solution - Persistent Volumes and Persistent Volume Claims
+18min
+Start
+205. Application Configuration
+1min
+Start
+206. Additional Topics
+1min
+Play
+207. Storage Class
+4min
+Start
+208. Lab - Storage Class
+0min
+Play
+209. Lab Solution - Storage Class
+10min
+Start
+210. Download Slide Deck
+1min
+Play
+211. Networking - Introduction
+2min
+Start
+212. Download Presentation Deck
+1min
+Play
+213. Prerequisite Switching, Routing, Gateways CNI in Kubernetes
+13min
+Play
+214. Prerequisite DNS
+14min
+Start
+215. Prerequisite - CoreDNS
+1min
+Play
+216. Prerequisite Network Namespaces
+15min
+Start
+217. FAQ
+1min
+Play
+218. Prerequisite Docker Networking
+7min
+Play
+219. Prerequisite CNI
+6min
+Play
+220. Cluster Networking
+2min
+Start
+221. Important Note about CNI and CKA Exam
+1min
+Start
+222. Lab - Explore Environment
+0min
+Play
+223. Lab Solution - Explore Environment (optional)
+8min
+Play
+224. Pod Networking
+9min
+Play
+225. CNI in kubernetes
+3min
+Start
+226. Note CNI Weave
+1min
+Play
+227. CNI weave
+6min
+Start
+228. Lab - CNI
+0min
+Play
+229. Lab Solution - Explore CNI (optional)
+2min
+Play
+230. ipam weave
+2min
+Start
+231. Lab - Networking CNIs
+1min
+Play
+232. Service Networking
+9min
+Start
+233. Lab - Service Networking
+0min
+Play
+234. Lab Solution - Service Networking (optional)
+5min
+Play
+235. DNS in kubernetes
+6min
+Play
+236. CoreDNS in Kubernetes
+7min
+Start
+237. Lab - CoreDNS in Kubernetes
+0min
+Play
+238. Lab Solution - Explore DNS (optional)
+16min
+Play
+239. Ingress
+18min
+Start
+240. Article: Ingress
+1min
+Start
+241. Ingress - Annotations and rewrite-target
+2min
+Start
+242. Lab - CKA Ingress Networking - 1
+1min
+Play
+243. Lab Solution - Ingress Networking 1 - (optional)
+16min
+Start
+244. Lab - CKA Ingress Networking - 2
+1min
+Play
+245. Lab Solution - Ingress Networking - 2 (optional)
+15min
+Play
+246. Introduction to Gateway API (2025 updates)
+8min
+Start
+247. Practical Guide to Gateway API (2025 Updates)
+7min
+Start
+248. (2025 Updates) Lab - Gateway API (2025 Updates)
+1min
+Play
+249. Design a Kubernetes Cluster
+6min
+Play
+250. Choosing Kubernetes Infrastructure
+6min
+Play
+251. Configure High Availability
+8min
+Play
+252. ETCD in HA
+12min
+Start
+253. Important Update: Kubernetes the Hard Way
+1min
+Start
+254. Download Presentation Deck
+1min
+Play
+255. Deployment With kubeadm - Introduction
+2min
+Start
+256. Resources
+1min
+Play
+257. Deployment With Kubeadm - Provision VMs With Vagrant
+6min
+Play
+258. Demo - Deployment with Kubeadm
+26min
+Start
+259. Lab - Deploy a Kubernetes Cluster using Kubeadm
+1min
+Play
+260. Lab Solution - Deploy a Kubernetes Cluster using kubeadm : (Optional)
+10min
+Play
+261. Helm - Introduction
+7min
+Play
+262. Installation and Configuration
+1min
+Start
+263. Lab: Installing Helm
+1min
+Play
+264. A Quick Note on Helm2 vs Helm3
+8min
+Play
+265. Helm Components
+8min
+Play
+266. Helm Charts
+7min
+Play
+267. Working With Helm - Basics
+6min
+Play
+268. Customizing Chart Parameters
+4min
+Start
+269. Lab: Using Helm to Deploy a chart
+1min
+Play
+270. Lifecycle Management With Helm
+8min
+Start
+271. Lab: Upgrading a Helm Chart
+1min
+Play
+272. Kustomize Problem Statement and Ideology
+8min
+Play
+273. Kustomize vs Helm
+5min
+Play
+274. Installation/Setup
+1min
+Play
+275. The kustomization.yaml File
+4min
+Play
+276. Kustomize Output
+3min
+Play
+277. Kustomize ApiVersion & Kind
+1min
+Play
+278. Managing Directories
+6min
+Play
+279. Managing Directories Demo
+9min
+Start
+280. Lab: Managing Directories
+1min
+Play
+281. Common Transformers
+3min
+Play
+282. Image Transformers
+3min
+Play
+283. Transformers Demo
+12min
+Start
+284. Lab: Transformers
+1min
+Play
+285. Patches Intro
+9min
+Play
+286. Different Types of Patches
+1min
+Play
+287. Patches Dictionary
+6min
+Play
+288. Patches List
+6min
+Start
+289. Lab: Patches
+1min
+Play
+290. Overlays
+6min
+Start
+291. Lab: Overlay
+1min
+Play
+292. Components
+9min
+Start
+293. Lab: Components
+1min
+Play
+294. Troubleshooting - Section Introduction
+1min
+Play
+295. Application Failure
+3min
+Start
+296. Lab - Application Failure
+1min
+Play
+297. Lab Solution - Application Failure : (Optional)
+28min
+Play
+298. Control Plane Failure
+1min
+Start
+299. Lab - Control Plane Failure
+1min
+Play
+300. Lab Solution - Control Plane Failure : (Optional)
+16min
+Play
+301. Worker Node Failure
+2min
+Start
+302. Lab - Worker Node Failure
+1min
+Play
+303. Lab Solution - Worker Node Failure : (Optional)
+10min
+Start
+304. Download Presentation Deck
+1min
+Start
+305. Network Troubleshooting
+4min
+Start
+306. Practice Test - Troubleshoot Network
+0min
+Start
+307. Lab - JSON PATH
+1min
+Start
+308. Pre-Requisites - JSON PATH
+1min
+Play
+309. JSON Path in Kubernetes
+12min
+Start
+310. Lab - Advanced Kubectl Commands
+1min
+Start
+311. Lightning Lab Introduction
+1min
+Start
+312. Lightning Lab - 1
+1min
+Start
+313. Mock Exam - 1
+1min
+Play
+314. Solution - Mock Exam -1 (Optional)
+32min
+Start
+315. Mock Exam - 2
+1min
+Play
+316. Mock Exam - 2 - Solution : (Optional)
+44min
+Start
+317. Mock Exam - 3
+1min
+Play
+318. Mock Exam - 3 - Solution : (Optional)
+48min
+Start
+319. Frequently Asked Questions!
+1min
+Start
+320. More Certification Tips!
+1min
+Play
+321. Conclusion
+3min
+Play
+322. What's Next?
+9min
+Start
+323. Kubernetes Update and Project Videos - Your Essential Guide
+1min

@@ -1,0 +1,642 @@
+final project with Jenkins
+
+```markdown
+# DevOps Learning Projects (Git → Jenkins → Maven)
+
+This document provides **step-by-step instructions** for completing DevOps learning projects using the same project set.
+
+Scope of learning:
+
+Developer  
+↓  
+Git  
+↓  
+Jenkins  
+↓  
+Maven Build  
+↓  
+Unit Tests  
+↓  
+Generate Artifact
+
+Main command used in CI:
+
+mvn clean test package
+
+These projects focus on **CI practices using Jenkins and Maven only**.
+
+---
+
+# Project 1 — Basic Jenkins Maven CI Project
+
+## Description
+
+This project demonstrates **Continuous Integration using Jenkins**.  
+Jenkins automatically builds a Maven project whenever code changes in Git.
+
+This is the **first and most important DevOps CI concept**.
+
+## What You Will Learn
+
+- Git repository integration
+- Jenkins job creation
+- Maven automated builds
+- Artifact generation
+
+Pipeline
+
+Git Repository  
+↓  
+Jenkins pulls code  
+↓  
+Maven build runs  
+↓  
+Artifact generated
+
+---
+
+## Step 1 — Open Project
+
+Navigate to the folder:
+
+basic-maven-app
+
+---
+
+## Step 2 — Initialize Git Repository
+
+```
+
+git init
+
+```
+
+Explanation
+
+Creates a `.git` folder and enables version control.
+
+---
+
+## Step 3 — Add Files to Git
+
+```
+
+git add .
+
+```
+
+Explanation
+
+Stages all project files for commit.
+
+---
+
+## Step 4 — Commit Code
+
+```
+
+git commit -m "Initial Maven CI project"
+
+```
+
+Explanation
+
+Creates the first version of the project.
+
+---
+
+## Step 5 — Push to GitHub
+
+```
+
+git remote add origin <repository-url>
+git push -u origin main
+
+```
+
+Explanation
+
+Uploads the project to a remote Git repository.
+
+---
+
+## Step 6 — Create Jenkins Job
+
+Open Jenkins
+
+Create a new **Freestyle Project**
+
+Configure:
+
+Source Code Management → Git
+
+Enter repository URL.
+
+---
+
+## Step 7 — Configure Build Step
+
+Select
+
+```
+
+Invoke top-level Maven targets
+
+```
+
+Command
+
+```
+
+clean package
+
+```
+
+Explanation
+
+clean → remove old builds  
+package → compile, test, and create artifact
+
+---
+
+## Step 8 — Run Jenkins Build
+
+Click **Build Now**
+
+Expected output
+
+```
+
+target/basic-maven-app-1.0.jar
+
+```
+
+---
+
+# Project 2 — Maven Build with Automated Tests
+
+## Description
+
+This project demonstrates **automated unit testing during CI**.
+
+If tests fail, Jenkins **fails the build automatically**.
+
+This is called a **quality gate**.
+
+## What You Will Learn
+
+- Automated test execution
+- Build failure detection
+- Test reports
+
+Pipeline
+
+Git  
+↓  
+Jenkins  
+↓  
+Maven Test
+
+---
+
+## Step 1 — Ensure Test Cases Exist
+
+Test classes must be in:
+
+```
+
+src/test/java
+
+```
+
+---
+
+## Step 2 — Run Tests Locally
+
+```
+
+mvn clean test
+
+```
+
+Explanation
+
+clean → remove previous builds  
+test → execute all unit tests
+
+---
+
+## Step 3 — Configure Jenkins Build Command
+
+```
+
+clean test
+
+```
+
+---
+
+## Step 4 — Trigger Jenkins Build
+
+Jenkins will run:
+
+```
+
+mvn clean test
+
+```
+
+---
+
+## Step 5 — Verify Build Result
+
+If all tests pass
+
+```
+
+BUILD SUCCESS
+
+```
+
+If a test fails
+
+```
+
+BUILD FAILURE
+
+```
+
+This protects production from broken code.
+
+---
+
+# Project 3 — Multi-Module Maven Project Build
+
+## Description
+
+Enterprise systems contain multiple modules.  
+Maven supports this using a **Parent POM**.
+
+Modules share a single build configuration.
+
+Example structure
+
+```
+
+multi-module-parent
+├── service-user
+├── service-order
+└── service-payment
+
+```
+
+## What You Will Learn
+
+- Parent POM
+- Module management
+- Enterprise Maven project structure
+
+Pipeline
+
+Git  
+↓  
+Jenkins  
+↓  
+Maven Multi-Module Build
+
+---
+
+## Step 1 — Navigate to Parent Project
+
+```
+
+cd multi-module-parent
+
+```
+
+---
+
+## Step 2 — Build Entire Project
+
+```
+
+mvn clean install
+
+```
+
+Explanation
+
+clean → remove old builds  
+install → build all modules and store artifacts in local repository
+
+---
+
+## Step 3 — Verify Modules Built
+
+Maven will build
+
+- service-user
+- service-order
+- service-payment
+
+---
+
+## Step 4 — Configure Jenkins Job
+
+Build command
+
+```
+
+clean install
+
+```
+
+This builds **all modules together**.
+
+---
+
+# Project 4 — Maven Dependency Build Project
+
+## Description
+
+Some projects depend on other projects.
+
+Example
+
+library-project → reusable library  
+app-project → application using the library
+
+This project demonstrates **artifact reuse using Maven repositories**.
+
+## What You Will Learn
+
+- Maven dependency management
+- Artifact reuse
+- Local Maven repository
+
+Pipeline
+
+Build library  
+↓  
+Install artifact locally  
+↓  
+Build dependent application
+
+---
+
+## Step 1 — Build Library Project
+
+```
+
+cd dependency-projects/library-project
+
+```
+
+Run
+
+```
+
+mvn clean install
+
+```
+
+Explanation
+
+install → copies artifact to local repository.
+
+Artifact location
+
+```
+
+~/.m2/repository
+
+```
+
+---
+
+## Step 2 — Build Dependent Application
+
+```
+
+cd ../app-project
+
+```
+
+Run
+
+```
+
+mvn clean package
+
+```
+
+Maven will automatically download the library artifact.
+
+---
+
+## Step 3 — Verify Application Build
+
+Output
+
+```
+
+target/app-project-1.0.jar
+
+```
+
+---
+
+# Project 5 — Jenkins Pipeline as Code
+
+## Description
+
+Instead of configuring Jenkins jobs manually, pipelines can be defined in code.
+
+This is called **Pipeline as Code**.
+
+Pipeline configuration is stored in a file called
+
+```
+
+Jenkinsfile
+
+```
+
+## What You Will Learn
+
+- Jenkins pipelines
+- CI automation
+- Pipeline stages
+
+Pipeline
+
+Checkout  
+Build  
+Test  
+Package
+
+---
+
+## Step 1 — Open Jenkinsfile
+
+File location
+
+```
+
+jenkinsfile-demo/Jenkinsfile
+
+```
+
+---
+
+## Step 2 — Create Jenkins Pipeline Job
+
+Select
+
+```
+
+Pipeline
+
+```
+
+---
+
+## Step 3 — Configure Pipeline Source
+
+Select
+
+```
+
+Pipeline script from SCM
+
+```
+
+Repository → Git
+
+---
+
+## Step 4 — Run Pipeline
+
+Jenkins will execute stages:
+
+```
+
+Checkout
+Build
+Test
+Package
+
+```
+
+Commands executed
+
+```
+
+mvn clean compile
+mvn test
+mvn package
+
+```
+
+---
+
+# Project 6 — Maven Profiles for Environment Builds
+
+## Description
+
+Applications behave differently in different environments.
+
+Examples
+
+development  
+testing  
+production
+
+Maven supports environment builds using **Profiles**.
+
+## What You Will Learn
+
+- Maven profiles
+- Environment configuration
+- CI environment builds
+
+---
+
+## Step 1 — Navigate to Project
+
+```
+
+cd profiles-demo
+
+```
+
+---
+
+## Step 2 — Build Development Environment
+
+```
+
+mvn clean package -Pdev
+
+```
+
+Explanation
+
+-Pdev → activates dev profile
+
+---
+
+## Step 3 — Build Production Environment
+
+```
+
+mvn clean package -Pprod
+
+```
+
+Explanation
+
+-Pprod → activates production profile
+
+---
+
+# Final DevOps Workflow
+
+After completing all projects you will understand the CI lifecycle:
+
+Developer  
+↓  
+Push code to Git  
+↓  
+Jenkins pipeline triggered  
+↓  
+Maven builds project  
+↓  
+Unit tests executed  
+↓  
+Artifact generated
+
+Main CI command
+
+```
+
+mvn clean test package
+
+```
+
+---
+
+# Skills Gained
+
+After completing these projects you will understand:
+
+- Git workflows
+- Maven builds
+- Automated unit testing
+- Jenkins CI pipelines
+- Artifact generation
+- Multi-module Maven builds
+- Dependency management
+- Jenkins pipeline as code
+- Environment builds using profiles
+```

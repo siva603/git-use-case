@@ -1,0 +1,453 @@
+Section 11 — Kubernetes Cluster Administration & Maintenance
+
+Running Kubernetes in production requires **continuous cluster management**.
+
+Cluster administrators are responsible for:
+
+• organizing resources  
+• managing cluster capacity  
+• performing upgrades  
+• maintaining node health  
+• backing up cluster data  
+• ensuring high availability
+
+This section explains:
+
+• Namespaces  
+• Resource Quotas  
+• Node Maintenance  
+• OS Upgrades  
+• Kubernetes Cluster Upgrades  
+• ETCD Backup & Restore  
+• High Availability Clusters
+
+---
+
+# 11.1 Namespaces
+
+A **Namespace** is a logical partition inside a Kubernetes cluster.
+
+Namespaces allow multiple teams or applications to share the same cluster while keeping resources separated.
+
+Example architecture:
+
+```
+
+Kubernetes Cluster
+│
+├── Namespace: dev
+│
+├── Namespace: testing
+│
+└── Namespace: production
+
+```id="namespace-architecture"
+
+Resources inside a namespace include:
+
+• Pods  
+• Deployments  
+• Services  
+• ConfigMaps  
+• Secrets
+
+Example:
+
+```
+
+dev namespace
+└── frontend-app
+
+prod namespace
+└── frontend-app
+
+```id="namespace-isolation"
+
+Even though the names are the same, they are **separate resources**.
+
+---
+
+# 11.2 Default Namespaces
+
+Kubernetes automatically creates some namespaces.
+
+Common namespaces:
+
+```
+
+default
+kube-system
+kube-public
+kube-node-lease
+
+````id="default-namespaces"
+
+Explanation:
+
+default  
+For user applications
+
+kube-system  
+For Kubernetes system components
+
+kube-public  
+Public resources
+
+kube-node-lease  
+Node heartbeat information
+
+Check namespaces:
+
+```bash id="kubectl-get-ns"
+kubectl get namespaces
+````
+
+---
+
+# 11.3 Creating a Namespace
+
+Example YAML:
+
+```yaml id="namespace-yaml"
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+```
+
+Create namespace:
+
+```bash id="create-namespace"
+kubectl apply -f namespace.yaml
+```
+
+Run command inside namespace:
+
+```bash id="kubectl-namespace-command"
+kubectl get pods -n production
+```
+
+---
+
+# 11.4 Resource Quotas
+
+Resource quotas limit **how much CPU, memory, and resources a namespace can use**.
+
+Problem:
+
+Without quotas one team may consume **all cluster resources**.
+
+Example scenario:
+
+```
+Team A deploys 100 pods
+Cluster resources exhausted
+Other teams cannot deploy applications
+```
+
+Resource quotas prevent this.
+
+---
+
+Example ResourceQuota YAML:
+
+```yaml id="resource-quota-example"
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: production
+spec:
+  hard:
+    pods: "10"
+    requests.cpu: "4"
+    requests.memory: "8Gi"
+```
+
+Meaning:
+
+```
+Maximum pods = 10
+CPU limit = 4 cores
+Memory limit = 8GB
+```
+
+Check quotas:
+
+```bash id="kubectl-describe-quota"
+kubectl describe quota -n production
+```
+
+---
+
+# 11.5 Node Maintenance
+
+Sometimes nodes must be taken offline for:
+
+• hardware maintenance
+• OS updates
+• security patches
+
+Kubernetes provides safe node maintenance tools.
+
+---
+
+## Cordoning a Node
+
+Cordoning marks a node as **unschedulable**.
+
+Example:
+
+```bash id="cordon-node"
+kubectl cordon node1
+```
+
+Result:
+
+```
+No new Pods will be scheduled on node1
+```
+
+Existing Pods continue running.
+
+---
+
+## Draining a Node
+
+Draining safely removes Pods from a node.
+
+```bash id="drain-node"
+kubectl drain node1 --ignore-daemonsets
+```
+
+Result:
+
+```
+Pods moved to other nodes
+```
+
+After draining, maintenance can be performed.
+
+---
+
+## Uncordon Node
+
+Allow scheduling again.
+
+```bash id="uncordon-node"
+kubectl uncordon node1
+```
+
+Now new Pods can run on the node.
+
+---
+
+# 11.6 Kubernetes Cluster Upgrades
+
+Kubernetes releases new versions regularly.
+
+Clusters must be upgraded to:
+
+• receive security patches
+• access new features
+• maintain compatibility
+
+Upgrade steps:
+
+```
+Upgrade control plane
+      ↓
+Upgrade worker nodes
+```
+
+Example flow:
+
+```
+Cluster v1.27
+       ↓
+Upgrade
+       ↓
+Cluster v1.28
+```
+
+Rolling upgrades ensure **applications remain available during upgrades**.
+
+---
+
+# 11.7 Backup and Restore
+
+The most critical component of Kubernetes is **ETCD**.
+
+ETCD stores:
+
+• cluster configuration
+• resource state
+• metadata
+
+If ETCD data is lost, the cluster state is lost.
+
+Therefore **ETCD backups are critical**.
+
+---
+
+# 11.8 ETCD Backup
+
+Create ETCD snapshot.
+
+```bash id="etcd-backup-command"
+etcdctl snapshot save backup.db
+```
+
+Example:
+
+```
+backup.db
+```
+
+Contains full cluster state.
+
+---
+
+# 11.9 ETCD Restore
+
+Restore cluster state from snapshot.
+
+```bash id="etcd-restore-command"
+etcdctl snapshot restore backup.db
+```
+
+After restore:
+
+```
+Cluster state recovered
+```
+
+Backup strategy:
+
+```
+Regular automated backups
+```
+
+Production clusters typically back up ETCD **daily or hourly**.
+
+---
+
+# 11.10 High Availability (HA) Clusters
+
+Production Kubernetes clusters must support **high availability**.
+
+Problem:
+
+```
+Single master node fails
+      ↓
+Entire cluster stops
+```
+
+Solution:
+
+Multiple control plane nodes.
+
+Architecture:
+
+````
+Load Balancer
+      │
+ ┌────┼────┐
+ │    │    │
+Master1 Master2 Master3
+      │
+ Worker Nodes
+``` id="ha-cluster-architecture"
+
+Benefits:
+
+• no single point of failure  
+• improved reliability  
+• fault tolerance
+
+---
+
+# 11.11 ETCD High Availability
+
+ETCD also runs in **cluster mode**.
+
+Example:
+
+````
+
+ETCD1
+ETCD2
+ETCD3
+
+```id="etcd-cluster"
+
+They maintain consistency using the **Raft consensus algorithm**.
+
+Majority rule:
+
+```
+
+2 of 3 nodes must agree
+
+```
+
+This ensures **data reliability**.
+
+---
+
+# 11.12 Cluster Administration Workflow
+
+Typical admin workflow:
+
+```
+
+Monitor cluster health
+↓
+Manage namespaces
+↓
+Apply resource quotas
+↓
+Maintain nodes
+↓
+Perform upgrades
+↓
+Backup ETCD
+
+```
+
+Cluster administrators ensure the **Kubernetes platform remains stable and reliable**.
+
+---
+
+# Section 11 Summary
+
+In this section you learned:
+
+• namespaces and cluster organization  
+• resource quotas  
+• node maintenance (cordon / drain / uncordon)  
+• cluster upgrades  
+• ETCD backup and restore  
+• high availability clusters
+
+These tasks are critical for **running Kubernetes in production environments**.
+
+---
+
+# Next Section
+
+Section 12 — **Advanced Kubernetes & DevOps Integration**
+
+You will learn:
+
+• Helm (Kubernetes package manager)  
+• Kustomize configuration management  
+• CI/CD integration  
+• Skaffold  
+• Flux GitOps  
+• Operators and CRDs  
+• Service Mesh (Istio)  
+• Serverless on Kubernetes  
+• Troubleshooting Kubernetes
+```

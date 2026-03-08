@@ -1,0 +1,476 @@
+Section 4 — Core Concepts
+
+In this section you will understand the **core internal concepts of Docker**.  
+These concepts explain **how Docker actually works internally**.
+
+After this section you will clearly understand:
+
+• Docker architecture  
+• Docker images  
+• Docker containers  
+• Docker image layers  
+• Dockerfile instructions  
+• Docker container lifecycle  
+• Docker CLI structure  
+
+---
+
+# 4.1 Docker Architecture
+
+Docker follows a **client-server architecture**.
+
+Three main components exist.
+
+Docker Client  
+Docker Daemon  
+Docker Registry
+
+Workflow:
+
+Developer runs command  
+↓  
+Docker Client sends request  
+↓  
+Docker Daemon executes task  
+↓  
+Docker Registry provides images
+
+---
+
+## Docker Architecture Diagram
+
+Developer  
+↓  
+Docker CLI (Client)  
+↓  
+Docker Engine (Daemon)  
+↓  
+Images / Containers  
+↓  
+Docker Registry
+
+---
+
+# 4.2 Docker Client
+
+Docker Client is the **command-line interface (CLI)** used by developers.
+
+Example command:
+
+```bash
+docker run nginx
+````
+
+The client sends requests to the **Docker Daemon**.
+
+The daemon performs the actual operation.
+
+---
+
+# 4.3 Docker Daemon
+
+Docker Daemon is the **core service running in the background**.
+
+It is responsible for:
+
+• building images
+• running containers
+• managing volumes
+• managing networks
+
+The daemon listens to API requests from the Docker Client.
+
+---
+
+# 4.4 Docker Registry
+
+Docker Registry is a **repository that stores Docker images**.
+
+Popular registries:
+
+Docker Hub
+Amazon ECR
+Google Container Registry
+Azure Container Registry
+GitHub Container Registry
+
+Example command:
+
+```bash
+docker pull nginx
+```
+
+This command downloads the **nginx image from Docker Hub**.
+
+---
+
+# 4.5 Docker Images
+
+A Docker Image is a **read-only template used to create containers**.
+
+Images contain:
+
+Operating system base
+Application runtime
+Libraries
+Application code
+
+Example image:
+
+```
+node:18
+```
+
+Example command:
+
+```bash
+docker pull node:18
+```
+
+---
+
+# 4.6 Docker Containers
+
+A container is a **running instance of a Docker image**.
+
+Example:
+
+```bash
+docker run node:18
+```
+
+What happens internally:
+
+Step 1 — Docker checks image locally
+Step 2 — If missing, image is pulled from registry
+Step 3 — Docker creates container
+Step 4 — Container starts execution
+
+---
+
+# 4.7 Container Lifecycle
+
+A container passes through multiple states.
+
+Created
+↓
+Running
+↓
+Stopped
+↓
+Deleted
+
+Commands for lifecycle management:
+
+Create container:
+
+```bash
+docker create nginx
+```
+
+Start container:
+
+```bash
+docker start container_id
+```
+
+Stop container:
+
+```bash
+docker stop container_id
+```
+
+Remove container:
+
+```bash
+docker rm container_id
+```
+
+---
+
+# 4.8 Docker Image Layers
+
+Docker images use a **layered filesystem**.
+
+Each instruction in a Dockerfile creates a **new layer**.
+
+Example:
+
+Dockerfile
+
+```Dockerfile
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["node","server.js"]
+```
+
+Layer structure:
+
+Layer 1 → Base image (node:18)
+Layer 2 → Create working directory
+Layer 3 → Copy application code
+Layer 4 → Install dependencies
+Layer 5 → Startup command
+
+Benefits:
+
+• Faster builds
+• Efficient caching
+• Reusable layers
+
+---
+
+# 4.9 Build Cache
+
+Docker uses **layer caching** during builds.
+
+Example:
+
+If only the application code changes, Docker rebuilds only the last layer.
+
+This dramatically improves **build performance**.
+
+Example build command:
+
+```bash
+docker build -t myapp .
+```
+
+---
+
+# 4.10 Dockerfile Instructions
+
+A Dockerfile defines how Docker builds an image.
+
+Common instructions include:
+
+FROM
+WORKDIR
+COPY
+RUN
+CMD
+EXPOSE
+ENV
+ENTRYPOINT
+
+---
+
+## FROM
+
+Defines base image.
+
+```Dockerfile
+FROM node:18
+```
+
+---
+
+## WORKDIR
+
+Sets working directory inside container.
+
+```Dockerfile
+WORKDIR /app
+```
+
+---
+
+## COPY
+
+Copies files into container.
+
+```Dockerfile
+COPY . .
+```
+
+---
+
+## RUN
+
+Executes commands during image build.
+
+```Dockerfile
+RUN npm install
+```
+
+---
+
+## CMD
+
+Defines default command when container starts.
+
+```Dockerfile
+CMD ["node","server.js"]
+```
+
+---
+
+## EXPOSE
+
+Documents container port.
+
+```Dockerfile
+EXPOSE 5000
+```
+
+---
+
+## ENV
+
+Defines environment variables.
+
+```Dockerfile
+ENV NODE_ENV=production
+```
+
+---
+
+# 4.11 Command vs Entrypoint
+
+Docker allows two startup commands.
+
+CMD
+ENTRYPOINT
+
+CMD can be overridden.
+
+Example:
+
+```Dockerfile
+CMD ["node","app.js"]
+```
+
+ENTRYPOINT is fixed.
+
+Example:
+
+```Dockerfile
+ENTRYPOINT ["node","app.js"]
+```
+
+---
+
+# 4.12 Container Isolation
+
+Docker uses Linux kernel features.
+
+Important technologies:
+
+Namespaces
+Control Groups (cgroups)
+
+---
+
+## Namespaces
+
+Namespaces isolate:
+
+Processes
+Networks
+Users
+File systems
+
+Each container has **separate namespaces**.
+
+---
+
+## Control Groups (cgroups)
+
+Control Groups limit resources.
+
+Example limits:
+
+CPU
+Memory
+Disk usage
+
+Example command:
+
+```bash
+docker run --memory="512m" nginx
+```
+
+This restricts memory usage.
+
+---
+
+# 4.13 Resource Management
+
+Docker allows resource limits.
+
+Limit CPU:
+
+```bash
+docker run --cpus="1" nginx
+```
+
+Limit memory:
+
+```bash
+docker run -m 512m nginx
+```
+
+This ensures containers **do not consume excessive resources**.
+
+---
+
+# 4.14 Container Logging
+
+Containers produce logs.
+
+View logs:
+
+```bash
+docker logs container_name
+```
+
+Follow logs continuously:
+
+```bash
+docker logs -f container_name
+```
+
+---
+
+# 4.15 Inspecting Containers
+
+Docker provides detailed container information.
+
+Command:
+
+```bash
+docker inspect container_name
+```
+
+This displays:
+
+• network configuration
+• environment variables
+• container ID
+• volume mounts
+
+---
+
+# Section 4 Summary
+
+In this section you learned:
+
+• Docker architecture
+• Docker client and daemon
+• Docker images
+• Docker containers
+• Container lifecycle
+• Docker image layers
+• Dockerfile instructions
+• Resource limits
+• Container logging
+• Container inspection
+
+Next section will cover:
+
+**Docker Core Workflow and CLI Commands in Real Projects**
+
+```
+```

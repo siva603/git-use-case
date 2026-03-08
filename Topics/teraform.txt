@@ -1,0 +1,126 @@
+Play
+1. Introduction
+7min
+Play
+2. Course DISCLAIMER
+2min
+Play
+3. What is Terraform
+5min
+Start
+4. Course Lab Guide
+1min
+Play
+5. Getting Started with Terraform
+6min
+Play
+6. Coding with Terraform
+3min
+Play
+7. Terraform Syntax
+8min
+Play
+8. Lab 1.1 - Create an AWS Account
+5min
+Play
+9. Lab 1.2 - Download Terraform
+3min
+Play
+10. Lab 1.3 - Configure the Terraform AWS Provider
+4min
+Play
+11. Lab 1.4 - Create your First Resource
+7min
+Play
+12. Lab 1.5 - Change a Resource
+4min
+Play
+13. Lab 1.6 - Destroy a Resource
+2min
+Play
+14. Terraform Variables
+5min
+Play
+15. Using Variables
+7min
+Play
+16. Lab 2.1 - Storing AWS Crendentials in Variables
+9min
+Play
+17. Lab 2.2 - Create a Compute Resource
+3min
+Play
+18. Lab 2.3 - Using a Map as a Lookup Table
+4min
+Play
+19. Lab 2.4 - Setting Variables on the Command Line
+4min
+Play
+20. Lab 2.5 - Using Output Variables
+4min
+Play
+21. Interpolations
+13min
+Play
+22. Lab 2B.1 - Conditionals
+7min
+Play
+23. Lab 2B.2 - Using $count to Manage Multiple Instances
+7min
+Play
+24. Lab 2B.3 - Terraform Templates
+9min
+Play
+25. Lab 2B.4 - Simple Math
+2min
+Play
+26. Resource Depedencies
+4min
+Play
+27. Lab 3 - Resource Dependencies
+15min
+Play
+28. Provisioners
+5min
+Play
+29. Lab 4.1 - Creating an SSH Key Pair
+7min
+Play
+30. Lab 4.2 - Allow SSH Traffic
+6min
+Play
+31. Lab 4.3 - Verify Connectivity
+2min
+Play
+32. Lab 4.4 - Install Apache using a Provisioner
+8min
+Play
+33. Lab 4.5 - Upload Files using a File Provisioner
+4min
+Play
+34. Lab 4.6 - Using an External Script with a Remote Execution Provisioner
+7min
+Play
+35. Terraform Data Sources
+4min
+Play
+36. Terraform Modules
+6min
+Play
+37. Lab 6.1 - Using the AWS VPC Module
+15min
+Play
+38. Lab 6.2 - Creating your own Module
+12min
+Play
+39. Terraform State
+9min
+Play
+40. Lab 7.1 - Importing an Pre-Existing Resource into Terraform
+8min
+Play
+41. Lab 7.2 - Configure Remote State using AWS S3
+13min
+Play
+42. Using an AWS Credentials file with the AWS Terraform Provider
+7min

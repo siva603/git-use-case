@@ -1,0 +1,111 @@
+Play
+1. The SRE Journey
+7min
+Play
+2. What SRE Stands for?
+3min
+Play
+3. The Origin of SRE
+4min
+Start
+Quiz 1: Section Quiz
+Play
+4. It is All About Customer's Expectations
+5min
+Play
+5. How We Measure Reliability
+4min
+Play
+6. Reliability: The Good, the Bad, the Ugly
+2min
+Play
+7. The Highest Reliability Level
+5min
+Play
+8. The Minimum Reliability Level
+3min
+Play
+9. The Desired Reliability Level
+5min
+Play
+10. The Reliability x Innovation Equilibrium
+5min
+Start
+Quiz 2: Section Quiz
+Play
+11. The 7 SRE Principles
+2min
+Play
+12. Embrace Risk
+2min
+Play
+13. Service Level Objectives
+3min
+Play
+14. Eliminate Toil
+3min
+Play
+15. Monitoring
+3min
+Play
+16. Automation
+2min
+Play
+17. Release Engineering
+2min
+Play
+18. Simplicity
+3min
+Play
+19. The 7 SRE Practices
+2min
+Play
+20. Monitoring
+2min
+Play
+21. Incident Response
+4min
+Play
+22. Root Cause Analysis and Postmortems
+5min
+Play
+23. Testing and Releasing
+6min
+Play
+24. Capacity Planning
+5min
+Play
+25. Development
+3min
+Play
+26. User Experience
+2min
+Play
+27. What is a Site Reliability Engineer?
+4min
+Play
+28. What does a Site Reliability Engineer do?
+4min
+Play
+29. Who can be an SRE?
+5min
+Play
+30. The first steps
+4min
+Play
+31. The Groundwork
+1min
+Play
+32. SRE Teams Formats
+15min
+Play
+33. Challenges
+3min
+Play
+34. What we've learned so far
+1min
+Play
+35. Managers and c-levels - Next Steps
+1min
+Play
+36. Software Engineers and Sysadmins - Next Steps

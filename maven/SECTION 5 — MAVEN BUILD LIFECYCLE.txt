@@ -1,0 +1,578 @@
+SECTION 5 — MAVEN BUILD LIFECYCLE
+
+Goal of this section
+Understand **how Maven builds a project step by step** using predefined lifecycles and phases.
+
+Topics covered
+
+13 Maven Lifecycles Explained
+20 Building with Maven and the Target Directory
+21 Removing the Previous Build Results
+22 Multiple Goals
+
+---
+
+1. What is Maven Build Lifecycle
+
+A lifecycle is a **sequence of build steps** that Maven follows automatically.
+
+Instead of manually compiling, testing, and packaging, Maven performs these steps using predefined phases.
+
+Example workflow
+
+Source Code
+↓
+Compile
+↓
+Run Tests
+↓
+Package Application
+↓
+Install Artifact
+
+This entire process is called the **build lifecycle**.
+
+---
+
+2. Maven Lifecycles
+
+Maven has three main lifecycles.
+
+Clean Lifecycle
+Default Lifecycle
+Site Lifecycle
+
+---
+
+Clean Lifecycle
+
+Purpose
+
+Removes previous build files.
+
+Command
+
+mvn clean
+
+Explanation
+
+mvn → Maven command tool
+clean → deletes the target directory
+
+Example
+
+mvn clean
+
+# removes all previous build artifacts
+
+---
+
+
+
+
+Default Lifecycle
+
+This lifecycle builds the application.
+
+Important phases
+
+validate
+compile
+test
+package
+install
+deploy
+
+---
+
+Validate Phase
+
+Command
+
+mvn validate
+
+Explanation
+
+validate → checks project configuration
+
+Example
+
+mvn validate
+
+# verifies project structure and configuration
+
+---
+
+
+Compile Phase
+
+Command
+
+mvn compile
+
+Explanation
+
+compile → compiles Java source code
+
+Example
+
+mvn compile
+
+Output
+
+target/classes
+
+This folder contains compiled class files.
+
+---
+
+
+
+Test Phase
+
+Command
+
+mvn test
+
+Explanation
+
+test → runs unit tests
+
+Example
+
+mvn test
+
+Maven executes all test classes inside
+
+src/test/java
+
+---
+
+
+Package Phase
+
+Command
+
+mvn package
+
+Explanation
+
+package → creates deployable artifact
+
+Example
+
+mvn package
+
+Output
+
+target/project-name.jar
+
+Example
+
+target/demo-project.jar
+
+
+
+Artifact in Maven means:
+
+The final file generated after building the project.
+
+It is the output of the build process that can be used, shared, or deployed.
+
+Simple Definition
+
+Artifact = Build output file created by Maven
+
+
+
+
+One Important DevOps Note
+
+Artifacts are stored in artifact repositories like:
+
+Nexus Repository
+JFrog Artifactory
+
+
+
+
+
+============================================= Doubt
+
+mvn package
+
+Maven already creates the **artifact inside the target folder**.
+
+Example
+
+target/demo-project.jar
+
+So the doubt is:
+
+Why do we still need
+
+mvn install
+mvn deploy
+
+Let's understand step by step.
+
+---
+
+1. mvn package
+
+Command
+
+mvn package
+
+What it does
+
+1. Compiles code
+2. Runs tests
+3. Creates artifact
+
+Output
+
+target/project-name.jar
+
+Example
+
+target/demo-project.jar
+
+Purpose
+
+Creates a **deployable artifact locally inside the project folder**.
+
+But this artifact is **only available in this project**.
+
+---
+
+2. mvn install
+
+Command
+
+mvn install
+
+What it does
+
+1. Runs all previous phases
+2. Packages the artifact
+3. Copies the artifact to the **local Maven repository**
+
+Local repository location
+
+~/.m2/repository
+
+Example location
+
+~/.m2/repository/com/company/demo-project/1.0/
+
+Files created
+
+demo-project-1.0.jar
+demo-project-1.0.pom
+
+Purpose
+
+Makes the artifact available for **other Maven projects on the same machine**.
+
+---
+
+Example Scenario
+
+You have two projects.
+
+Project A
+
+library-project
+
+Project B
+
+web-application
+
+Project B depends on Project A.
+
+Dependency in pom.xml
+
+<dependency>
+  <groupId>com.company</groupId>
+  <artifactId>library-project</artifactId>
+  <version>1.0</version>
+</dependency>
+
+If you only run
+
+mvn package
+
+The artifact stays in
+
+target/
+
+Other projects **cannot use it**.
+
+But if you run
+
+mvn install
+
+The artifact is stored in
+
+~/.m2/repository
+
+Now Project B can use it.
+
+---
+
+3. mvn deploy
+
+Command
+
+mvn deploy
+
+What it does
+
+1. Runs all previous phases
+2. Builds artifact
+3. Uploads artifact to **remote repository**
+
+Examples of remote repositories
+
+Nexus Repository
+JFrog Artifactory
+
+Purpose
+
+Allows **other developers and CI/CD systems** to download the artifact.
+
+---
+
+Example Company Workflow
+
+Developer builds project
+
+mvn clean install
+
+Artifact stored in
+
+local repository
+
+CI/CD pipeline builds project
+
+mvn deploy
+
+Artifact uploaded to
+
+company artifact server
+
+Other projects download it from
+
+artifact repository
+
+---
+
+Quick Comparison
+
+mvn package
+
+Creates artifact
+
+target/app.jar
+
+Used for
+
+local build
+
+---
+
+mvn install
+
+Creates artifact and copies it to
+
+~/.m2/repository
+
+Used for
+
+sharing artifact between local projects
+
+---
+
+mvn deploy
+
+Uploads artifact to
+
+remote repository
+
+Used for
+
+team sharing and CI/CD pipelines
+
+---
+
+Simple DevOps Flow
+
+Developer machine
+
+mvn clean install
+
+↓
+
+CI pipeline
+
+mvn deploy
+
+↓
+
+Artifact repository
+
+Nexus / Artifactory
+
+---
+
+Important DevOps Tip
+
+In **real DevOps pipelines**, the most common command is:
+
+mvn clean install
+
+or
+
+mvn clean package
+
+Then the CI tool (like Jenkins) handles deployment.
+
+
+
+=============================================================
+
+
+
+Install Phase
+Command
+
+mvn install
+
+Explanation
+
+install → builds project and stores artifact in local repository
+
+Example
+
+mvn install
+
+Artifact stored in
+
+~/.m2/repository
+
+This allows other projects to use the artifact.
+
+---
+
+Deploy Phase
+
+Command
+
+mvn deploy
+
+Explanation
+
+deploy → uploads artifact to remote repository
+
+Example
+
+Company artifact servers
+
+Nexus Repository
+JFrog Artifactory
+
+This phase is commonly used in CI/CD pipelines.
+
+---
+
+3. Running Multiple Goals
+
+You can execute multiple Maven phases in one command.
+
+Example
+
+mvn clean install
+
+Explanation
+
+clean → removes previous build
+install → compiles, tests, packages, and installs artifact
+
+What Maven actually runs
+
+clean
+validate
+compile
+test
+package
+install
+
+---
+
+4. Target Directory
+
+The target folder contains all build output.
+
+Example
+
+target
+classes
+test-classes
+generated-sources
+project-name.jar
+
+Explanation
+
+classes → compiled application code
+test-classes → compiled test code
+jar → packaged artifact
+
+---
+
+5. Example Full Build
+
+Command
+
+mvn clean package
+
+Explanation
+
+clean → remove previous build
+package → compile, test, and create jar file
+
+Result
+
+target/project-name.jar
+
+---
+
+6. Typical Developer Workflow
+
+Developer writes code
+↓
+Compile project
+
+mvn compile
+
+↓
+Run tests
+
+mvn test
+
+↓
+Build application
+
+mvn package
+
+---
+
+What you learned in Section 5
+
+What Maven lifecycle is
+Different Maven lifecycles
+Important build phases
+How Maven builds a project
+How to run multiple phases
+What the target folder contains
+

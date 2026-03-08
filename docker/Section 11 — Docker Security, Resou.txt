@@ -1,0 +1,400 @@
+Section 11 — Docker Security, Resource Limits, and Container Isolation
+
+Before learning the concepts, here are the **important Docker security and resource management commands** categorized for quick reference.
+
+---
+
+# 11.1 Docker Security & Resource Commands (Categorized)
+
+## Resource Limits
+
+Limit CPU usage
+
+```bash
+docker run --cpus="1" nginx
+````
+
+Limit memory usage
+
+```bash id="e7u3a2"
+docker run -m 512m nginx
+```
+
+Limit both CPU and memory
+
+```bash id="s09flk"
+docker run --cpus="0.5" -m 256m nginx
+```
+
+View container resource usage
+
+```bash id="fgrv6z"
+docker stats
+```
+
+---
+
+## Container Inspection
+
+Inspect container configuration
+
+```bash id="l1t9oh"
+docker inspect container_name
+```
+
+View running processes inside container
+
+```bash id="4f6k2t"
+docker top container_name
+```
+
+---
+
+## Security Capabilities
+
+Run container with limited privileges
+
+```bash id="0j1b5p"
+docker run --cap-drop ALL nginx
+```
+
+Add specific capability
+
+```bash id="w5q3sl"
+docker run --cap-add NET_ADMIN nginx
+```
+
+Run container as non-root user
+
+```bash id="8rbf0s"
+docker run --user 1000 nginx
+```
+
+---
+
+## Privileged Containers
+
+Run container with full privileges (not recommended)
+
+```bash id="cy4xul"
+docker run --privileged nginx
+```
+
+---
+
+## Seccomp Security Profile
+
+Use default Docker security profile
+
+```bash id="te2f13"
+docker run --security-opt seccomp=default.json nginx
+```
+
+---
+
+## Container Security Scanning
+
+Scan image vulnerabilities (Docker Scout)
+
+```bash id="k5ra1c"
+docker scout quickview nginx
+```
+
+---
+
+# 11.2 Why Docker Security is Important
+
+Containers run applications **isolated from the host system**.
+
+However, containers still share the **host OS kernel**, so proper security configuration is required.
+
+Security goals:
+
+• isolate containers from each other
+• limit resource usage
+• prevent unauthorized access
+• protect sensitive data
+
+---
+
+# 11.3 Container Isolation
+
+Docker uses Linux kernel features to isolate containers.
+
+Main technologies:
+
+Namespaces
+Control Groups (cgroups)
+Capabilities
+Seccomp
+AppArmor / SELinux
+
+These technologies create a **secure runtime environment**.
+
+---
+
+# 11.4 Linux Namespaces
+
+Namespaces isolate system resources between containers.
+
+Types of namespaces:
+
+| Namespace | Purpose                    |
+| --------- | -------------------------- |
+| PID       | isolates processes         |
+| NET       | isolates networking        |
+| MNT       | isolates filesystem mounts |
+| UTS       | isolates hostname          |
+| IPC       | isolates shared memory     |
+| USER      | isolates user IDs          |
+
+Example:
+
+Two containers can run process **PID 1 internally**, but they remain isolated.
+
+---
+
+# 11.5 Control Groups (cgroups)
+
+Control Groups limit container resource usage.
+
+They control:
+
+• CPU usage
+• memory usage
+• disk I/O
+• network bandwidth
+
+Example CPU limit:
+
+```bash id="r3m2o1"
+docker run --cpus="1" nginx
+```
+
+Example memory limit:
+
+```bash id="a7ykp9"
+docker run -m 256m nginx
+```
+
+This prevents containers from **consuming all system resources**.
+
+---
+
+# 11.6 Resource Monitoring
+
+Docker provides resource monitoring tools.
+
+View container resource usage:
+
+```bash id="u0d7xl"
+docker stats
+```
+
+Example output:
+
+```text
+CONTAINER ID   CPU %   MEMORY
+nginx          2.5%    45MB
+redis          1.1%    30MB
+```
+
+This helps detect **resource-heavy containers**.
+
+---
+
+# 11.7 Docker Capabilities
+
+Linux capabilities break root privileges into smaller permissions.
+
+Examples:
+
+| Capability | Purpose               |
+| ---------- | --------------------- |
+| NET_ADMIN  | manage network        |
+| SYS_TIME   | change system clock   |
+| CHOWN      | change file ownership |
+
+Remove capabilities for better security.
+
+Example:
+
+```bash id="9e5o2p"
+docker run --cap-drop ALL nginx
+```
+
+Add only required capabilities.
+
+---
+
+# 11.8 Running Containers as Non-Root
+
+Running containers as root is dangerous.
+
+Best practice is to run containers as **non-root users**.
+
+Example:
+
+```bash id="r7ht8y"
+docker run --user 1000 nginx
+```
+
+Better approach in Dockerfile:
+
+```Dockerfile
+USER node
+```
+
+This reduces the risk of host system compromise.
+
+---
+
+# 11.9 Seccomp Security Profiles
+
+Seccomp restricts system calls available to containers.
+
+Example system calls blocked:
+
+• kernel module loading
+• raw socket creation
+• system reboot
+
+Docker uses a **default seccomp profile**.
+
+Custom seccomp example:
+
+```bash id="yw7c3j"
+docker run --security-opt seccomp=profile.json nginx
+```
+
+This increases container security.
+
+---
+
+# 11.10 AppArmor and SELinux
+
+Docker integrates with Linux security frameworks.
+
+AppArmor (Ubuntu)
+SELinux (RedHat)
+
+These systems enforce **mandatory access control**.
+
+Example AppArmor usage:
+
+```bash id="s7u3v1"
+docker run --security-opt apparmor=docker-default nginx
+```
+
+---
+
+# 11.11 Secrets Management
+
+Sensitive information should not be stored inside images.
+
+Examples:
+
+• API keys
+• database passwords
+• certificates
+
+Use secure methods:
+
+Environment variables
+Docker Secrets (Swarm)
+External secret managers
+
+Example environment variable:
+
+```bash id="3mpj6y"
+docker run -e DB_PASSWORD=secret nginx
+```
+
+---
+
+# 11.12 Image Security
+
+Always verify image sources.
+
+Best practices:
+
+• use official images
+• scan images for vulnerabilities
+• update base images regularly
+
+Example image scan:
+
+```bash id="n2o7s8"
+docker scout quickview nginx
+```
+
+Tools for scanning:
+
+Trivy
+Docker Scout
+Clair
+
+---
+
+# 11.13 Logging Drivers
+
+Docker supports multiple logging drivers.
+
+Examples:
+
+| Driver    | Purpose             |
+| --------- | ------------------- |
+| json-file | default logging     |
+| syslog    | centralized logging |
+| journald  | system logs         |
+| fluentd   | log aggregation     |
+
+Example:
+
+```bash id="4y7m9o"
+docker run --log-driver=syslog nginx
+```
+
+---
+
+# 11.14 Security Best Practices
+
+Use minimal base images (Alpine)
+
+Avoid running containers as root
+
+Use read-only containers where possible
+
+Scan images regularly
+
+Limit container capabilities
+
+Use private container registries
+
+---
+
+# Section 11 Summary
+
+In this section you learned:
+
+• Docker security concepts
+• Container isolation
+• Linux namespaces
+• Control groups (cgroups)
+• Resource limits
+• Docker capabilities
+• Seccomp security profiles
+• Secrets management
+• Image vulnerability scanning
+• Logging drivers
+
+---
+
+# Next Section
+
+Next section will cover:
+
+**Docker Storage Drivers, Volumes in Depth, and Persistent Data Management**
+
+```
+```

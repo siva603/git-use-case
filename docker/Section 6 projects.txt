@@ -1,0 +1,174 @@
+Section 6 projects
+
+ 📦 Project 1 — Container Data Loss Demo
+
+Shows **how data is lost when the container is removed**.
+
+Download:
+**[Project 1 ZIP](sandbox:/mnt/data/project1-container-data-loss.zip)**
+
+You will learn:
+
+* Container filesystem behavior
+* CRUD operations
+* Data disappears after container deletion
+
+Test flow:
+
+```bash
+docker compose up --build
+```
+
+Create user → restart container → **data gone**
+
+---
+
+# 📦 Project 2 — Docker Volume Persistence
+
+Shows **how volumes preserve data even after container deletion**.
+
+Download:
+**[Project 2 ZIP](sandbox:/mnt/data/project2-docker-volume-persistence.zip)**
+
+You will learn:
+
+* Docker volumes
+* Persistent storage
+* Reusing data across containers
+
+Test flow:
+
+```bash
+docker compose up --build
+```
+
+Create user → delete container → start again → **data still exists**
+
+---
+
+💡 These two projects together demonstrate the **most important Docker storage concept** used in real DevOps systems.
+
+---
+
+If you want, I can also generate **one more advanced real DevOps learning project**:
+
+**Project 3 (Best for mastering Docker)**
+
+Architecture:
+
+```
+React Frontend
+      |
+Node API
+      |
+Redis Cache
+      |
+PostgreSQL Database
+      |
+Docker Volumes
+```
+
+This teaches **90% of Docker used in companies**.
+
+
+
+project - 3
+-----------------------------------------------------
+
+Your **advanced real-world Docker learning project ZIP** is ready.
+
+Download it here:
+**[Download the project](sandbox:/mnt/data/docker-advanced-devops-project.zip)**
+
+## This project architecture
+
+```
+Client
+   │
+   ▼
+Nginx (Reverse Proxy)
+   │
+   ▼
+Node.js API
+   │
+   ├── PostgreSQL (Database with Volume)
+   │
+   └── Redis (Cache)
+```
+
+## Concepts you will learn
+
+* Dockerfile
+* Multi-container architecture
+* Docker Compose
+* Docker networking
+* Docker volumes (PostgreSQL persistence)
+* Redis caching
+* Nginx reverse proxy
+* Real DevOps project structure
+
+## Run the project
+
+Open terminal inside project folder:
+
+```bash
+docker compose up --build
+```
+
+Open in browser:
+
+```
+http://localhost:8080
+```
+
+## Test CRUD
+
+Create user
+
+```
+POST http://localhost:8080/users
+```
+
+Body
+
+```json
+{
+"name":"Alice"
+}
+```
+
+Get users
+
+```
+GET http://localhost:8080/users
+```
+
+## Stop project
+
+```bash
+docker compose down
+```
+
+## Check persistent volume
+
+```bash
+docker volume ls
+```
+
+PostgreSQL data will **still exist even if containers are removed**.
+
+---
+
+If you want, I can also generate a **much bigger DevOps learning project (used in companies)** with:
+
+* React frontend
+* Node / Spring Boot backend
+* PostgreSQL
+* Redis
+* Nginx
+* Docker multi-stage builds
+* CI/CD pipeline
+* Kubernetes deployment
+
+That project teaches **almost 90% of Docker used in real DevOps jobs**.
+
